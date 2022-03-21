@@ -5,6 +5,9 @@ namespace App\Providers;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
+use App\Models\Company;
+use App\Models\User;
+
 class AuthServiceProvider extends ServiceProvider
 {
     /**
@@ -26,5 +29,8 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         //
+        Gate::define('update-company', function (User $user, Company $company) {
+            return $user->id === $company->created_by_user_id;
+        });
     }
 }

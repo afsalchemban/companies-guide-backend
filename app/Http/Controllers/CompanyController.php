@@ -6,6 +6,8 @@ use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
+use Illuminate\Support\Facades\Gate;
+
 class CompanyController extends Controller
 {
     /**
@@ -52,6 +54,9 @@ class CompanyController extends Controller
     public function update(Request $request, Company $company)
     {
         //
+        if (! Gate::allows('update-post', $company)) {
+            abort(403);
+        }
     }
 
     /**

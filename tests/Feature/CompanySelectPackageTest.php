@@ -21,7 +21,7 @@ class CompanySelectPackageTest extends TestCase
     {
         $payload = [
             'id' => 1,
-            'package_id'  => $this->faker->isbn10
+            'package_id'  => $this->faker->randomNumber(7)
         ];
         $this->json('put', 'api/company_select_package', $payload)
          ->assertStatus(Response::HTTP_OK)

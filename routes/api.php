@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DataController;
+use App\Http\Controllers\AuthController;
+use Illuminate\Http\Response;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +29,5 @@ Route::put('company_select_package', [CompanyController::class, 'selectPackage']
 */
 Route::get('payment_methods', [DataController::class, 'paymentMethods']);
 Route::get('company_activities', [DataController::class, 'companyActivities']);
+
+Route::post('login', [AuthController::class, 'login']);
