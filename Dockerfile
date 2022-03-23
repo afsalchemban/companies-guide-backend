@@ -17,9 +17,6 @@ RUN sh -c "wget http://getcomposer.org/composer.phar && chmod a+x composer.phar 
 RUN cd /app && \
     /usr/local/bin/composer install --no-dev
 
-RUN cd /app && \
-    php artisan migrate --force
-
 RUN chown -R www-data: /app
 
 CMD sh /app/docker/startup.sh
