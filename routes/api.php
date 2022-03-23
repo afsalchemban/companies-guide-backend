@@ -30,7 +30,7 @@ Route::put('company_select_package', [CompanyController::class, 'selectPackage']
 */
 Route::get('payment_methods', [DataController::class, 'paymentMethods']);
 Route::get('tets', function (Request $request) {
-    if (extension_loaded('pdo')) { 
+    if (extension_loaded('pdo_mysql')) { 
         echo "pdo loaded";
     }
     if(DB::connection()->getDatabaseName())
