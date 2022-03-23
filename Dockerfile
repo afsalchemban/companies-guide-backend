@@ -15,7 +15,9 @@ COPY . /app
 
 RUN sh -c "wget http://getcomposer.org/composer.phar && chmod a+x composer.phar && mv composer.phar /usr/local/bin/composer"
 RUN cd /app && \
-    /usr/local/bin/composer install --no-dev && \
+    /usr/local/bin/composer install --no-dev
+    
+RUN cd /app && \
     php artisan migrate
 
 RUN chown -R www-data: /app
