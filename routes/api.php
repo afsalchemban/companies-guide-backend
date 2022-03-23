@@ -29,19 +29,7 @@ Route::put('company_select_package', [CompanyController::class, 'selectPackage']
 | Data controller apis
 */
 Route::get('payment_methods', [DataController::class, 'paymentMethods']);
-Route::get('tets', function (Request $request) {
-    if (extension_loaded('pdo_mysql')) { 
-        echo "pdo loaded";
-    }
-    if(DB::connection()->getDatabaseName())
-   {
-     echo "conncted sucessfully to database ".DB::connection()->getDatabaseName();
-   }
-   else
-   {
-       echo "database not connected";
-   }
-});
+
 Route::get('company_activities', [DataController::class, 'companyActivities']);
 
 Route::post('login', [AuthController::class, 'login']);
