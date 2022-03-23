@@ -13,7 +13,7 @@ class DataController extends Controller
     */
 
     public function paymentMethods(){
-        $methods = DB::select('select * from users');
+        $methods = DB::select('select * from payment_methods');
         return response()->json([
             'payment_methods' => $methods
         ],Response::HTTP_OK);
