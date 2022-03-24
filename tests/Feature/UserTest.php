@@ -32,9 +32,9 @@ class UserTest extends TestCase
         ->assertStatus(Response::HTTP_UNAUTHORIZED);
     }
 
-    public function test_3_user_login_with_credentials(){
+    public function test_3_admin_login(){
         $payload = [
-            'email' => 'sandra74@example.org',
+            'email' => 'admin@admin.com',
             'password'  => 'dummypassword'
         ];
         $this->post('/api/login',$payload)
@@ -54,9 +54,7 @@ class UserTest extends TestCase
         $response = $this->get('/api/user');
  
         $response->assertStatus(Response::HTTP_OK);
- 
- 
-        $response->dd();
+
     }
 
 }
