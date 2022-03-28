@@ -41,4 +41,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    /**
+     * Return the admin user
+     *
+     * @var array<string, string>
+     */
+    public static function admin():self
+    {
+        return self::where('user_type','admin')->firstOrFail();
+    }
 }

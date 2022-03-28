@@ -20,14 +20,15 @@ use Illuminate\Support\Facades\Artisan;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+    Route::apiResources([
+        'company'=>CompanyController::class,
+        'sale'=>SaleController::class,
+    ]);
 });
-
-Route::apiResources([
-    'company'=>CompanyController::class,
-    'sale'=>SaleController::class,
-]);
 
 
 Route::put('company_select_package', [CompanyController::class, 'selectPackage']);
@@ -44,6 +45,6 @@ Route::post('login', [AuthController::class, 'login']);
 api for migrate from server when developing . in future will remove it
 */
 Route::get('migrate', function (Request $request) {
-    Artisan::call('migrate:refresh --seed --force');
+    Artisan::call('migrate:refresh --force --seed');
     return 'Database Migrated';
 });

@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => bcrypt('dummypassword'), // password
             'remember_token' => Str::random(10),
+            'user_type' => 'admin',
         ]);
         DB::unprepared("INSERT INTO `company_activities` (`id`, `title`) VALUES
         (1, 'Agriculture, hunting and related service activities'),
