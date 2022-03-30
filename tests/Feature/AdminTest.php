@@ -34,4 +34,12 @@ class AdminTest extends TestCase
         $this->assertDatabaseHas('sales', $sale->toArray());
 
     }
+    public function test_admin_can_create_user_for_sale(){
+
+        Sanctum::actingAs(User::admin());
+        $sale = Sale::factory()->create();
+        $this->json('get', 'api/sale/create_sale_user/'.$sale->id)
+         ->assertStatus(Response::HTTP_CREATED);
+
+    }
 }

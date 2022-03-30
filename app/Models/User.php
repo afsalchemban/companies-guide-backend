@@ -50,4 +50,26 @@ class User extends Authenticatable
     {
         return self::where('user_type','admin')->firstOrFail();
     }
+    /**
+     * Return first sale attached user if any
+     *
+     * @var array<string, string>
+     */
+    public static function sale():self
+    {
+        return self::where('user_type','user')->firstOrFail();
+    }
+
+    /* 
+    Return current user is admin or not 
+    */
+    public function isAdmin() {
+        return $this->user_type == 'admin';
+    }
+
+    public function saleUser()
+    {
+        return $this->morphedByMany(Sale::class, 'userable');
+    }
+
 }

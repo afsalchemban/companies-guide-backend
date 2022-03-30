@@ -7,6 +7,8 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Company;
 use Illuminate\Http\Response;
+use Laravel\Sanctum\Sanctum;
+use App\Models\User;
 
 class SaleTest extends TestCase
 {
@@ -16,6 +18,14 @@ class SaleTest extends TestCase
      *
      * @return void
      */
+
+    public function test_sale_can_access_data()
+    {
+        Sanctum::actingAs(User::sale());
+        $this->json('get', 'api/sale/dashboard')
+         ->assertStatus(Response::HTTP_OK);
+    }
+
     public function test_company_registered_successfully()
     {
         $company = Company::factory()->make();

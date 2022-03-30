@@ -47,5 +47,13 @@ class UserTest extends TestCase
         $response->assertStatus(Response::HTTP_OK);
 
     }
+    public function test_5_logout_successfully(){
+        Sanctum::actingAs(
+            User::admin());
+        $response = $this->get('/api/logout');
+ 
+        $response->assertStatus(Response::HTTP_OK);
+
+    }
 
 }

@@ -10,4 +10,14 @@ class Company extends Model
     use HasFactory;
 
     protected $guarded = [];
+    
+    public function user()
+    {
+        return $this->morphToMany(User::class, 'userable');
+    }
+
+    public function sale()
+    {
+        return $this->belongsTo(Sale::class);
+    }
 }

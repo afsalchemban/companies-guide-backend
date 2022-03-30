@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sale;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Str;
 
 class SaleController extends Controller
 {
@@ -26,6 +29,9 @@ class SaleController extends Controller
     public function store(Request $request)
     {
         //
+        $this->authorize('create',Sale::class);
+        $sale = Sale::create($request->all());
+        return $sale;
     }
 
     /**
@@ -37,6 +43,7 @@ class SaleController extends Controller
     public function show(Sale $sale)
     {
         //
+        
     }
 
     /**
@@ -49,6 +56,7 @@ class SaleController extends Controller
     public function update(Request $request, Sale $sale)
     {
         //
+
     }
 
     /**
@@ -60,5 +68,31 @@ class SaleController extends Controller
     public function destroy(Sale $sale)
     {
         //
+    }
+
+    /**
+     * Create user credntials for sale 
+     *
+     * @param  \App\Models\Sale  $sale
+     * @return \Illuminate\Http\Response
+     */
+    public function createUser(Sale $sale)
+    {
+        $this->authorize('createSaleUser',Sale::class);
+        $user = new User();
+        $user->name = $sale->name;
+        $user->email = $sale->email;
+        $user->password = bcrypt('dummypassword');
+        $user->remember_token = Str::random(10);
+        $user->save();
+        $user->saleUser()->attach($sale->id);
+        return $user;
+    }
+
+    public function dashboard(Request $request)
+    {
+        //convert user to sale
+        $sale = $request->user()->saleUser[0];
+        return $sale;
     }
 }
