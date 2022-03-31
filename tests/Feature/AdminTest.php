@@ -23,7 +23,11 @@ class AdminTest extends TestCase
             'password'  => 'dummypassword'
         ];
         $this->post('/api/login',$payload)
-        ->assertStatus(Response::HTTP_OK);
+        ->assertStatus(Response::HTTP_OK)->assertJsonStructure(
+            [
+                'token'
+            ]
+        );
     }
     public function test_admin_can_create_sale(){
 

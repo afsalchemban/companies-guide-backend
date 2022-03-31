@@ -15,8 +15,9 @@ class AuthController extends Controller
             $auth = Auth::user(); 
             $success['token'] =  $auth->createToken('LaravelSanctumAuth')->plainTextToken; 
             $success['name'] =  $auth->name;
+            $success['status'] =  'Success';
    
-            return response()->json(['status'=>'success'], Response::HTTP_OK);
+            return response()->json($success, Response::HTTP_OK);
         } 
         else{ 
             return response()->json(['status'=>'Unauthorised'], Response::HTTP_UNAUTHORIZED);
