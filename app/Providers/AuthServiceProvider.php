@@ -30,7 +30,7 @@ class AuthServiceProvider extends ServiceProvider
 
         //
         Gate::define('update-company', function (User $user, Company $company) {
-            return $user->id === $company->created_by_user_id;
+            return $user->id === $company->created_by;
         });
     }
 }

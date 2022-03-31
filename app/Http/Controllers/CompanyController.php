@@ -28,8 +28,14 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $company = Company::create($request->all());
+        $this->authorize('create',Company::class);
+        
+        $company = new Company($request->all());
+
+        $sale = $request->user()->convertToSale();
+
+        $sale->companies()->save($company);
+
         return $company;
     }
 

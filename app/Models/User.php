@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Auth;
 
 class User extends Authenticatable
 {
@@ -51,13 +52,24 @@ class User extends Authenticatable
         return self::where('user_type','admin')->firstOrFail();
     }
     /**
-     * Return first sale attached user if any
+     * Return randum sale user if any
      *
      * @var array<string, string>
      */
     public static function sale():self
     {
-        return self::where('user_type','user')->firstOrFail();
+        return self::where('user_type','sale')->inRandomOrder()
+                ->first();
+    }
+
+    /**
+     * relationship from user table to sale/company
+     *
+     * @var array<string, string>
+     */
+    public function convertToSale()
+    {
+        return $this->saleUser[0];
     }
 
     /* 
@@ -65,6 +77,18 @@ class User extends Authenticatable
     */
     public function isAdmin() {
         return $this->user_type == 'admin';
+    }
+    /* 
+    Return current user is sale or not 
+    */
+    public function isSale() {
+        return $this->user_type == 'sale';
+    }
+    /* 
+    Return current user is company or not 
+    */
+    public function isCompany() {
+        return $this->user_type == 'company';
     }
 
     public function saleUser()

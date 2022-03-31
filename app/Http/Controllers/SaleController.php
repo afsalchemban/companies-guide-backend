@@ -84,6 +84,7 @@ class SaleController extends Controller
         $user->email = $sale->email;
         $user->password = bcrypt('dummypassword');
         $user->remember_token = Str::random(10);
+        $user->user_type = 'sale';
         $user->save();
         $user->saleUser()->attach($sale->id);
         return $user;
@@ -91,8 +92,8 @@ class SaleController extends Controller
 
     public function dashboard(Request $request)
     {
-        //convert user to sale
-        $sale = $request->user()->saleUser[0];
+        //convert user to sale user
+        $sale = $request->user()->convertToSale();
         return $sale;
     }
 }

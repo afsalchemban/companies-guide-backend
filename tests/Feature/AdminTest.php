@@ -7,6 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Sale;
+use App\Models\Company;
 use Illuminate\Http\Response;
 use Laravel\Sanctum\Sanctum;
 
@@ -25,7 +26,8 @@ class AdminTest extends TestCase
         $this->post('/api/login',$payload)
         ->assertStatus(Response::HTTP_OK)->assertJsonStructure(
             [
-                'token'
+                'token',
+                'user_type'
             ]
         );
     }
@@ -44,6 +46,14 @@ class AdminTest extends TestCase
         $sale = Sale::factory()->create();
         $this->json('get', 'api/sale/create_sale_user/'.$sale->id)
          ->assertStatus(Response::HTTP_CREATED);
+
+    }
+    public function test_admin_cannot_create_company(){
+
+        Sanctum::actingAs(User::admin());
+        $company = Company::factory()->make();
+        $this->json('post', 'api/company', $company->toArray())
+         ->assertStatus(Response::HTTP_FORBIDDEN);
 
     }
 }

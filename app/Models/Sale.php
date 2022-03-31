@@ -18,6 +18,6 @@ class Sale extends Model
 
     public function companies()
     {
-        return $this->hasMany(Company::class);
+        return $this->hasMany(Company::class,'created_by');
     }
 }

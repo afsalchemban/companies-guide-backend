@@ -28,10 +28,16 @@ class SaleTest extends TestCase
 
     public function test_company_registered_successfully()
     {
+        $user = User::sale();
+        $sale = $user->convertToSale();
+        Sanctum::actingAs($user);
         $company = Company::factory()->make();
         $this->json('post', 'api/company', $company->toArray())
-         ->assertStatus(Response::HTTP_CREATED);
+         ->assertStatus(Response::HTTP_CREATED)->assertJson([
+            'created_by'=>$sale->id
+        ]);
         $this->assertDatabaseHas('companies', $company->toArray());
+
     }
 
     public function test_package_selected_successfully()
@@ -40,7 +46,7 @@ class SaleTest extends TestCase
             'id' => 1,
             'package_id'  => $this->faker->randomNumber(7)
         ];
-        $this->json('put', 'api/company_select_package', $payload)
+        $this->json('put', 'api/company/company_select_package', $payload)
          ->assertStatus(Response::HTTP_OK)
          ->assertExactJson(
             [

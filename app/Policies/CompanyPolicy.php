@@ -41,7 +41,7 @@ class CompanyPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->isSale();
     }
 
     /**

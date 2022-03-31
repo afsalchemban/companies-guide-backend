@@ -34,7 +34,6 @@ class CompanyFactory extends Factory
             'person_in_charge_mobile' => $this->faker->phoneNumber(),
             'person_in_charge_country' => $this->faker->text(),
             'package_id' => null,
-            'created_by_user_id'=>'2'
         ];
     }
 }

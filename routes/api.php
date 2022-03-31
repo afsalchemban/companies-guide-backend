@@ -26,6 +26,9 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::get('sale/create_sale_user/{sale}', [SaleController::class, 'createUser']);
     Route::get('sale/dashboard', [SaleController::class, 'dashboard']);
+
+    Route::put('company/company_select_package', [CompanyController::class, 'selectPackage']);
+
     Route::apiResources([
         'company'=>CompanyController::class,
         'sale'=>SaleController::class,
@@ -34,9 +37,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('logout', [AuthController::class, 'logout']);
 });
 
-
-
-Route::put('company_select_package', [CompanyController::class, 'selectPackage']);
 /* 
 | Data controller apis
 */

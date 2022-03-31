@@ -31,7 +31,7 @@ return new class extends Migration
             $table->string('person_in_charge_mobile');
             $table->string('person_in_charge_country');
             $table->string('package_id')->nullable();
-            $table->string('created_by_user_id');
+            $table->string('created_by');
             $table->timestamps();
         });
     }
