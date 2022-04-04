@@ -20,7 +20,7 @@ class SaleFactory extends Factory
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'phone_number' => $this->faker->phoneNumber(),
-            'description' => $this->faker->text()
+            'sales_area' => $this->faker->text()
         ];
     }
 }
