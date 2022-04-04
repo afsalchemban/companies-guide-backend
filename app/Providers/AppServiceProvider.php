@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Interfaces\SaleRepositoryInterface;
+use App\Repositories\SaleRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Services\Reports\ReportInterface;
 use App\Services\Reports\Reports;
@@ -16,6 +18,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(ReportInterface::class, Reports::class);
+        $this->app->bind(SaleRepositoryInterface::class, SaleRepository::class);
     }
 
     /**

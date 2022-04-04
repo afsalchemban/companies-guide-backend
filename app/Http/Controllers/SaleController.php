@@ -2,14 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreSaleRequest;
+use App\Interfaces\SaleRepositoryInterface;
 use App\Models\Sale;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Str;
 
 class SaleController extends Controller
 {
+
+
+    public function __construct(SaleRepositoryInterface $saleRepository) 
+    {
+        $this->saleRepository = $saleRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +24,7 @@ class SaleController extends Controller
      */
     public function index()
     {
-        //
+        return $this->saleRepository->getAllSales();
     }
 
     /**
@@ -26,21 +33,11 @@ class SaleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreSaleRequest $request)
     {
-        //
-        $this->authorize('create',Sale::class);
-        $sale = Sale::create($request->all());
-
-        $user = new User();
-        $user->name = $sale->name;
-        $user->email = $sale->email;
-        $user->password = bcrypt('dummypassword');
-        $user->remember_token = Str::random(10);
-        $user->user_type = 'sale';
-        $user->save();
-        $user->saleUser()->attach($sale->id);
-        return $sale;
+        // create sale model and user for the sale with validation and authorization
+        
+        return $this->saleRepository->createUserForSale($this->saleRepository->createSale($request->validated()));
     }
 
     /**
