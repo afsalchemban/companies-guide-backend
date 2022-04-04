@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('phone_number')->unique();
             $table->string('sales_area');
+            $table->string('gender');
+            $table->date('dob');
             $table->timestamps();
         });
     }
