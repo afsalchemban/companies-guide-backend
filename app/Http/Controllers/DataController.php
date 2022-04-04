@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\Reports\ReportInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
 class DataController extends Controller
 {
+
     /* 
     Select the package when company registration
     */
@@ -24,5 +26,9 @@ class DataController extends Controller
         return response()->json([
             'company_activities' => $activities
         ],Response::HTTP_OK);
+    }
+
+    public function test(ReportInterface $report){
+        return $report->getAll();
     }
 }

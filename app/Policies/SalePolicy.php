@@ -96,15 +96,4 @@ class SalePolicy
     {
         //
     }
-
-    /**
-     * Determine whether the user is admin so it can only create user for a newly created sale 
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function createSaleUser(User $user)
-    {
-        //
-    }
 }

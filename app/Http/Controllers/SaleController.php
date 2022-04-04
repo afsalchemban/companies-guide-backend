@@ -31,6 +31,15 @@ class SaleController extends Controller
         //
         $this->authorize('create',Sale::class);
         $sale = Sale::create($request->all());
+
+        $user = new User();
+        $user->name = $sale->name;
+        $user->email = $sale->email;
+        $user->password = bcrypt('dummypassword');
+        $user->remember_token = Str::random(10);
+        $user->user_type = 'sale';
+        $user->save();
+        $user->saleUser()->attach($sale->id);
         return $sale;
     }
 
@@ -68,26 +77,6 @@ class SaleController extends Controller
     public function destroy(Sale $sale)
     {
         //
-    }
-
-    /**
-     * Create user credntials for sale 
-     *
-     * @param  \App\Models\Sale  $sale
-     * @return \Illuminate\Http\Response
-     */
-    public function createUser(Sale $sale)
-    {
-        $this->authorize('createSaleUser',Sale::class);
-        $user = new User();
-        $user->name = $sale->name;
-        $user->email = $sale->email;
-        $user->password = bcrypt('dummypassword');
-        $user->remember_token = Str::random(10);
-        $user->user_type = 'sale';
-        $user->save();
-        $user->saleUser()->attach($sale->id);
-        return $user;
     }
 
     public function dashboard(Request $request)
