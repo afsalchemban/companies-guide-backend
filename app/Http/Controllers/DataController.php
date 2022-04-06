@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\Reports\ReportInterface;
+use App\Interfaces\DataRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -11,6 +12,10 @@ use Illuminate\Support\Facades\Storage;
 class DataController extends Controller
 {
 
+    public function __construct(DataRepositoryInterface $dataRepository)
+    {
+        $this->dataRepository=$dataRepository;
+    }
     /* 
     Select the package when company registration
     */
@@ -23,10 +28,7 @@ class DataController extends Controller
     }
 
     public function companyActivities(){
-        $activities = DB::select('select * from company_activities');
-        return response()->json([
-            'company_activities' => $activities
-        ],Response::HTTP_OK);
+        return $this->dataRepository->getCompanyActivities();
     }
 
     public function test(ReportInterface $report){

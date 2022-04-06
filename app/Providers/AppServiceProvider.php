@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Interfaces\CompanyRepositoryInterface;
+use App\Interfaces\DataRepositoryInterface;
 use App\Interfaces\SaleRepositoryInterface;
 use App\Repositories\SaleRepository;
+use App\Repositories\DataRepository;
 use App\Repositories\CompanyRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Services\Reports\ReportInterface;
@@ -22,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ReportInterface::class, Reports::class);
         $this->app->bind(SaleRepositoryInterface::class, SaleRepository::class);
         $this->app->bind(CompanyRepositoryInterface::class, CompanyRepository::class);
+        $this->app->bind(DataRepositoryInterface::class, DataRepository::class);
     }
 
     /**

@@ -38,10 +38,9 @@ class DataRetrievalTest extends TestCase
         ->assertStatus(Response::HTTP_OK)
         ->assertJsonStructure(
             [
-                'company_activities' => [
-                    '*' => [
-                        'title'
-                    ]
+                
+                '*' => [
+                    'title'
                 ]
             ]
         );

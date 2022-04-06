@@ -34,7 +34,7 @@ class SaleTest extends TestCase
         $company = Company::factory()->make();
         $this->json('post', 'api/company', $company->toArray())
          ->assertStatus(Response::HTTP_CREATED)->assertJson([
-            'created_by'=>$sale->id
+            'sale_id'=>$sale->id
         ]);
         $this->assertDatabaseHas('companies', $company->toArray());
 
