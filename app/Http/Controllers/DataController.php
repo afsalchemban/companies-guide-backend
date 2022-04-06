@@ -6,6 +6,7 @@ use App\Services\Reports\ReportInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class DataController extends Controller
 {
@@ -30,5 +31,11 @@ class DataController extends Controller
 
     public function test(ReportInterface $report){
         return $report->getAll();
+    }
+    
+    public function test2(){
+        Storage::put('1.txt', 'Contents');
+
+        return Storage::path('1.txt');
     }
 }

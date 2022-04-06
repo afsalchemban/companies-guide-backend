@@ -5,8 +5,9 @@ namespace App\Repositories;
 use App\Interfaces\SaleRepositoryInterface;
 use App\Models\Sale;
 use App\Models\User;
-
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class SaleRepository implements SaleRepositoryInterface
 {
@@ -35,5 +36,12 @@ class SaleRepository implements SaleRepositoryInterface
         $user->save();
         $user->saleUser()->attach($sale->id);
         return $user;
+    }
+    public function uploadImage(UploadedFile $file){
+        if($path = Storage::putFile('sales-profile-images', $file))
+        {
+            return $path;
+        }
+        return false;
     }
 }

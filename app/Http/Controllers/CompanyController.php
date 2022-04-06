@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Interfaces\CompanyRepositoryInterface;
 use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -10,6 +11,10 @@ use Illuminate\Support\Facades\Gate;
 
 class CompanyController extends Controller
 {
+    public function __construct(CompanyRepositoryInterface $companyRepository) 
+    {
+        $this->companyRepository = $companyRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +22,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        //
+        return $this->companyRepository->getAllCompanies();
     }
 
     /**

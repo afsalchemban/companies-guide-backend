@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSaleRequest;
+use App\Http\Requests\UploadProfileImageSaleRequest;
 use App\Interfaces\SaleRepositoryInterface;
 use App\Models\Sale;
 use App\Models\User;
@@ -81,5 +82,9 @@ class SaleController extends Controller
         //convert user to sale user
         $sale = $request->user()->convertToSale();
         return $sale;
+    }
+    public function uploadImage(UploadProfileImageSaleRequest $request)
+    {
+        return $this->saleRepository->uploadImage($request->validated()['profile-image']);
     }
 }

@@ -96,4 +96,9 @@ class SalePolicy
     {
         //
     }
+
+    public function uploadProfileImage(User $user)
+    {
+        
+    }
 }

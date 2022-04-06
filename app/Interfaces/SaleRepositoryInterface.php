@@ -3,6 +3,7 @@
 namespace App\Interfaces;
 
 use App\Models\Sale;
+use Illuminate\Http\UploadedFile;
 
 interface SaleRepositoryInterface
 {
@@ -12,4 +13,5 @@ interface SaleRepositoryInterface
     public function createSale(array $saleDetails);
     public function updateSale($saleId, array $newDetails);
     public function createUserForSale(Sale $sale);
+    public function uploadImage(UploadedFile $file);
 }

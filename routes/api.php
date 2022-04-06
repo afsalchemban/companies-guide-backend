@@ -26,6 +26,8 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::get('sale/dashboard', [SaleController::class, 'dashboard']);
 
+    Route::post('sale/upload_image', [SaleController::class, 'uploadImage']);
+
     Route::put('company/company_select_package', [CompanyController::class, 'selectPackage']);
 
     Route::apiResources([
@@ -54,4 +56,4 @@ Route::get('migrate', function (Request $request) {
 });
 
 
-Route::get('test', [DataController::class, 'test']);
+Route::get('test', [DataController::class, 'test2']);
