@@ -24,11 +24,19 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
-    Route::get('sale/dashboard', [SaleController::class, 'dashboard']);
 
-    Route::post('sale/upload_image', [SaleController::class, 'uploadImage']);
+    Route::prefix('sale')->group(function () {
 
-    Route::put('company/company_select_package', [CompanyController::class, 'selectPackage']);
+        Route::get('/dashboard', [SaleController::class, 'dashboard']);
+        Route::post('/upload_image', [SaleController::class, 'uploadImage']);
+
+    });
+
+    Route::prefix('company')->group(function () {
+
+        Route::put('/company_select_package', [CompanyController::class, 'selectPackage']);
+
+    });
 
     Route::apiResources([
         'company'=>CompanyController::class,
@@ -41,9 +49,17 @@ Route::middleware('auth:sanctum')->group(function () {
 /* 
 | Data controller apis
 */
-Route::get('payment_methods', [DataController::class, 'paymentMethods']);
 
-Route::get('company_activities', [DataController::class, 'companyActivities']);
+Route::prefix('data')->group(function () {
+
+    Route::get('/payment_methods', [DataController::class, 'paymentMethods']);
+    Route::get('/company_activities', [DataController::class, 'companyActivities']);
+    Route::get('/countries', [DataController::class, 'countries']);
+    Route::get('/cities/{country}', [DataController::class, 'cities']);
+    Route::get('/areas/{city}', [DataController::class, 'areas']);
+
+});
+
 
 Route::post('login', [AuthController::class, 'login']);
 

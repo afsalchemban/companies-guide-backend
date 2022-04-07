@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Services\Reports\ReportInterface;
 use App\Interfaces\DataRepositoryInterface;
+use App\Models\City;
+use App\Models\Country;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -29,6 +31,18 @@ class DataController extends Controller
 
     public function companyActivities(){
         return $this->dataRepository->getCompanyActivities();
+    }
+
+    public function countries(){
+        return $this->dataRepository->getCountries();
+    }
+
+    public function cities(Country $country){
+        return $this->dataRepository->getCities($country);
+    }
+
+    public function areas(City $city){
+        return $this->dataRepository->getAreas($city);
     }
 
     public function test(ReportInterface $report){
