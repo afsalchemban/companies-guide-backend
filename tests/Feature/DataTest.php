@@ -34,7 +34,7 @@ class DataTest extends TestCase
     */
     public function test_get_company_activities()
     {
-        $response = $this->get('/api/data/company_activities')
+        $response = $this->getJson('/api/data/company_activities/a')
         ->assertStatus(Response::HTTP_OK)
         ->assertJsonStructure(
             [

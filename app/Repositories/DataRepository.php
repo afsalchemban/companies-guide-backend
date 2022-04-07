@@ -11,9 +11,10 @@ use Illuminate\Http\Response;
 
 class DataRepository implements DataRepositoryInterface
 {
-    public function getCompanyActivities()
+    public function getCompanyActivities($param)
     {
-        return CompanyActivity::all();
+        return CompanyActivity::where('title', 'like', '{$param}%')->orderBy('title')
+        ->take(10)->get();
     }
     public function getCountries()
     {

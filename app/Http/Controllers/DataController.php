@@ -29,8 +29,8 @@ class DataController extends Controller
         ],Response::HTTP_OK);
     }
 
-    public function companyActivities(){
-        return $this->dataRepository->getCompanyActivities();
+    public function companyActivities(Request $request,$param){
+        return $this->dataRepository->getCompanyActivities($param);
     }
 
     public function countries(){
