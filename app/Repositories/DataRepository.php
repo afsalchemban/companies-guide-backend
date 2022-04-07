@@ -6,6 +6,8 @@ use App\Interfaces\DataRepositoryInterface;
 use App\Models\City;
 use App\Models\CompanyActivity;
 use App\Models\Country;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Response;
 
 class DataRepository implements DataRepositoryInterface
 {
@@ -24,5 +26,9 @@ class DataRepository implements DataRepositoryInterface
     public function getAreas(City $city)
     {
         return $city->areas;
+    }
+    public function getLegalStatuses()
+    {
+        return DB::select('select name from legal_statuses');
     }
 }

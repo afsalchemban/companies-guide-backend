@@ -40,6 +40,15 @@ class SaleTest extends TestCase
 
     }
 
+    public function test_sale_fails_to_create_combany_by_validation(){
+
+        Sanctum::actingAs(User::sale());
+        $this->json('post', 'api/company', [])
+        ->assertStatus(Response::HTTP_OK)
+         ->assertJsonValidationErrorFor('business_name');
+
+    }
+
     public function test_package_selected_successfully()
     {
         $payload = [

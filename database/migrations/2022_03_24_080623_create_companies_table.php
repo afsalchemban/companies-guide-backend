@@ -23,8 +23,9 @@ return new class extends Migration
             $table->string('activities');
             $table->string('legal_status');
             $table->string('issued_by');
-            $table->string('country');
-            $table->string('city');
+            $table->unsignedBigInteger('country_id');
+            $table->unsignedBigInteger('city_id');
+            $table->unsignedBigInteger('area_id');
             $table->string('person_in_charge_name');
             $table->string('person_in_charge_designation');
             $table->string('person_in_charge_email');
@@ -36,6 +37,9 @@ return new class extends Migration
         });
         Schema::table('companies', function (Blueprint $table) {
             $table->foreign('sale_id')->references('id')->on('sales')->onDelete('restrict');
+            $table->foreign('country_id')->references('id')->on('countries')->onDelete('restrict');
+            $table->foreign('city_id')->references('id')->on('cities')->onDelete('restrict');
+            $table->foreign('area_id')->references('id')->on('areas')->onDelete('restrict');
         });
     }
 

@@ -45,6 +45,11 @@ class DataController extends Controller
         return $this->dataRepository->getAreas($city);
     }
 
+    public function legalStatuses()
+    {
+        return $this->dataRepository->getLegalStatuses();
+    }
+
     public function test(ReportInterface $report){
         return $report->getAll();
     }

@@ -25,6 +25,24 @@ class DatabaseSeeder extends Seeder
             'user_type' => 'admin',
         ]);
 
+
+        DB::unprepared("INSERT INTO `legal_statuses` (`name`) VALUES
+        ('LLC'),
+        ('Service Agency'),
+        ('FZE'),
+        ('Group'),
+        ('FZ-LLC'),
+        ('Civil company'),
+        ('Partnership Company'),
+        ('Foreign Recognized Company'),
+        ('Private Joint Stock Company'),
+        ('Public Joint Stock Company'),
+        ('Holding Company'),
+        ('Sole Proprietorship'),
+        ('Professional Trade Licence'),
+        ('Professional Freelance Licence'),
+        ('LLP');");
+
         DB::unprepared("INSERT INTO `countries` (`name`, `code`, `currency`) VALUES
         ('United Arab Emirates', 'AE', 'AED'),
         ('Oman', 'OM', 'OMR'),
