@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCompanyRequest;
 use App\Interfaces\CompanyRepositoryInterface;
 use App\Models\Company;
 use Illuminate\Http\Request;
@@ -31,17 +32,9 @@ class CompanyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        $this->authorize('create',Company::class);
-        
-        $company = new Company($request->all());
-
-        $sale = $request->user()->convertToSale();
-
-        $sale->companies()->save($company);
-
-        return $company;
+    public function store(StoreCompanyRequest $request)
+    {        
+        return $this->companyRepository->createCompany($request->validated());
     }
 
     /**

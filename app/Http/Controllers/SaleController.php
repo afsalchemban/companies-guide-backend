@@ -80,8 +80,7 @@ class SaleController extends Controller
     public function dashboard(Request $request)
     {
         //convert user to sale user
-        $sale = $request->user()->convertToSale();
-        return $sale;
+        return true;
     }
     public function uploadImage(UploadProfileImageSaleRequest $request)
     {

@@ -62,16 +62,6 @@ class User extends Authenticatable
                 ->first();
     }
 
-    /**
-     * relationship from user table to sale/company
-     *
-     * @var array<string, string>
-     */
-    public function convertToSale()
-    {
-        return $this->saleUser[0];
-    }
-
     /* 
     Return current user is admin or not 
     */

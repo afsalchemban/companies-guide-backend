@@ -11,6 +11,7 @@ use App\Repositories\CompanyRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Services\Reports\ReportInterface;
 use App\Services\Reports\Reports;
+use App\Services\UserSwitchingService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -21,9 +22,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->singleton(UserSwitchingService::class, function ($app) {
+            return new UserSwitchingService();
+        });
         $this->app->bind(ReportInterface::class, Reports::class);
         $this->app->bind(SaleRepositoryInterface::class, SaleRepository::class);
-        $this->app->bind(CompanyRepositoryInterface::class, CompanyRepository::class);
+        $this->app->bind(CompanyRepositoryInterface::class, function ($app) {
+            return new CompanyRepository($app->make(UserSwitchingService::class));
+        });
         $this->app->bind(DataRepositoryInterface::class, DataRepository::class);
     }
 

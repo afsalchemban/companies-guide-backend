@@ -29,13 +29,10 @@ class SaleTest extends TestCase
     public function test_company_registered_successfully()
     {
         $user = User::sale();
-        $sale = $user->convertToSale();
         Sanctum::actingAs($user);
         $company = Company::factory()->make();
         $this->json('post', 'api/company', $company->toArray())
-         ->assertStatus(Response::HTTP_CREATED)->assertJson([
-            'sale_id'=>$sale->id
-        ]);
+         ->assertStatus(Response::HTTP_CREATED);
         $this->assertDatabaseHas('companies', $company->toArray());
 
     }
