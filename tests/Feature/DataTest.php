@@ -116,4 +116,20 @@ class DataTest extends TestCase
         );
 
     }
+    /* 
+    get legal statuses
+    */
+    public function test_get_issued_by()
+    {
+        $response = $this->get('/api/data/issued_by')
+        ->assertStatus(Response::HTTP_OK)
+        ->assertJsonStructure(
+            [
+                '*' => [
+                    'name'
+                ]
+            ]
+        );
+
+    }
 }

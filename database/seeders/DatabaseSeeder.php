@@ -25,6 +25,25 @@ class DatabaseSeeder extends Seeder
             'user_type' => 'admin',
         ]);
 
+        DB::unprepared("INSERT INTO `issued_by` (`name`) VALUES
+        ('Freezone'),
+        ('Local'),
+        ('JAFZA'),
+        ('DAFZA'),
+        ('DMCC'),
+        ('DUBAI SOUTH '),
+        ('TCOM'),
+        ('DTECH'),
+        ('MEYDAN'),
+        ('DUBAI SILICON OASIS'),
+        ('SHARJAH AIRPORT'),
+        ('HAMRIYA'),
+        ('AJMAN'),
+        ('AJMAN MEDIA CITY'),
+        ('CREATIVE CITY'),
+        ('IFZA FREE'),
+        ('UAQ'),
+        ('RAKEZ');");
 
         DB::unprepared("INSERT INTO `legal_statuses` (`name`) VALUES
         ('LLC'),

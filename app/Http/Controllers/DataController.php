@@ -50,6 +50,11 @@ class DataController extends Controller
         return $this->dataRepository->getLegalStatuses();
     }
 
+    public function issuedBy()
+    {
+        return $this->dataRepository->issuedBy();
+    }
+
     public function test(ReportInterface $report){
         return $report->getAll();
     }

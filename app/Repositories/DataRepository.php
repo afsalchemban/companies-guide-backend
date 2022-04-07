@@ -31,4 +31,8 @@ class DataRepository implements DataRepositoryInterface
     {
         return DB::select('select name from legal_statuses');
     }
+    public function issuedBy()
+    {
+        return DB::select('select name from issued_by');
+    }
 }

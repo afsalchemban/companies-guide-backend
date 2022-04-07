@@ -58,6 +58,7 @@ Route::prefix('data')->group(function () {
     Route::get('/cities/{country}', [DataController::class, 'cities']);
     Route::get('/areas/{city}', [DataController::class, 'areas']);
     Route::get('/legal_statuses', [DataController::class, 'legalStatuses']);
+    Route::get('/issued_by', [DataController::class, 'issuedBy']);
 
 });
 
