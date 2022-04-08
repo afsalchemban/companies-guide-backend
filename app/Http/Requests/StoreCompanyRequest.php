@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class StoreCompanyRequest extends FormRequest
 {
@@ -14,6 +15,11 @@ class StoreCompanyRequest extends FormRequest
     public function authorize()
     {
         return $this->user()->can('create', Company::class);
+    }
+
+    protected function failedAuthorization()
+    {
+        throw new AuthorizationException('This user cannot create company');
     }
 
     /**

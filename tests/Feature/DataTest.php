@@ -36,15 +36,13 @@ class DataTest extends TestCase
     {
         $response = $this->getJson('/api/data/company_activities/a')
         ->assertStatus(Response::HTTP_OK)
-        ->assertJsonStructure(
-            [
-                
+        ->assertJsonStructure([
+            'activities' => [
                 '*' => [
-                    'id',
-                    'title'
+                     'title'
                 ]
             ]
-        );
+        ]);
 
     }
     /* 
@@ -56,10 +54,11 @@ class DataTest extends TestCase
         ->assertStatus(Response::HTTP_OK)
         ->assertJsonStructure(
             [
-                
+                'countries' => [
                 '*' => [
                     'name',
                     'id'
+                ]
                 ]
             ]
         );
@@ -74,10 +73,11 @@ class DataTest extends TestCase
         ->assertStatus(Response::HTTP_OK)
         ->assertJsonStructure(
             [
-                
+                'cities' => [
                 '*' => [
                     'name',
                     'id'
+                ]
                 ]
             ]
         );
@@ -92,10 +92,11 @@ class DataTest extends TestCase
         ->assertStatus(Response::HTTP_OK)
         ->assertJsonStructure(
             [
-                
+                'areas' => [
                 '*' => [
                     'name',
                     'id'
+                ]
                 ]
             ]
         );
@@ -110,8 +111,10 @@ class DataTest extends TestCase
         ->assertStatus(Response::HTTP_OK)
         ->assertJsonStructure(
             [
+                'legal_statuses' => [
                 '*' => [
                     'name'
+                ]
                 ]
             ]
         );
@@ -126,8 +129,28 @@ class DataTest extends TestCase
         ->assertStatus(Response::HTTP_OK)
         ->assertJsonStructure(
             [
+                'issued_by' => [
                 '*' => [
                     'name'
+                ]
+                ]
+            ]
+        );
+
+    }
+    /* 
+    get legal statuses
+    */
+    public function test_get_reports()
+    {
+        $response = $this->get('/api/data/reports')
+        ->assertStatus(Response::HTTP_OK)
+        ->assertJsonStructure(
+            [
+                'reports' => [
+                '*' => [
+                    'name'
+                ]
                 ]
             ]
         );

@@ -25,6 +25,34 @@ class DatabaseSeeder extends Seeder
             'user_type' => 'admin',
         ]);
 
+        DB::table('sales')->insert([
+            'name' => 'Sale Test Account',
+            'email' => 'sale@admin.com',
+            'phone_number' => '000000',
+            'sales_area' => 'Dubai',
+            'gender' => 'Male',
+            'dob' => '1990-03-03'
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'Sale Test Account',
+            'email' => 'sale@admin.com',
+            'email_verified_at' => now(),
+            'password' => bcrypt('dummypassword'), // password
+            'remember_token' => Str::random(10),
+            'user_type' => 'sale',
+        ]);
+
+        DB::table('userables')->insert([
+            'user_id' => 2,
+            'userable_id' => 1,
+            'userable_type' => 'App\Models\Sale'
+        ]);
+
+        DB::unprepared("INSERT INTO `reports` (`name`) VALUES
+        ('Sale'),
+        ('Company');");
+
         DB::unprepared("INSERT INTO `issued_by` (`name`) VALUES
         ('Freezone'),
         ('Local'),

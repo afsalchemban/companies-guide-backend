@@ -55,6 +55,11 @@ class DataController extends Controller
         return $this->dataRepository->issuedBy();
     }
 
+    public function reports()
+    {
+        return $this->dataRepository->getReports();
+    }
+
     public function test(ReportInterface $report){
         return $report->getAll();
     }

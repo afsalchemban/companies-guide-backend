@@ -13,27 +13,45 @@ class DataRepository implements DataRepositoryInterface
 {
     public function getCompanyActivities($param)
     {
-        return CompanyActivity::where('title', 'like', $param.'%')->orderBy('title')
-        ->take(10)->get();
+        return response()->json([
+            'activities' => CompanyActivity::where('title', 'like', $param.'%')->orderBy('title')
+            ->take(10)->get()
+        ]);
     }
     public function getCountries()
     {
-        return Country::all();
+        return response()->json([
+            'countries' => Country::all()
+        ]);
     }
     public function getCities(Country $country)
     {
-        return $country->cities;
+        return response()->json([
+            'cities' => $country->cities
+        ]);
     }
     public function getAreas(City $city)
     {
-        return $city->areas;
+        return response()->json([
+            'areas' => $city->areas
+        ]);
     }
     public function getLegalStatuses()
     {
-        return DB::select('select name from legal_statuses');
+        return response()->json([
+            'legal_statuses' => DB::select('select name from legal_statuses')
+        ]);
     }
     public function issuedBy()
     {
-        return DB::select('select name from issued_by');
+        return response()->json([
+            'issued_by' => DB::select('select name from issued_by')
+        ]);
+    }
+    public function getReports()
+    {
+        return response()->json([
+            'reports' => DB::select('select name from reports')
+        ]);
     }
 }

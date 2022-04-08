@@ -13,4 +13,5 @@ interface DataRepositoryInterface
     public function getAreas(City $city);
     public function getLegalStatuses();
     public function issuedBy();
+    public function getReports();
 }
