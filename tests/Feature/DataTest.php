@@ -40,6 +40,7 @@ class DataTest extends TestCase
             [
                 
                 '*' => [
+                    'id',
                     'title'
                 ]
             ]

@@ -14,4 +14,5 @@ interface SaleRepositoryInterface
     public function updateSale($saleId, array $newDetails);
     public function createUserForSale(Sale $sale);
     public function uploadImage(UploadedFile $file);
+    public function updateImagePath($path);
 }

@@ -84,6 +84,6 @@ class SaleController extends Controller
     }
     public function uploadImage(UploadProfileImageSaleRequest $request)
     {
-        return $this->saleRepository->uploadImage($request->validated()['profile-image']);
+        return $this->saleRepository->updateImagePath($this->saleRepository->uploadImage($request->validated()['profile-image']));
     }
 }

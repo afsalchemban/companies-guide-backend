@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('sales_area');
             $table->string('gender');
             $table->date('dob');
+            $table->date('profile_image_path')->nullable();
             $table->timestamps();
         });
     }

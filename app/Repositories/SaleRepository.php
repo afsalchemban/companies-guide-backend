@@ -44,4 +44,8 @@ class SaleRepository implements SaleRepositoryInterface
         }
         return false;
     }
+    public function updateImagePath($path)
+    {
+        return $path;
+    }
 }

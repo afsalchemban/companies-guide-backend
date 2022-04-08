@@ -13,7 +13,7 @@ class DataRepository implements DataRepositoryInterface
 {
     public function getCompanyActivities($param)
     {
-        return CompanyActivity::where('title', 'like', '{$param}%')->orderBy('title')
+        return CompanyActivity::where('title', 'like', $param.'%')->orderBy('title')
         ->take(10)->get();
     }
     public function getCountries()
