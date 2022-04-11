@@ -39,25 +39,25 @@ class DataRepository implements DataRepositoryInterface
     public function getLegalStatuses()
     {
         return response()->json([
-            'legal_statuses' => DB::select('select * from legal_statuses')
+            'legal_statuses' => DB::select('select id ,name from legal_statuses')
         ]);
     }
     public function issuedBy()
     {
         return response()->json([
-            'issued_by' => DB::select('select * from issued_by')
+            'issued_by' => DB::select('select id ,name from issued_by')
         ]);
     }
     public function getReports()
     {
         return response()->json([
-            'reports' => DB::select('select * from reports')
+            'reports' => DB::select('select id ,name from reports')
         ]);
     }
     public function getPackages()
     {
         return response()->json([
-            'packages' => DB::select('select * from packages')
+            'packages' => DB::select('select id ,name, price from packages')
         ]);
     }
 }

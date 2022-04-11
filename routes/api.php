@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SaleController;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Artisan;
@@ -23,6 +24,13 @@ use Illuminate\Support\Facades\Artisan;
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
+    });
+
+    Route::prefix('report')->group(function () {
+
+        Route::get('/sale', [ReportController::class, 'sale']);
+        Route::get('/company', [ReportController::class, 'company']);
+
     });
 
     Route::prefix('sale')->group(function () {
