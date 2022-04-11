@@ -25,12 +25,7 @@ Route::middleware('auth:sanctum')->group(function () {
         return $request->user();
     });
 
-    Route::prefix('sale')->group(function () {
-
-        Route::get('/dashboard', [SaleController::class, 'dashboard']);
-        Route::post('/upload_image', [SaleController::class, 'uploadImage']);
-
-    });
+    
 
     Route::prefix('company')->group(function () {
 
@@ -49,7 +44,12 @@ Route::middleware('auth:sanctum')->group(function () {
 /* 
 | Data controller apis
 */
+Route::prefix('sale')->group(function () {
 
+    Route::get('/dashboard', [SaleController::class, 'dashboard']);
+    Route::post('/upload_image', [SaleController::class, 'uploadImage']);
+
+});
 Route::prefix('data')->group(function () {
 
     Route::get('/payment_methods', [DataController::class, 'paymentMethods']);
