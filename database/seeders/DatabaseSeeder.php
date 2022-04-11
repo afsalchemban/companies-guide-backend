@@ -29,7 +29,6 @@ class DatabaseSeeder extends Seeder
             'name' => 'Sale Test Account',
             'email' => 'sale@admin.com',
             'phone_number' => '000000',
-            'sales_area' => 'Dubai',
             'gender' => 'Male',
             'dob' => '1990-03-03'
         ]);

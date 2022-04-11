@@ -20,7 +20,6 @@ class SaleFactory extends Factory
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'phone_number' => $this->faker->phoneNumber(),
-            'sales_area' => $this->faker->text(),
             'gender' => $this->faker->randomElement(['male' ,'female']),
             'dob' => $this->faker->date('Y-m-d')
         ];

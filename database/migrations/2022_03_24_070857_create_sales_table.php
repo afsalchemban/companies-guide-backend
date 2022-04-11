@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('phone_number')->unique();
-            $table->string('sales_area');
             $table->string('gender');
             $table->date('dob');
             $table->date('profile_image_path')->nullable();

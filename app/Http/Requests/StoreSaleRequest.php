@@ -27,7 +27,6 @@ class StoreSaleRequest extends FormRequest
             'name' => 'required',
             'email' => 'required|unique:sales',
             'phone_number' => 'required|unique:sales',
-            'sales_area' => 'required',
             'gender' => 'required',
             'dob' => 'required',
         ];
