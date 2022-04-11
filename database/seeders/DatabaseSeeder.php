@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
             'gender' => 'Male',
             'dob' => '1990-03-03'
         ]);
+        
 
         DB::table('users')->insert([
             'name' => 'Sale Test Account',
@@ -51,6 +52,11 @@ class DatabaseSeeder extends Seeder
         DB::unprepared("INSERT INTO `reports` (`name`) VALUES
         ('Sale'),
         ('Company');");
+
+        DB::unprepared("INSERT INTO `packages` (`name`,`price`) VALUES
+        ('Full',7000),
+        ('Profile',5000),
+        ('Directory',3000);");
 
         DB::unprepared("INSERT INTO `issued_by` (`name`) VALUES
         ('Freezone'),

@@ -19,21 +19,18 @@ use Illuminate\Support\Facades\Artisan;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-/* 
-| Data controller apis
-*/
-Route::prefix('sale')->group(function () {
 
-    Route::get('/dashboard', [SaleController::class, 'dashboard']);
-    Route::post('/upload_image', [SaleController::class, 'uploadImage']);
-
-});
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
 
-    
+    Route::prefix('sale')->group(function () {
+
+        Route::get('/dashboard', [SaleController::class, 'dashboard']);
+        Route::post('/upload_image', [SaleController::class, 'uploadImage']);
+
+    });
 
     Route::prefix('company')->group(function () {
 
@@ -49,6 +46,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('logout', [AuthController::class, 'logout']);
 });
 
+/* 
+| Data controller apis
+*/
 
 Route::prefix('data')->group(function () {
 
@@ -60,6 +60,7 @@ Route::prefix('data')->group(function () {
     Route::get('/legal_statuses', [DataController::class, 'legalStatuses']);
     Route::get('/issued_by', [DataController::class, 'issuedBy']);
     Route::get('/reports', [DataController::class, 'reports']);
+    Route::get('/packages', [DataController::class, 'packages']);
 
 });
 

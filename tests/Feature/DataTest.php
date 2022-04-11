@@ -156,4 +156,24 @@ class DataTest extends TestCase
         );
 
     }
+
+    /* 
+    get packages
+    */
+    public function test_get_packages()
+    {
+        $response = $this->get('/api/data/packages')
+        ->assertStatus(Response::HTTP_OK)
+        ->assertJsonStructure(
+            [
+                'packages' => [
+                '*' => [
+                    'name',
+                    'price'
+                ]
+                ]
+            ]
+        );
+
+    }
 }

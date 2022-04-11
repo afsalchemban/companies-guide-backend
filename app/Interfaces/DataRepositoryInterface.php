@@ -14,4 +14,5 @@ interface DataRepositoryInterface
     public function getLegalStatuses();
     public function issuedBy();
     public function getReports();
+    public function getPackages();
 }
