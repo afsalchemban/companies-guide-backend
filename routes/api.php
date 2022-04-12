@@ -28,7 +28,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('report')->group(function () {
 
-        Route::get('/sale', [ReportController::class, 'sale']);
+        Route::get('/sale/{sale}/{package}/{area}', [ReportController::class, 'sale']);
         Route::get('/company', [ReportController::class, 'company']);
 
     });
@@ -42,7 +42,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('company')->group(function () {
 
-        Route::put('/company_select_package', [CompanyController::class, 'selectPackage']);
+        Route::put('/company_select_package/{company}/{package}', [CompanyController::class, 'selectPackage']);
 
     });
 

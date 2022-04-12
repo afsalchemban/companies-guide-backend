@@ -4,8 +4,10 @@ namespace App\Repositories;
 
 use App\Interfaces\CompanyRepositoryInterface;
 use App\Models\Company;
+use App\Models\Package;
 use App\Services\UserSwitchingService;
 use Illuminate\Support\Str;
+use Illuminate\Http\Response;
 
 class CompanyRepository implements CompanyRepositoryInterface
 {
@@ -41,5 +43,13 @@ class CompanyRepository implements CompanyRepositoryInterface
     public function createUserForCompany(Company $company)
     {
         
+    }
+    public function selectPackage(Company $company, Package $package)
+    {
+        $package->companies()->save($company);
+
+        return response()->json([
+            'package_added' => true
+        ],Response::HTTP_OK);
     }
 }

@@ -48,17 +48,13 @@ class SaleTest extends TestCase
 
     public function test_package_selected_successfully()
     {
-        $payload = [
-            'id' => 1,
-            'package_id'  => $this->faker->randomNumber(7)
-        ];
-        $this->json('put', 'api/company/company_select_package', $payload)
+        Sanctum::actingAs(User::sale());
+        $this->json('put', 'api/company/company_select_package/1/1')
          ->assertStatus(Response::HTTP_OK)
          ->assertExactJson(
             [
-                'package_selected' => true
+                'package_added' => true
             ]
         );
-        $this->assertDatabaseHas('companies', $payload);
     }
 }

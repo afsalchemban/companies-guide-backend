@@ -3,6 +3,7 @@
 namespace App\Interfaces;
 
 use App\Models\Company;
+use App\Models\Package;
 
 interface CompanyRepositoryInterface
 {
@@ -12,4 +13,5 @@ interface CompanyRepositoryInterface
     public function createCompany(array $companyDetails);
     public function updateCompany($companyId, array $newDetails);
     public function createUserForCompany(Company $company);
+    public function selectPackage(Company $company,Package $package);
 }
