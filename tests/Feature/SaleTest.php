@@ -50,7 +50,7 @@ class SaleTest extends TestCase
     {
         Sanctum::actingAs(User::sale(2));
         $payload = [
-            'id' => 1,
+            'company_id' => 1,
             'package_id'  => 1
         ];
         $this->json('put', 'api/company/company_select_package', $payload)

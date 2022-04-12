@@ -47,7 +47,14 @@ class CompanyController extends Controller
      */
     public function show(Company $company)
     {
-        //
+        if(is_null($company->package))
+        {
+            return "true";
+        }
+        else
+        {
+            return "false"; 
+        }
     }
 
     /**
@@ -83,6 +90,6 @@ class CompanyController extends Controller
     public function selectPackage(SelectPackageRequest $request){
 
         return $this->companyRepository->selectPackage($request->validated());
-        
+
     }
 }

@@ -13,9 +13,9 @@ class SelectPackageRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize(UserSwitchingService $userSwitch)
+    public function authorize()
     {
-        $company = Company::find($this->id);
+        $company = Company::find($this->company_id);
         return $this->user()->can('changePackage', $company);
     }
 
@@ -27,7 +27,7 @@ class SelectPackageRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'required|exists:companies',
+            'company_id' => 'required|exists:companies,id',
             'package_id' => 'required|exists:packages,id',
         ];
     }

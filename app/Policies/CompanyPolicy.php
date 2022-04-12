@@ -103,6 +103,6 @@ class CompanyPolicy
     public function changePackage(User $user, Company $company)
     {
         $sale = $user->convertToSale();
-        return $user->isSale() && $sale->id == $company->sale_id;
+        return $user->isSale() && $sale->id == $company->sale_id && is_null($company->package);
     }
 }
