@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SelectPackageRequest;
 use App\Http\Requests\StoreCompanyRequest;
 use App\Interfaces\CompanyRepositoryInterface;
 use App\Models\Company;
 use App\Models\Package;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 use Illuminate\Support\Facades\Gate;
 
@@ -78,9 +80,9 @@ class CompanyController extends Controller
     Select the package when company registration
     */
 
-    public function selectPackage(Company $company,Package $package){
+    public function selectPackage(SelectPackageRequest $request){
 
-        return $this->companyRepository->selectPackage($company,$package);
-
+        return $this->companyRepository->selectPackage($request->validated());
+        
     }
 }

@@ -13,5 +13,5 @@ interface CompanyRepositoryInterface
     public function createCompany(array $companyDetails);
     public function updateCompany($companyId, array $newDetails);
     public function createUserForCompany(Company $company);
-    public function selectPackage(Company $company,Package $package);
+    public function selectPackage(array $data);
 }

@@ -44,9 +44,12 @@ class CompanyRepository implements CompanyRepositoryInterface
     {
         
     }
-    public function selectPackage(Company $company, Package $package)
+    public function selectPackage($data)
     {
-        $package->companies()->save($company);
+        $company = Company::find($data['id']);
+        $package = Package::find($data['package_id']);
+
+        $company->package()->associate($package);
 
         return response()->json([
             'package_added' => true
