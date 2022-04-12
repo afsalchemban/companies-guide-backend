@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Company;
+use App\Services\UserSwitchingService;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SelectPackageRequest extends FormRequest
@@ -11,9 +13,10 @@ class SelectPackageRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(UserSwitchingService $userSwitch)
     {
-        return true;
+        $company = Company::find($this->id);
+        return $this->user()->can('changePackage', $company);
     }
 
     /**

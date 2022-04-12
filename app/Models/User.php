@@ -56,10 +56,19 @@ class User extends Authenticatable
      *
      * @var array<string, string>
      */
-    public static function sale():self
+    public static function sale($id=null):self
     {
+        if($id!=null)
+        {
+            return self::find($id); 
+        }
         return self::where('user_type','sale')->inRandomOrder()
                 ->first();
+    }
+
+    public function convertToSale()
+    {
+        return $this->saleUser[0];
     }
 
     /* 

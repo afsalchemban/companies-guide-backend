@@ -3,6 +3,7 @@
 namespace App\Policies;
 
 use App\Models\Company;
+use App\Models\Sale;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -90,5 +91,18 @@ class CompanyPolicy
     public function forceDelete(User $user, Company $company)
     {
         //
+    }
+
+    /**
+     * Determine whether the user can change package
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Company  $company
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function changePackage(User $user, Company $company)
+    {
+        $sale = $user->convertToSale();
+        return $user->isSale() && $sale->id == $company->sale_id;
     }
 }

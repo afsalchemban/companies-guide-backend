@@ -51,6 +51,8 @@ class CompanyRepository implements CompanyRepositoryInterface
 
         $company->package()->associate($package);
 
+        $company->save();
+
         return response()->json([
             'package_added' => true
         ],Response::HTTP_OK);
