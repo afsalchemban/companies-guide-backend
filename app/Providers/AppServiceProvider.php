@@ -36,11 +36,6 @@ class AppServiceProvider extends ServiceProvider
         });
 
         $this->app->bind(DataRepositoryInterface::class, DataRepository::class);
-        
-        
-        $this->app->bind(SaleReportInterface::class, function ($app) {
-            return new SaleReportForAdmin();
-        });
     }
 
     /**

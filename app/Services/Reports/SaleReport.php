@@ -2,18 +2,14 @@
 
 namespace App\Services\Reports;
 
-use App\Http\Resources\SaleReportResource;
-use App\Interfaces\SaleReportInterface;
-use App\Models\Area;
-use App\Models\Package;
-use App\Models\Sale;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
-class SaleReportForSale implements SaleReportInterface
+class SaleReport
 {
-    private $sale;
-    private $package;
-    private $area;
+    protected $sale;
+    protected $package;
+    protected $area;
 
     public function __construct()
     {
@@ -38,9 +34,15 @@ class SaleReportForSale implements SaleReportInterface
         }
     }
 
-    public function generate()
+    public function start()
     {
-        $sale = Auth::user()->userable;
-        return SaleReportResource::collection(Sale::find($sale));
+        if(Auth::user()->isAdmin())
+        {
+            return App::make(SaleReportForAdmin::class);
+        }
+        elseif(Auth::user()->isSale())
+        {
+            return App::make(SaleReportForSale::class);
+        }
     }
 }

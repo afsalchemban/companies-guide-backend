@@ -79,6 +79,14 @@ Route::post('login', [AuthController::class, 'login']);
 api for migrate from server when developing . in future will remove it
 */
 Route::get('migrate', function (Request $request) {
+    Artisan::call('migrate --force');
+    return 'Database Migrated';
+});
+
+/* 
+api for migrate from server when developing . in future will remove it
+*/
+Route::get('migrate/refresh', function (Request $request) {
     Artisan::call('migrate:refresh --force --seed');
     return 'Database Migrated';
 });
