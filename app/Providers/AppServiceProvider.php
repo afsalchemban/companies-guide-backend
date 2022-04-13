@@ -39,15 +39,7 @@ class AppServiceProvider extends ServiceProvider
         
         
         $this->app->bind(SaleReportInterface::class, function ($app) {
-            if($app->request->user()->isSale())
-            {
-                return new SaleReportForSale();
-            }
-            elseif($app->request->user()->isAdmin())
-            {
-                return new SaleReportForAdmin();
-            }
-            throw new Exception("You have no permission");
+            return new SaleReportForAdmin();
         });
     }
 
