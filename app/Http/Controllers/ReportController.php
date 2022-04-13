@@ -12,19 +12,16 @@ use Illuminate\Http\Request;
 
 class ReportController extends Controller
 {
-    public function __construct(SaleReport $saleReport)
-    {
-        $this->saleReport = $saleReport->start();
-    }
     //
-    public function sale(SaleReportRequest $request){
+    public function sale(SaleReportRequest $request,SaleReport $saleReport){
+        $report = $saleReport->start();
+        $report->init($request->validated());
 
-        $this->saleReport->init($request->validated());
-
-        return $this->saleReport->generate();
+        return $report->generate();
     }
 
-    public function company(){
-        return $this->saleReport->generate();
+    public function company(SaleReport $saleReport){
+        $report = $saleReport->start();
+        return $report->generate();
     }
 }
