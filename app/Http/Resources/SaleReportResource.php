@@ -17,7 +17,9 @@ class SaleReportResource extends JsonResource
         return [
             'name' => $this->name,
             'phone_number' => $this->phone_number,
-            'companies_added' => $this->companies->count()
+            'companies_added' => [
+                "total" => $this->companies->count()
+            ]
         ];
     }
 }
