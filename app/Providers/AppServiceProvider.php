@@ -39,9 +39,6 @@ class AppServiceProvider extends ServiceProvider
         
         
         $this->app->bind(SaleReportInterface::class, function ($app) {
-            if($app->request->user()==null){
-                abort(401,"Unauthenticated");
-            }
             if($app->request->user()->isSale())
             {
                 return new SaleReportForSale();
