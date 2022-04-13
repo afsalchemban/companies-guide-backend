@@ -14,6 +14,7 @@ use App\Services\Reports\SaleReportForSale;
 use Illuminate\Support\ServiceProvider;
 use App\Services\UserSwitchingService;
 use Exception;
+use Illuminate\Auth\AuthenticationException;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -36,7 +37,11 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(DataRepositoryInterface::class, DataRepository::class);
         
+        
         $this->app->bind(SaleReportInterface::class, function ($app) {
+            if($app->request->user()==null){
+                abort(401,"Unauthenticated");
+            }
             if($app->request->user()->isSale())
             {
                 return new SaleReportForSale();

@@ -2,6 +2,7 @@
 
 namespace App\Services\Reports;
 
+use App\Http\Resources\SaleReportResource;
 use App\Interfaces\SaleReportInterface;
 use App\Models\Area;
 use App\Models\Package;
@@ -43,6 +44,6 @@ class SaleReportForAdmin implements SaleReportInterface
 
     public function generate()
     {
-        return $this->_extract();
+        return new SaleReportResource(Sale::findOrFail(1));
     }
 }
