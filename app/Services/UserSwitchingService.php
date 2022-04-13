@@ -1,6 +1,10 @@
 <?php
 
 namespace App\Services;
+
+use App\Models\Company;
+use App\Models\Sale;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 
 class UserSwitchingService
@@ -12,6 +16,24 @@ class UserSwitchingService
      */
     public function sale()
     {
-        return Auth::user()->saleUser[0];
+        $user = Auth::user()->userable;
+        if($user instanceof Sale) {
+            return $user;
+        }
+        else
+        {
+            throw new Exception("This user is not sale");
+        }
+    }
+    public function company()
+    {
+        $user = Auth::user()->userable;
+        if($user instanceof Company) {
+            return $user;
+        }
+        else
+        {
+            throw new Exception("This user is not company");
+        }
     }
 }

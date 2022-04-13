@@ -67,15 +67,6 @@ class User extends Authenticatable
                 ->first();
     }
 
-    public function convertToSale()
-    {
-        if(!$this->isSale())
-        {
-            throw new Exception("This is not sale user");
-        }
-        return $this->saleUser[0];
-    }
-
     /* 
     Return current user is admin or not 
     */
@@ -95,9 +86,13 @@ class User extends Authenticatable
         return $this->user_type == 'company';
     }
 
-    public function saleUser()
+    public function userable()
     {
-        return $this->morphedByMany(Sale::class, 'userable');
+        if($this->isAdmin())
+        {
+            throw new Exception("This not allowed in admin user");
+        }
+        return $this->morphTo();
     }
 
 }

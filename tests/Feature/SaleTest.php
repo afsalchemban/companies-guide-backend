@@ -55,7 +55,7 @@ class SaleTest extends TestCase
     {
         $user = User::sale();
         Sanctum::actingAs($user);
-        $sale = $user->convertToSale();
+        $sale = $user->userable;
         $company = Company::factory()->create([
             'sale_id' => $sale->id,
         ]);

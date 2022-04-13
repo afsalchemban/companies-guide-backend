@@ -33,8 +33,8 @@ class SaleRepository implements SaleRepositoryInterface
         $user->password = bcrypt('dummypassword');
         $user->remember_token = Str::random(10);
         $user->user_type = 'sale';
+        $user->userable()->associate($sale);
         $user->save();
-        $user->saleUser()->attach($sale->id);
         return $user;
     }
     public function uploadImage(UploadedFile $file){

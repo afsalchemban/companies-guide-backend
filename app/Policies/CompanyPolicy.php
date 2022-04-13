@@ -102,7 +102,7 @@ class CompanyPolicy
      */
     public function changePackage(User $user, Company $company)
     {
-        $sale = $user->convertToSale();
+        $sale = $user->userable;
         return $user->isSale() && $sale->id == $company->sale_id && is_null($company->package);
     }
 }

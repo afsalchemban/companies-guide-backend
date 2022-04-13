@@ -13,7 +13,7 @@ class Sale extends Model
 
     public function user()
     {
-        return $this->morphToMany(User::class, 'userable');
+        return $this->morphOne(User::class, 'imageable');
     }
 
     public function companies()

@@ -41,14 +41,10 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('dummypassword'), // password
             'remember_token' => Str::random(10),
             'user_type' => 'sale',
-        ]);
-
-        DB::table('userables')->insert([
-            'user_id' => 2,
             'userable_id' => 1,
             'userable_type' => 'App\Models\Sale'
         ]);
-
+        
         DB::unprepared("INSERT INTO `reports` (`name`) VALUES
         ('Sale'),
         ('Company');");
