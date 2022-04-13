@@ -28,7 +28,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('report')->group(function () {
 
-        Route::get('/sale/{sale}/{package}/{area}', [ReportController::class, 'sale']);
+        Route::get('/sale', [ReportController::class, 'sale']);
         Route::get('/company', [ReportController::class, 'company']);
 
     });

@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Models\Company;
-use App\Services\UserSwitchingService;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SelectPackageRequest extends FormRequest
@@ -17,6 +17,11 @@ class SelectPackageRequest extends FormRequest
     {
         $company = Company::find($this->company_id);
         return $this->user()->can('changePackage', $company);
+    }
+
+    protected function failedAuthorization()
+    {
+        throw new AuthorizationException('You are not authorized');
     }
 
     /**

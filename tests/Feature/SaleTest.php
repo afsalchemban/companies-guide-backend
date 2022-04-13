@@ -32,7 +32,12 @@ class SaleTest extends TestCase
         Sanctum::actingAs($user);
         $company = Company::factory()->make();
         $this->json('post', 'api/company', $company->toArray())
-         ->assertStatus(Response::HTTP_CREATED);
+         ->assertStatus(Response::HTTP_CREATED)->assertJsonStructure(
+            [
+                'business_name',
+                'id'
+            ]
+        );
         $this->assertDatabaseHas('companies', $company->toArray());
 
     }
@@ -48,9 +53,14 @@ class SaleTest extends TestCase
 
     public function test_package_selected_successfully()
     {
-        Sanctum::actingAs(User::sale(2));
+        $user = User::sale();
+        Sanctum::actingAs($user);
+        $sale = $user->convertToSale();
+        $company = Company::factory()->create([
+            'sale_id' => $sale->id,
+        ]);
         $payload = [
-            'company_id' => 1,
+            'company_id' => $company->id,
             'package_id'  => 1
         ];
         $this->json('put', 'api/company/company_select_package', $payload)

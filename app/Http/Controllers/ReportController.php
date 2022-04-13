@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SaleReportRequest;
 use App\Interfaces\SaleReportInterface;
 use App\Models\Area;
 use App\Models\Package;
@@ -15,13 +16,9 @@ class ReportController extends Controller
         $this->saleReport = $saleReport;
     }
     //
-    public function sale(Sale $sale, Package $package, Area $area){
+    public function sale(SaleReportRequest $request){
 
-        $this->saleReport->init([
-            'sale' => $sale,
-            'package' => $package,
-            'area' => $area
-        ]);
+        $this->saleReport->init($request->validated());
 
         return $this->saleReport->generate();
     }

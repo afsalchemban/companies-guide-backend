@@ -9,9 +9,11 @@ use App\Interfaces\SaleRepositoryInterface;
 use App\Repositories\SaleRepository;
 use App\Repositories\DataRepository;
 use App\Repositories\CompanyRepository;
-use App\Services\Reports\SaleReport;
+use App\Services\Reports\SaleReportForAdmin;
+use App\Services\Reports\SaleReportForSale;
 use Illuminate\Support\ServiceProvider;
 use App\Services\UserSwitchingService;
+use Exception;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -34,7 +36,17 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(DataRepositoryInterface::class, DataRepository::class);
         
-        $this->app->bind(SaleReportInterface::class, SaleReport::class);
+        $this->app->bind(SaleReportInterface::class, function ($app) {
+            if($app->request->user()->isSale())
+            {
+                return new SaleReportForSale();
+            }
+            elseif($app->request->user()->isAdmin())
+            {
+                return new SaleReportForAdmin();
+            }
+            throw new Exception("You have no permission");
+        });
     }
 
     /**
