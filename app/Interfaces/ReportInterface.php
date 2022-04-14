@@ -2,11 +2,7 @@
 
 namespace App\Interfaces;
 
-use App\Models\Area;
-use App\Models\Package;
-use App\Models\Sale;
-
-interface SaleReportInterface
+interface ReportInterface
 {
     public function init(array $filters);
     public function generate();

@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CompanyReportRequest;
 use App\Http\Requests\SaleReportRequest;
-use App\Interfaces\SaleReportInterface;
-use App\Models\Area;
-use App\Models\Package;
-use App\Models\Sale;
+use App\Services\Reports\Company\CompanyReport;
 use App\Services\Reports\Sale\SaleReport;
-use Illuminate\Http\Request;
 
 class ReportController extends Controller
 {
@@ -21,9 +18,11 @@ class ReportController extends Controller
         return $report->generate();
     }
 
-    public function company(SaleReport $saleReport){
+    public function company(CompanyReportRequest $request, CompanyReport $companyReport){
         
-        $report = $saleReport->start();
+        $report = $companyReport->start();
+        
+        $report->init($request->validated());
         return $report->generate();
     }
 }

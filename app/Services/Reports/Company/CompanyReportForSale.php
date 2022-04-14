@@ -1,16 +1,13 @@
 <?php
 
-namespace App\Services\Reports\Sale;
+namespace App\Services\Reports\Company;
 
-use App\Http\Resources\SaleReportResource;
 use App\Interfaces\ReportInterface;
-use App\Models\Sale;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 
-class SaleReportForSale extends SaleReport implements ReportInterface 
+class CompanyReportForSale extends CompanyReport implements ReportInterface 
 {
-
     private function _extract()
     {
         $sale = Auth::user()->userable;
