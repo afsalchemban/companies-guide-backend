@@ -28,8 +28,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('report')->group(function () {
 
-        Route::get('/sale', [ReportController::class, 'sale']);
-        Route::get('/company', [ReportController::class, 'company']);
+        Route::post('/sale', [ReportController::class, 'sale']);
+        Route::post('/company', [ReportController::class, 'company']);
 
     });
 

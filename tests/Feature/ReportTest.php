@@ -19,14 +19,14 @@ class ReportTest extends TestCase
     public function test_report_sale()
     {
         Sanctum::actingAs(User::admin());
-        $response = $this->get('/api/report/sale')
+        $response = $this->post('/api/report/sale')
         ->assertStatus(Response::HTTP_OK);
     }
 
     public function test_report_company()
     {
         Sanctum::actingAs(User::admin());
-        $response = $this->get('/api/report/company')
+        $response = $this->post('/api/report/company')
         ->assertStatus(Response::HTTP_OK);
     }
 }
