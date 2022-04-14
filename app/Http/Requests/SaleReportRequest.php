@@ -24,7 +24,7 @@ class SaleReportRequest extends FormRequest
     public function rules()
     {
         return [
-            'sale_id' => 'nullable|exists:companies,id',
+            'sale_id' => 'nullable|exists:sales,id',
             'package_id' => 'nullable|exists:packages,id',
             'area_id' => 'nullable|exists:areas,id',
         ];

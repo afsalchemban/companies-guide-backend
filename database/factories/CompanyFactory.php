@@ -23,7 +23,7 @@ class CompanyFactory extends Factory
             'phone_number' => $this->faker->phoneNumber(),
             'landline_number' => $this->faker->phoneNumber(),
             'trade_license_number' => $this->faker->text(),
-            'activities' => $this->faker->text(),
+            'company_activity_id' => 1,
             'legal_status' => $this->faker->text(),
             'issued_by' => $this->faker->text(),
             'country_id' => 1,

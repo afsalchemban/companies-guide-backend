@@ -35,7 +35,7 @@ class StoreCompanyRequest extends FormRequest
             'phone_number' => 'required|unique:companies',
             'landline_number' => 'required|unique:companies',
             'trade_license_number' => 'required',
-            'activities' => 'required',
+            'company_activity_id' => 'required',
             'legal_status' => 'required',
             'issued_by' => 'required',
             'country_id' => 'required|integer',

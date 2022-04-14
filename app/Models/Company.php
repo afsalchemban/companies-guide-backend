@@ -25,4 +25,9 @@ class Company extends Model
     {
         return $this->belongsTo(Package::class);
     }
+
+    public function companyActivity()
+    {
+        return $this->belongsTo(CompanyActivity::class);
+    }
 }

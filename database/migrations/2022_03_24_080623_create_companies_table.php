@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('phone_number')->unique();
             $table->string('landline_number');
             $table->string('trade_license_number');
-            $table->string('activities');
+            $table->unsignedBigInteger('company_activity_id');
             $table->string('legal_status');
             $table->string('issued_by');
             $table->unsignedBigInteger('country_id');
@@ -41,6 +41,7 @@ return new class extends Migration
             $table->foreign('city_id')->references('id')->on('cities')->onDelete('restrict');
             $table->foreign('area_id')->references('id')->on('areas')->onDelete('restrict');
             $table->foreign('package_id')->references('id')->on('packages')->onDelete('restrict');
+            $table->foreign('company_activity_id')->references('id')->on('company_activities')->onDelete('restrict');
         });
     }
 

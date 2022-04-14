@@ -16,7 +16,7 @@ class ReportTest extends TestCase
      *
      * @return void
      */
-    public function test_report_sale()
+    public function test_sale_report_for_admin()
     {
         Sanctum::actingAs(User::admin());
         $payload = [
@@ -27,9 +27,25 @@ class ReportTest extends TestCase
         ->assertStatus(Response::HTTP_OK);
     }
 
-    public function test_report_company()
+    public function test_sale_report_for_sale()
+    {
+        Sanctum::actingAs(User::sale());
+        $payload = [
+            'sale_id' => null,
+            'package_id' => null,
+        ];
+        $response = $this->post('/api/report/sale',$payload)
+        ->assertStatus(Response::HTTP_OK);
+    }
+
+    public function test_company_report_for_admin()
     {
         Sanctum::actingAs(User::admin());
+        $payload = [
+            'sale_id' => null,
+            'package_id' => null,
+            'package_id' => null,
+        ];
         $response = $this->post('/api/report/company')
         ->assertStatus(Response::HTTP_OK);
     }
