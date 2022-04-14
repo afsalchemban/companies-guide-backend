@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Company;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -2568,5 +2569,9 @@ class DatabaseSeeder extends Seeder
         (2123, 'Rent a car'),
         (2124, 'Rental'),
         (2125, 'Properties')");
+
+        Company::factory()
+        ->count(4)
+        ->create(['sale_id' => 1]);
     }
 }
