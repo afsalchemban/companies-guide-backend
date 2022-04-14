@@ -6,6 +6,7 @@ use App\Interfaces\DataRepositoryInterface;
 use App\Models\City;
 use App\Models\CompanyActivity;
 use App\Models\Country;
+use App\Models\Sale;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Response;
 
@@ -58,6 +59,13 @@ class DataRepository implements DataRepositoryInterface
     {
         return response()->json([
             'packages' => DB::select('select id ,name, price from packages')
+        ]);
+    }
+    public function searchSales($param)
+    {
+        return response()->json([
+            'sales' => Sale::where('name', 'like', $param.'%')->orderBy('name')
+            ->take(10)->get()
         ]);
     }
 }

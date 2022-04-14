@@ -4,43 +4,25 @@ namespace App\Services\Reports;
 
 use App\Http\Resources\SaleReportResource;
 use App\Interfaces\SaleReportInterface;
-use App\Models\Area;
-use App\Models\Package;
 use App\Models\Sale;
 use Illuminate\Support\Facades\Auth;
 
-class SaleReportForSale implements SaleReportInterface
+class SaleReportForSale extends SaleReport implements SaleReportInterface 
 {
-    private $sale;
-    private $package;
-    private $area;
 
-    public function __construct()
+    private function _extract()
     {
-        $this->sale = null;
-        $this->package = null;
-        $this->area = null;
+        $sale = Auth::user()->userable;
+        return SaleReportResource::collection(Sale::withCount('companies')->where('id',$sale->id)->get());
     }
 
-    public function init(array $filters)
-    {
-        if(array_key_exists('sale_id', $filters))
-        {
-            $this->sale = $filters['sale_id'];
-        }
-        if(array_key_exists('package_id', $filters))
-        {
-            $this->package = $filters['package_id'];
-        }
-        if(array_key_exists('area_id', $filters))
-        {
-            $this->area = $filters['area_id'];
-        }
+    private function _filterBySale(){
+        $sale = Sale::find($this->sale);
+        return new SaleReportResource($sale);
     }
 
     public function generate()
     {
-        $sale = Auth::user()->userable;
-        return SaleReportResource::collection(Sale::find($sale));
+        return $this->_extract();
     }
 }

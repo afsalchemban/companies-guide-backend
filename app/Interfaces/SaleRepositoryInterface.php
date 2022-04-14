@@ -15,4 +15,5 @@ interface SaleRepositoryInterface
     public function createUserForSale(Sale $sale);
     public function uploadImage(UploadedFile $file);
     public function updateImagePath($path);
+    public function getCompaniesWithPackage($package_id);
 }

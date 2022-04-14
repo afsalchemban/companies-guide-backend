@@ -15,4 +15,5 @@ interface DataRepositoryInterface
     public function issuedBy();
     public function getReports();
     public function getPackages();
+    public function searchSales($param);
 }

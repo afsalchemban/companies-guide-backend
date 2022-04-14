@@ -7,26 +7,40 @@ use App\Interfaces\SaleReportInterface;
 use App\Models\Area;
 use App\Models\Package;
 use App\Models\Sale;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class SaleReportForAdmin extends SaleReport implements SaleReportInterface 
 {
 
-    private function _extract()
-    {
-        if($this->sale!=null)
+    private function _execute()
+    {   
+        
+        if($this->sale==null)
         {
-            return $this->_extractBySale();
+            return SaleReportResource::collection(Sale::withCount(['companies' => function (Builder $query) {
+
+                if($this->package!=null)
+                { $query->where('package_id',$this->package); }
+                if($this->area!=null)
+                { $query->where('area_id',$this->area); }
+
+            }])->get());
         }
-        return SaleReportResource::collection(Sale::all());
-    }
+        else
+        {
+            return SaleReportResource::collection(Sale::withCount(['companies' => function (Builder $query) {
 
-    private function _extractBySale(){
-        $sale = Sale::find($this->sale);
-        return new SaleReportResource($sale);
-    }
+                if($this->package!=null)
+                { $query->where('package_id',$this->package); }
+                if($this->area!=null)
+                { $query->where('area_id',$this->area); }
 
+            }])->where('id',$this->sale)->get()); 
+        }
+        
+    }
     public function generate()
     {
-        return $this->_extract();
+        return $this->_execute();
     }
 }

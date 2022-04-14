@@ -14,14 +14,17 @@ class ReportController extends Controller
 {
     //
     public function sale(SaleReportRequest $request,SaleReport $saleReport){
-        $report = $saleReport->start();
-        $report->init($request->validated());
 
+        $report = $saleReport->start();
+
+        $report->init($request->validated());
         return $report->generate();
     }
 
     public function company(SaleReport $saleReport){
+
         $report = $saleReport->start();
+        
         return $report->generate();
     }
 }

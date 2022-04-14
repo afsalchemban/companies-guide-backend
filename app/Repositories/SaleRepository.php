@@ -48,4 +48,8 @@ class SaleRepository implements SaleRepositoryInterface
     {
         return $path;
     }
+    public function getCompaniesWithPackage($package_id)
+    {
+        return $package_id;
+    }
 }

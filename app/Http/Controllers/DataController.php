@@ -35,6 +35,10 @@ class DataController extends Controller
         return $this->dataRepository->getCompanyActivities($param);
     }
 
+    public function searchSales(Request $request,$param){
+        return $this->dataRepository->searchSales($param);
+    }
+
     public function countries(){
         return $this->dataRepository->getCountries();
     }

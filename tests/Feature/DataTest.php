@@ -32,7 +32,7 @@ class DataTest extends TestCase
     /* 
     Test for company activities
     */
-    public function test_get_company_activities()
+    public function test_get_company_activities_by_search_text()
     {
         $response = $this->getJson('/api/data/company_activities/a')
         ->assertStatus(Response::HTTP_OK)
@@ -174,6 +174,24 @@ class DataTest extends TestCase
                 ]
             ]
         );
+
+    }
+
+    /* 
+    Test for company activities
+    */
+    public function test_get_sales_by_search_text()
+    {
+        $response = $this->getJson('/api/data/search_sales/a')
+        ->assertStatus(Response::HTTP_OK)
+        ->assertJsonStructure([
+            'sales' => [
+                '*' => [
+                     'name',
+                     'id'
+                ]
+            ]
+        ]);
 
     }
 }
