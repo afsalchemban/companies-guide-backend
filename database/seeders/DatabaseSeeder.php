@@ -33,6 +33,14 @@ class DatabaseSeeder extends Seeder
             'gender' => 'Male',
             'dob' => '1990-03-03'
         ]);
+
+        DB::table('sales')->insert([
+            'name' => 'Shady',
+            'email' => 'es@es.com',
+            'phone_number' => '12345',
+            'gender' => 'Male',
+            'dob' => '1980-03-03'
+        ]);
         
 
         DB::table('users')->insert([
@@ -43,6 +51,17 @@ class DatabaseSeeder extends Seeder
             'remember_token' => Str::random(10),
             'user_type' => 'sale',
             'userable_id' => 1,
+            'userable_type' => 'App\Models\Sale'
+        ]);
+
+        DB::table('users')->insert([
+            'name' => 'Shady',
+            'email' => 'es@es.com',
+            'email_verified_at' => now(),
+            'password' => bcrypt('dummypassword'), // password
+            'remember_token' => Str::random(10),
+            'user_type' => 'sale',
+            'userable_id' => 2,
             'userable_type' => 'App\Models\Sale'
         ]);
         
@@ -2569,9 +2588,10 @@ class DatabaseSeeder extends Seeder
         (2123, 'Rent a car'),
         (2124, 'Rental'),
         (2125, 'Properties')");
-
-        Company::factory()
-        ->count(4)
-        ->create(['sale_id' => 1]);
+        DB::unprepared("  INSERT INTO `companies` (`id`, `business_name`, `email`, `phone_number`, `landline_number`, `trade_license_number`, `company_activity_id`, `legal_status`, `issued_by`, `country_id`, `city_id`, `area_id`, `person_in_charge_name`, `person_in_charge_designation`, `person_in_charge_email`, `person_in_charge_mobile`, `person_in_charge_country`, `package_id`, `sale_id`, `created_at`, `updated_at`) VALUES
+        (1, 'Elisa Prosacco PhD', 'cordia76@example.net', '1-206-422-9544', '+1.986.596.5329', 'Nam qui quia a. Fuga dolorem consequatur quas reiciendis et aspernatur et. Eaque quidem cumque sed expedita id quisquam molestias natus.', 1, 'Corporis rerum atque delectus. Corporis in ex esse nihil sint. Atque dolores iusto id est unde quibusdam est.', 'Rerum et fugiat eaque aperiam. Laudantium repellendus reprehenderit fugit sequi. Neque eius et pariatur dolorum error veritatis voluptas.', 1, 1, 1, 'Mr. Reginald Watsica Jr.', 'Vel aspernatur saepe expedita corporis corporis animi. Dolor asperiores pariatur praesentium qui explicabo blanditiis. Blanditiis ut dignissimos quos ipsam beatae sunt similique.', 'michaela36@example.net', '1-603-257-5487', 'Cum placeat magni excepturi hic. Rerum perspiciatis sed perferendis enim.', 1, 1, '2022-04-14 10:27:29', '2022-04-14 10:27:29'),
+        (2, 'Hermann Streich Jr.', 'alana.padberg@example.org', '469.326.3518', '(520) 854-7829', 'Tempore et omnis tempora ut saepe. Excepturi similique harum quod sequi tenetur quibusdam dignissimos. Dolorum voluptate aliquam quasi.', 1, 'Cupiditate modi aut rem molestiae et officia. Esse est et natus accusamus delectus. Est unde qui eaque est rerum minima.', 'Repellendus dolor cupiditate maiores ab. Dolor nam illum ducimus tenetur. Voluptatem iusto in inventore facilis voluptas quaerat. Accusamus odio quos dicta aut natus.', 1, 1, 1, 'Prof. Jordy Pfannerstill II', 'Assumenda eveniet qui neque at velit. Non voluptatem voluptatibus et. Deserunt dolorem voluptatem eveniet repellendus. Omnis minus hic eaque culpa vero.', 'libbie63@example.net', '1-619-389-0349', 'Optio nesciunt est ipsum ea. Expedita est neque corporis dolore doloribus. Occaecati est est et est nobis ullam. Rerum voluptatem accusantium saepe veniam sit mollitia laborum qui.', 2, 2, '2022-04-14 10:27:29', '2022-04-14 10:27:29'),
+        (3, 'Sheila Auer', 'efren31@example.com', '+1.906.433.1286', '(320) 529-6710', 'Aut cupiditate accusantium non. Mollitia ex eum quod aut repellendus sint beatae. Ea pariatur praesentium recusandae dolores quis id amet. Voluptatem quas exercitationem voluptates autem sunt dicta.', 1, 'Alias est adipisci expedita aperiam asperiores veniam quia non. Debitis asperiores facilis voluptate aut eius et sint. Ut minima voluptate aliquid quia.', 'Eius quisquam et nostrum minus libero quae officiis. Fuga laudantium dignissimos dolor quo. Ut sit quisquam asperiores a et sunt voluptas laudantium.', 1, 1, 1, 'Ms. Courtney Huels IV', 'Est laboriosam autem qui sint qui sapiente aspernatur. Dolor hic inventore voluptatem placeat. Dolor dolor illo expedita ut vitae.', 'macy87@example.com', '+15599494811', 'Et voluptas minus assumenda corrupti. Omnis delectus nisi sequi enim blanditiis. Ut sint atque nemo eum. Laudantium velit repudiandae quo quis omnis quibusdam.', 3, 2, '2022-04-14 10:27:29', '2022-04-14 10:27:29'),
+        (4, 'Jessie Welch', 'hiram45@example.com', '1-830-333-5975', '1-747-323-1075', 'Nesciunt voluptatem iusto et officiis consequatur. Dolor omnis modi aliquam quia nemo. Velit odio maxime molestiae impedit eos.', 1, 'Repellendus laudantium sunt sit. Et dolores blanditiis accusantium ut ratione laborum. Molestiae quidem magni dolore minima adipisci. Mollitia qui aspernatur fugit enim.', 'Fuga iusto voluptatum nisi recusandae ex culpa. Voluptates sed reprehenderit ut ex atque adipisci sed.', 1, 1, 1, 'Turner Simonis', 'Pariatur dolor tenetur consectetur ea repellat enim doloribus. Ad illo eveniet neque sint. Et voluptatem aspernatur quia vero non.', 'dolores88@example.com', '+17473507267', 'Tempore aliquid molestias dolorem aut aperiam est sed. Corporis quo accusantium id aliquid deleniti. Eius reiciendis voluptas ut eum natus quia.', 1, 1, '2022-04-14 10:27:29', '2022-04-14 10:27:29');");
     }
 }
