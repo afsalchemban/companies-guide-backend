@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Reports;
+namespace App\Services\Reports\Sale;
 
 use App\Http\Resources\SaleReportResource;
 use App\Interfaces\SaleReportInterface;
@@ -21,8 +21,6 @@ class SaleReportForAdmin extends SaleReport implements SaleReportInterface
 
                 if($this->package!=null)
                 { $query->where('package_id',$this->package); }
-                if($this->area!=null)
-                { $query->where('area_id',$this->area); }
 
             }])->get());
         }
@@ -32,8 +30,6 @@ class SaleReportForAdmin extends SaleReport implements SaleReportInterface
 
                 if($this->package!=null)
                 { $query->where('package_id',$this->package); }
-                if($this->area!=null)
-                { $query->where('area_id',$this->area); }
 
             }])->where('id',$this->sale)->get()); 
         }

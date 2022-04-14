@@ -65,7 +65,7 @@ class DataRepository implements DataRepositoryInterface
     {
         return response()->json([
             'sales' => Sale::where('name', 'like', $param.'%')->orderBy('name')
-            ->take(10)->get()
+            ->take(10)->get(['id','name'])
         ]);
     }
 }

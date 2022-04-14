@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Reports;
+namespace App\Services\Reports\Sale;
 
 use App\Http\Resources\SaleReportResource;
 use App\Interfaces\SaleReportInterface;

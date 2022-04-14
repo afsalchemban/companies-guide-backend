@@ -19,7 +19,11 @@ class ReportTest extends TestCase
     public function test_report_sale()
     {
         Sanctum::actingAs(User::admin());
-        $response = $this->post('/api/report/sale')
+        $payload = [
+            'sale_id' => null,
+            'package_id' => null,
+        ];
+        $response = $this->post('/api/report/sale',$payload)
         ->assertStatus(Response::HTTP_OK);
     }
 

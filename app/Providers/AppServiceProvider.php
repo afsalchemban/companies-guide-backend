@@ -9,8 +9,6 @@ use App\Interfaces\SaleRepositoryInterface;
 use App\Repositories\SaleRepository;
 use App\Repositories\DataRepository;
 use App\Repositories\CompanyRepository;
-use App\Services\Reports\SaleReportForAdmin;
-use App\Services\Reports\SaleReportForSale;
 use Illuminate\Support\ServiceProvider;
 use App\Services\UserSwitchingService;
 use Exception;

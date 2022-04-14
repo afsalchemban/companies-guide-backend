@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Reports;
+namespace App\Services\Reports\Sale;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -9,13 +9,11 @@ class SaleReport
 {
     protected $sale;
     protected $package;
-    protected $area;
 
     public function __construct()
     {
         $this->sale = null;
         $this->package = null;
-        $this->area = null;
     }
 
     public function init(array $filters)
@@ -27,10 +25,6 @@ class SaleReport
         if(array_key_exists('package_id', $filters))
         {
             $this->package = $filters['package_id'];
-        }
-        if(array_key_exists('area_id', $filters))
-        {
-            $this->area = $filters['area_id'];
         }
     }
 

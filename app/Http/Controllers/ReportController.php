@@ -7,7 +7,7 @@ use App\Interfaces\SaleReportInterface;
 use App\Models\Area;
 use App\Models\Package;
 use App\Models\Sale;
-use App\Services\Reports\SaleReport;
+use App\Services\Reports\Sale\SaleReport;
 use Illuminate\Http\Request;
 
 class ReportController extends Controller
@@ -22,9 +22,8 @@ class ReportController extends Controller
     }
 
     public function company(SaleReport $saleReport){
-
-        $report = $saleReport->start();
         
+        $report = $saleReport->start();
         return $report->generate();
     }
 }
