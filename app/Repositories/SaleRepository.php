@@ -38,7 +38,7 @@ class SaleRepository implements SaleRepositoryInterface
         return $user;
     }
     public function uploadImage(UploadedFile $file){
-        if($path = Storage::putFile('sales-profile-images', $file))
+        if($path = Storage::putFile('sales/profile-images', $file))
         {
             return $path;
         }

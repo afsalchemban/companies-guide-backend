@@ -30,7 +30,7 @@ class UpdateCompanyRequest extends FormRequest
             'phone_number' => 'required',
             'landline_number' => 'required',
             'trade_license_number' => 'required',
-            'company_activity_id' => 'required',
+            'company_activity_id' => 'required|integer',
             'legal_status' => 'required',
             'issued_by' => 'required',
             'country_id' => 'required|integer',
