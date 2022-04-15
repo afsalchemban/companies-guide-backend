@@ -2,7 +2,9 @@
 
 namespace App\Services\Reports\Company;
 
+use App\Http\Resources\CompanyReportResource;
 use App\Interfaces\ReportInterface;
+use App\Models\Company;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,13 +12,20 @@ class CompanyReportForSale extends CompanyReport implements ReportInterface
 {
     private function _extract()
     {
-        $sale = Auth::user()->userable;
-        return SaleReportResource::collection(Sale::withCount(['companies' => function (Builder $query) {
+        
+        $results = Company::with(['package:id,name','companyActivity:id,title','sale:id,name'])->where(function (Builder $query) {
+           
+            $sale = Auth::user()->userable;
+            $query->where('sale_id',$sale->id);
 
             if($this->package!=null)
             { $query->where('package_id',$this->package); }
 
-        }])->where('id',$sale->id)->get()); 
+            if($this->activity!=null)
+            { $query->where('company_activity_id',$this->activity); }
+
+        })->get();
+        return CompanyReportResource::collection($results);
     }
 
     public function generate()

@@ -47,6 +47,18 @@ class ReportTest extends TestCase
             'company_activity_id' => null,
         ];
         $response = $this->post('/api/report/company',$payload)
-        ->assertStatus(Response::HTTP_OK)->dd();
+        ->assertStatus(Response::HTTP_OK);
+    }
+
+    public function test_company_report_for_sale()
+    {
+        Sanctum::actingAs(User::sale());
+        $payload = [
+            'sale_id' => null,
+            'package_id' => null,
+            'company_activity_id' => null,
+        ];
+        $response = $this->post('/api/report/company',$payload)
+        ->assertStatus(Response::HTTP_OK);
     }
 }
