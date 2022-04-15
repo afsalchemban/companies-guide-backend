@@ -82,8 +82,8 @@ class SaleController extends Controller
         //convert user to sale user
         return true;
     }
-    public function uploadImage(UploadProfileImageSaleRequest $request)
+    public function uploadProfileImage(UploadProfileImageSaleRequest $request)
     {
-        return $this->saleRepository->updateImagePath($this->saleRepository->uploadImage($request->validated()['profile-image']));
+        return $this->saleRepository->updateImagePath($this->saleRepository->uploadImage($request->validated()['file']));
     }
 }

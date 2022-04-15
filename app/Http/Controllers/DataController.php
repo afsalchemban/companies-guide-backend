@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\Reports\ReportInterface;
 use App\Interfaces\DataRepositoryInterface;
 use App\Models\City;
+use App\Models\Company;
 use App\Models\Country;
 use Exception;
 use Illuminate\Http\Request;
@@ -78,10 +79,8 @@ class DataController extends Controller
     public function test2(){
 
 
-        $disk = Storage::disk('gcs');
-
-        $disk->put('example.txt', 'Contents');
-        dd($disk);
+        $company = Company::find(1);
+        dd($company);
         
     }
 }

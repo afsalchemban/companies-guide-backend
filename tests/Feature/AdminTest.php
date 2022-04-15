@@ -42,6 +42,18 @@ class AdminTest extends TestCase
         $this->assertDatabaseHas('sales', $sale->toArray());
 
     }
+
+    public function test_admin_can_update_company(){
+
+        Sanctum::actingAs(User::admin());
+        $company = Company::factory()->make([
+            'email' => Company::find(1)->email,
+        ]);
+        $this->json('put', 'api/company/1', $company->toArray())
+         ->assertStatus(Response::HTTP_OK);
+
+    }
+
     public function test_admin_cannot_create_company(){
 
         Sanctum::actingAs(User::admin());
@@ -61,8 +73,8 @@ class AdminTest extends TestCase
         Sanctum::actingAs(User::admin());
         $file = UploadedFile::fake()->image('avatar.jpg');
  
-        $this->post('api/sale/upload_image', [
-            'profile-image' => $file,
+        $this->post('api/sale/upload_profile_image', [
+            'file' => $file,
         ])->assertStatus(Response::HTTP_OK);
 
         Storage::disk('local')->assertExists('sales-profile-images/'.$file->hashName());

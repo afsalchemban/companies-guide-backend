@@ -37,8 +37,9 @@ class CompanyRepository implements CompanyRepositoryInterface
 
         return $company;
     }
-    public function updateCompany($companyId, array $newDetails){
-        return Company::whereId($companyId)->update($newDetails);
+    public function updateCompany(Company $company, array $newDetails)
+    {
+        return $company->update($newDetails);
     }
     public function createUserForCompany(Company $company)
     {

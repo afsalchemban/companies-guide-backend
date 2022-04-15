@@ -24,7 +24,7 @@ class UploadProfileImageSaleRequest extends FormRequest
     public function rules()
     {
         return [
-            'profile-image' => 'required|image'
+            'file' => 'required|image'
         ];
     }
 }

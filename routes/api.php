@@ -36,7 +36,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('sale')->group(function () {
 
         Route::get('/dashboard', [SaleController::class, 'dashboard']);
-        Route::post('/upload_image', [SaleController::class, 'uploadImage']);
+        Route::post('/upload_profile_image', [SaleController::class, 'uploadProfileImage']);
 
     });
 
