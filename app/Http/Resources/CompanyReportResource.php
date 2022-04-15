@@ -19,6 +19,7 @@ class CompanyReportResource extends JsonResource
             'phone_number' => $this->phone_number,
             'package' => $this->package,
             'activity' => $this->companyActivity,
+            'adderd_by' => $this->sale,
         ];
     }
 }
