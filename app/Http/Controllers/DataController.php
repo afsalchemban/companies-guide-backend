@@ -77,7 +77,11 @@ class DataController extends Controller
     
     public function test2(){
 
-        throw new Exception("Value must be 1 or below");
+
+        $disk = Storage::disk('gcs');
+
+        $disk->put('example.txt', 'Contents');
+        dd($disk);
         
     }
 }
