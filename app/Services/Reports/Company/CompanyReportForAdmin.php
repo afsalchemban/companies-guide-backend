@@ -11,7 +11,7 @@ class CompanyReportForAdmin extends CompanyReport implements ReportInterface
 {
     private function _execute()
     {   
-        $results = Company::with(['package:id,name','companyActivity:id,title'])->where(function (Builder $query) {
+        $results = Company::with(['package:id,name','companyActivity:id,title','sale:id,name'])->where(function (Builder $query) {
 
             if($this->package!=null)
             { $query->where('package_id',$this->package); }
