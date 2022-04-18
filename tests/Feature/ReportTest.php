@@ -42,7 +42,7 @@ class ReportTest extends TestCase
     {
         Sanctum::actingAs(User::admin());
         $payload = [
-            'sale_id' => null,
+            'company_id' => null,
             'package_id' => null,
             'company_activity_id' => null,
         ];
@@ -54,7 +54,7 @@ class ReportTest extends TestCase
     {
         Sanctum::actingAs(User::sale());
         $payload = [
-            'sale_id' => null,
+            'company_id' => null,
             'package_id' => null,
             'company_activity_id' => null,
         ];

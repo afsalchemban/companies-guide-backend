@@ -7,22 +7,22 @@ use Illuminate\Support\Facades\Auth;
 
 class CompanyReport
 {
-    protected $sale;
+    protected $company;
     protected $package;
     protected $activity;
 
     public function __construct()
     {
-        $this->sale = null;
+        $this->company = null;
         $this->package = null;
         $this->activity = null;
     }
 
     public function init(array $filters)
     {
-        if(array_key_exists('sale_id', $filters))
+        if(array_key_exists('company_id', $filters))
         {
-            $this->sale = $filters['sale_id'];
+            $this->company = $filters['company_id'];
         }
         if(array_key_exists('package_id', $filters))
         {

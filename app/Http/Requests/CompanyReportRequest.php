@@ -24,7 +24,7 @@ class CompanyReportRequest extends FormRequest
     public function rules()
     {
         return [
-            'sale_id' => 'nullable|exists:sales,id',
+            'company_id' => 'nullable|exists:companies,id',
             'package_id' => 'nullable|exists:packages,id',
             'company_activity_id' => 'nullable|exists:company_activities,id',
         ];
