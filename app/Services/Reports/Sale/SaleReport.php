@@ -2,6 +2,7 @@
 
 namespace App\Services\Reports\Sale;
 
+use App\Models\Sale;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +17,7 @@ class SaleReport
         $this->package = null;
     }
 
-    public function init(array $filters,array $overrides = [])
+    public function init(array $filters)
     {
         if(array_key_exists('sale_id', $filters))
         {
@@ -26,26 +27,15 @@ class SaleReport
         {
             $this->package = $filters['package_id'];
         }
-        // can override the default init values
-        $this->_override($overrides);
     }
 
-    private function _override(array $overrides)
-    {
-        if(array_key_exists('sale_id', $overrides))
-        {
-            $this->sale = $overrides['sale_id'];
-        }
-        if(array_key_exists('package_id', $overrides))
-        {
-            $this->package = $overrides['package_id'];
-        }
-    }
-
-    public function start()
+    public function start(Sale $sale = null)
     {
         if(Auth::user()->isAdmin())
         {
+            if($sale != null) {
+                return App::make(SingleSaleReportForAdmin::class);
+            }
             return App::make(SaleReportForAdmin::class);
         }
         elseif(Auth::user()->isSale())

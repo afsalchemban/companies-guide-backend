@@ -33,11 +33,13 @@ class ReportTest extends TestCase
         $response = $this->post('/api/report/sale/1')
         ->assertStatus(Response::HTTP_OK)->assertJsonStructure(
             [
-                'data' => [
-                    '*' => [
-                        'name'
+               
+                    'data' => [
+                        'id',
+                        'name',
+                        'companies'
                     ]
-                ]
+                
             ]
         );
     }
@@ -66,6 +68,7 @@ class ReportTest extends TestCase
             [
                 'data' => [
                     '*' => [
+                        'id',
                         'business_name',
                         'created_at'
                     ]
