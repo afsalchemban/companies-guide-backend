@@ -58,7 +58,7 @@ class SalePolicy
      */
     public function update(User $user, Sale $sale)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**

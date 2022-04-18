@@ -43,6 +43,33 @@ class AdminTest extends TestCase
 
     }
 
+    public function test_admin_can_view_sale(){
+
+        Sanctum::actingAs(User::admin());
+        $this->json('get', 'api/sale/1')
+         ->assertStatus(Response::HTTP_OK);
+
+    }
+
+    public function test_admin_can_update_sale(){
+
+        Sanctum::actingAs(User::admin());
+        $sale = Sale::factory()->make([
+            'email' => Sale::find(1)->email,
+        ]);
+        $this->json('put', 'api/sale/1', $sale->toArray())
+         ->assertStatus(Response::HTTP_OK);
+
+    }
+
+    public function test_admin_can_view_company(){
+
+        Sanctum::actingAs(User::admin());
+        $this->json('get', 'api/company/1')
+         ->assertStatus(Response::HTTP_OK);
+
+    }
+
     public function test_admin_can_update_company(){
 
         Sanctum::actingAs(User::admin());

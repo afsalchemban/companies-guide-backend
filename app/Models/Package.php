@@ -13,4 +13,8 @@ class Package extends Model
     {
         return $this->hasMany(Company::class);
     }
+    public function companiess()
+    {
+        return $this->belongsToMany(Company::class)->as('subscriptions')->withPivot('package_id', 'start_date', 'end_date');
+    }
 }

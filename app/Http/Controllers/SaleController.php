@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSaleRequest;
+use App\Http\Requests\UpdateSaleRequest;
 use App\Http\Requests\UploadProfileImageSaleRequest;
 use App\Interfaces\SaleRepositoryInterface;
 use App\Models\Sale;
@@ -49,7 +50,7 @@ class SaleController extends Controller
      */
     public function show(Sale $sale)
     {
-        //
+        return $sale;
         
     }
 
@@ -60,9 +61,9 @@ class SaleController extends Controller
      * @param  \App\Models\Sale  $sale
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Sale $sale)
+    public function update(UpdateSaleRequest $request, Sale $sale)
     {
-        //
+        return $this->saleRepository->updateSale($sale, $request->validated());
 
     }
 

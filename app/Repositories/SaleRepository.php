@@ -23,8 +23,8 @@ class SaleRepository implements SaleRepositoryInterface
     public function createSale(array $saleDetails){
         return Sale::create($saleDetails);
     }
-    public function updateSale($saleId, array $newDetails){
-        return Sale::whereId($saleId)->update($newDetails);
+    public function updateSale($sale, array $newDetails){
+        return $sale->update($newDetails);
     }
     public function createUserForSale(Sale $sale){
         $user = new User();

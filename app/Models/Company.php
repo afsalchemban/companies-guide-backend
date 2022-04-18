@@ -28,6 +28,11 @@ class Company extends Model
         return $this->belongsTo(Package::class);
     }
 
+    public function packages()
+    {
+        return $this->belongsToMany(Package::class)->as('subscriptions')->withPivot('package_id', 'start_date', 'end_date');
+    }
+
     public function companyActivity()
     {
         return $this->belongsTo(CompanyActivity::class);
