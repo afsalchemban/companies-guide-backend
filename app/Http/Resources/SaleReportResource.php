@@ -17,6 +17,7 @@ class SaleReportResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'email' => $this->email,
             'phone_number' => $this->phone_number,
             'companies_added' => [
                 "total" => $this->companies_count
