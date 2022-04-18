@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class SaleReportForSale extends SaleReport implements ReportInterface 
 {
 
-    private function _extract()
+    private function _execute()
     {
         $sale = Auth::user()->userable;
         return SaleReportResource::collection(Sale::withCount(['companies' => function (Builder $query) {
@@ -24,6 +24,6 @@ class SaleReportForSale extends SaleReport implements ReportInterface
 
     public function generate()
     {
-        return $this->_extract();
+        return $this->_execute();
     }
 }

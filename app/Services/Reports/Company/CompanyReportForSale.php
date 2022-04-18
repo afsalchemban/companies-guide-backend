@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class CompanyReportForSale extends CompanyReport implements ReportInterface 
 {
-    private function _extract()
+    private function _execute()
     {
         if($this->company == null)
         {
@@ -45,6 +45,6 @@ class CompanyReportForSale extends CompanyReport implements ReportInterface
 
     public function generate()
     {
-        return $this->_extract();
+        return $this->_execute();
     }
 }

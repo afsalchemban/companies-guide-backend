@@ -27,6 +27,21 @@ class ReportTest extends TestCase
         ->assertStatus(Response::HTTP_OK);
     }
 
+    public function test_single_sale_report_for_admin()
+    {
+        Sanctum::actingAs(User::admin());
+        $response = $this->post('/api/report/sale/1')
+        ->assertStatus(Response::HTTP_OK)->assertJsonStructure(
+            [
+                'data' => [
+                    '*' => [
+                        'name'
+                    ]
+                ]
+            ]
+        );
+    }
+
     public function test_sale_report_for_sale()
     {
         Sanctum::actingAs(User::sale());
