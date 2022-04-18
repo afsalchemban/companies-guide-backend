@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Interfaces\DataRepositoryInterface;
 use App\Models\City;
+use App\Models\Company;
 use App\Models\CompanyActivity;
 use App\Models\Country;
 use App\Models\Sale;
@@ -66,6 +67,13 @@ class DataRepository implements DataRepositoryInterface
         return response()->json([
             'sales' => Sale::where('name', 'like', $param.'%')->orderBy('name')
             ->take(10)->get(['id','name'])
+        ]);
+    }
+    public function searchCompanies($param)
+    {
+        return response()->json([
+            'companies' => Company::where('business_name', 'like', $param.'%')->orderBy('business_name')
+            ->take(10)->get(['id','business_name'])
         ]);
     }
 }

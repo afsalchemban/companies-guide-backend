@@ -16,4 +16,5 @@ interface DataRepositoryInterface
     public function getReports();
     public function getPackages();
     public function searchSales($param);
+    public function searchCompanies($param);
 }

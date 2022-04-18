@@ -178,7 +178,7 @@ class DataTest extends TestCase
     }
 
     /* 
-    Test for company activities
+    Test for search sales
     */
     public function test_get_sales_by_search_text()
     {
@@ -188,6 +188,24 @@ class DataTest extends TestCase
             'sales' => [
                 '*' => [
                      'name',
+                     'id'
+                ]
+            ]
+        ]);
+
+    }
+
+    /* 
+    Test for search sales
+    */
+    public function test_get_companies_by_search_text()
+    {
+        $response = $this->getJson('/api/data/search_companies/a')
+        ->assertStatus(Response::HTTP_OK)
+        ->assertJsonStructure([
+            'companies' => [
+                '*' => [
+                     'business_name',
                      'id'
                 ]
             ]
