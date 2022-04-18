@@ -47,7 +47,16 @@ class ReportTest extends TestCase
             'company_activity_id' => null,
         ];
         $response = $this->post('/api/report/company',$payload)
-        ->assertStatus(Response::HTTP_OK);
+        ->assertStatus(Response::HTTP_OK)->assertJsonStructure(
+            [
+                'data' => [
+                    '*' => [
+                        'business_name',
+                        'created_at'
+                    ]
+                ]
+            ]
+        );
     }
 
     public function test_company_report_for_sale()
@@ -59,6 +68,15 @@ class ReportTest extends TestCase
             'company_activity_id' => null,
         ];
         $response = $this->post('/api/report/company',$payload)
-        ->assertStatus(Response::HTTP_OK);
+        ->assertStatus(Response::HTTP_OK)->assertJsonStructure(
+            [
+                'data' => [
+                    '*' => [
+                        'business_name',
+                        'created_at'
+                    ]
+                ]
+            ]
+        );
     }
 }

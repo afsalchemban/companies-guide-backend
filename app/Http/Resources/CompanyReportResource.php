@@ -20,6 +20,7 @@ class CompanyReportResource extends JsonResource
             'package' => $this->package,
             'activity' => $this->companyActivity,
             'added_by' => $this->sale,
+            'created_at' => $this->created_at,
         ];
     }
 }
