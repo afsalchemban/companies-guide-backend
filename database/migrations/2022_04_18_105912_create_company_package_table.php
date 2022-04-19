@@ -14,9 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('company_package', function (Blueprint $table) {
+            $table->id();
             $table->unsignedBigInteger('company_id');
             $table->unsignedBigInteger('package_id');
-            $table->unsignedBigInteger('payment_id')->nullable();
             $table->date('start_date');
             $table->date('end_date');
             $table->string('status');

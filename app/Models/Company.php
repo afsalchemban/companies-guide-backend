@@ -28,9 +28,24 @@ class Company extends Model
         return $this->belongsTo(Package::class);
     }
 
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    public function area()
+    {
+        return $this->belongsTo(Area::class);
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(City::class);
+    }
+
     public function packages()
     {
-        return $this->belongsToMany(Package::class)->as('subscriptions')->wherePivot('status', 'active')->withPivot('payment_id', 'start_date', 'end_date');
+        return $this->belongsToMany(Package::class)->using(CompanyPackage::class)->withPivot('id');;
     }
 
     public function companyActivity()

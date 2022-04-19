@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Http\Resources\CompanyResource;
 use App\Interfaces\CompanyRepositoryInterface;
 use App\Models\Company;
 use App\Models\Package;
@@ -18,10 +19,10 @@ class CompanyRepository implements CompanyRepositoryInterface
 
     public function getAllCompanies()
     {
-        return Company::with('packages','companyActivity')->get();
+        return CompanyResource::collection(Company::all());
     }
-    public function getCompanyById($companyId){
-        return Company::findOrFail($companyId);
+    public function getCompany($company){
+        return new CompanyResource($company);
     }
     public function deleteCompany($companyId)
     {
