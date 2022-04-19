@@ -33,6 +33,15 @@ class AdminTest extends TestCase
             ]
         );
     }
+
+    public function test_admin_can_view_all_companies(){
+
+        Sanctum::actingAs(User::admin());
+        $this->json('get', 'api/company')
+         ->assertStatus(Response::HTTP_OK)->dd();
+
+    }
+
     public function test_admin_can_create_sale(){
 
         Sanctum::actingAs(User::admin());

@@ -30,7 +30,7 @@ class Company extends Model
 
     public function packages()
     {
-        return $this->belongsToMany(Package::class)->as('subscriptions')->withPivot('package_id', 'start_date', 'end_date');
+        return $this->belongsToMany(Package::class)->as('subscriptions')->wherePivot('status', 'active')->withPivot('payment_id', 'start_date', 'end_date');
     }
 
     public function companyActivity()

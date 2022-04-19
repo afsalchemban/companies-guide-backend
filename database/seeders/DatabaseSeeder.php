@@ -65,6 +65,10 @@ class DatabaseSeeder extends Seeder
             'userable_type' => 'App\Models\Sale'
         ]);
         
+
+        DB::unprepared("INSERT INTO `company_package` (`company_id`,`package_id`,`start_date`,`end_date`,`status`) VALUES
+        (1,1,'2022-01-01','2022-11-11','active');");
+
         DB::unprepared("INSERT INTO `reports` (`name`) VALUES
         ('Sale'),
         ('Company');");

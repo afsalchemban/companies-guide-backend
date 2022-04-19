@@ -80,7 +80,7 @@ class CompanyController extends Controller
 
     public function selectPackage(SelectPackageRequest $request){
 
-        return $this->companyRepository->selectPackage($request->validated());
+        return $this->companyRepository->createPackage($request->validated());
 
     }
 }

@@ -18,7 +18,7 @@ class CompanyRepository implements CompanyRepositoryInterface
 
     public function getAllCompanies()
     {
-        return Company::all();
+        return Company::with('packages','companyActivity')->get();
     }
     public function getCompanyById($companyId){
         return Company::findOrFail($companyId);
@@ -45,14 +45,11 @@ class CompanyRepository implements CompanyRepositoryInterface
     {
         
     }
-    public function selectPackage($data)
+    public function createPackage($data)
     {
         $company = Company::find($data['company_id']);
-        $package = Package::find($data['package_id']);
 
-        $company->package()->associate($package);
-
-        $company->save();
+        $company->packages()->attach($data['package_id'], ['start_date' => '2022-01-01','end_date' => '2022-11-11','status' => 'new']);
 
         return response()->json([
             'package_added' => true
