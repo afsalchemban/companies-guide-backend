@@ -15,7 +15,7 @@ class ReportController extends Controller
     public function sale(SaleReportRequest $request,SaleReport $saleReport){
 
         $report = $saleReport->start();
-
+        
         $report->init($request->validated());
         return $report->generate();
     }

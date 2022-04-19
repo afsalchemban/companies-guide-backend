@@ -20,4 +20,9 @@ class Sale extends Model
     {
         return $this->hasMany(Company::class);
     }
+
+    public function packages()
+    {
+        return $this->hasManyThrough(CompanyPackage::class, Company::class);
+    }
 }

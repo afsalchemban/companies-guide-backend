@@ -13,7 +13,7 @@ class CompanyReportForAdmin extends CompanyReport implements ReportInterface
     {   
         if($this->company == null)
         {
-            $results = Company::with(['package:id,name','companyActivity:id,title','sale:id,name'])->where(function (Builder $query) {
+            $results = Company::with(['activePackage:id,name','companyActivity:id,title','sale:id,name'])->where(function (Builder $query) {
 
                 if($this->package!=null)
                 { $query->where('package_id',$this->package); }
@@ -25,7 +25,7 @@ class CompanyReportForAdmin extends CompanyReport implements ReportInterface
         }
         else
         {
-            $results = Company::with(['package:id,name','companyActivity:id,title','sale:id,name'])->where(function (Builder $query) {
+            $results = Company::with(['activePackage:id,name','companyActivity:id,title','sale:id,name'])->where(function (Builder $query) {
 
                 if($this->package!=null)
                 { $query->where('package_id',$this->package); }

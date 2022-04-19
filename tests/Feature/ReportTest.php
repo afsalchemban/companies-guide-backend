@@ -22,6 +22,7 @@ class ReportTest extends TestCase
         $payload = [
             'sale_id' => null,
             'package_id' => null,
+            'duration' => null
         ];
         $response = $this->post('/api/report/sale',$payload)
         ->assertStatus(Response::HTTP_OK);
@@ -50,6 +51,7 @@ class ReportTest extends TestCase
         $payload = [
             'sale_id' => null,
             'package_id' => null,
+            'duration' => null
         ];
         $response = $this->post('/api/report/sale',$payload)
         ->assertStatus(Response::HTTP_OK);
@@ -62,6 +64,7 @@ class ReportTest extends TestCase
             'company_id' => null,
             'package_id' => null,
             'company_activity_id' => null,
+            'duration' => null
         ];
         $response = $this->post('/api/report/company',$payload)
         ->assertStatus(Response::HTTP_OK)->assertJsonStructure(
@@ -84,6 +87,7 @@ class ReportTest extends TestCase
             'company_id' => null,
             'package_id' => null,
             'company_activity_id' => null,
+            'duration' => null
         ];
         $response = $this->post('/api/report/company',$payload)
         ->assertStatus(Response::HTTP_OK)->assertJsonStructure(
@@ -95,6 +99,6 @@ class ReportTest extends TestCase
                     ]
                 ]
             ]
-        );
+        )->dd();
     }
 }

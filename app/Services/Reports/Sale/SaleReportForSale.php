@@ -14,7 +14,7 @@ class SaleReportForSale extends SaleReport implements ReportInterface
     private function _execute()
     {
         $sale = Auth::user()->userable;
-        return SaleReportResource::collection(Sale::withCount(['companies' => function (Builder $query) {
+        return SaleReportResource::collection(Sale::withCount(['packages' => function (Builder $query) {
 
             if($this->package!=null)
             { $query->where('package_id',$this->package); }

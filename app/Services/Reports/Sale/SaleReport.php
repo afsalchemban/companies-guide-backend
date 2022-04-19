@@ -8,13 +8,15 @@ use Illuminate\Support\Facades\Auth;
 
 class SaleReport
 {
-    protected $sale;
-    protected $package;
+    public $sale;
+    public $package;
+    public $duration;
 
     public function __construct()
     {
         $this->sale = null;
         $this->package = null;
+        $this->duration = null;
     }
 
     public function init(array $filters)
@@ -26,6 +28,10 @@ class SaleReport
         if(array_key_exists('package_id', $filters))
         {
             $this->package = $filters['package_id'];
+        }
+        if(array_key_exists('duration', $filters))
+        {
+            $this->duration = $filters['duration'];
         }
     }
 

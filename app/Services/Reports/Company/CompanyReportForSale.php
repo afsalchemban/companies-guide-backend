@@ -14,7 +14,7 @@ class CompanyReportForSale extends CompanyReport implements ReportInterface
     {
         if($this->company == null)
         {
-            $results = Company::with(['package:id,name','companyActivity:id,title','sale:id,name'])->where(function (Builder $query) {
+            $results = Company::with(['activePackage:id,name','companyActivity:id,title','sale:id,name'])->where(function (Builder $query) {
                 $sale = Auth::user()->userable;
                 $query->where('sale_id',$sale->id);
 
@@ -28,7 +28,7 @@ class CompanyReportForSale extends CompanyReport implements ReportInterface
         }
         else
         {
-            $results = Company::with(['package:id,name','companyActivity:id,title','sale:id,name'])->where(function (Builder $query) {
+            $results = Company::with(['activePackage:id,name','companyActivity:id,title','sale:id,name'])->where(function (Builder $query) {
                 $sale = Auth::user()->userable;
                 $query->where('sale_id',$sale->id);
 

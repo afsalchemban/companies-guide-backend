@@ -23,9 +23,9 @@ class Company extends Model
         return $this->belongsTo(Sale::class);
     }
 
-    public function package()
+    public function packages()
     {
-        return $this->belongsTo(Package::class);
+        return $this->belongsToMany(Package::class)->using(CompanyPackage::class)->withPivot('id');
     }
 
     public function country()
@@ -43,9 +43,9 @@ class Company extends Model
         return $this->belongsTo(City::class);
     }
 
-    public function packages()
+    public function activePackage()
     {
-        return $this->belongsToMany(Package::class)->using(CompanyPackage::class)->withPivot('id');;
+        return $this->belongsToMany(Package::class)->using(CompanyPackage::class)->withPivot('id')->wherePivot('status', 'active');
     }
 
     public function companyActivity()

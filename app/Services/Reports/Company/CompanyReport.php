@@ -10,12 +10,14 @@ class CompanyReport
     protected $company;
     protected $package;
     protected $activity;
+    protected $duration;
 
     public function __construct()
     {
         $this->company = null;
         $this->package = null;
         $this->activity = null;
+        $this->duration = null;
     }
 
     public function init(array $filters)
@@ -31,6 +33,10 @@ class CompanyReport
         if(array_key_exists('company_activity_id', $filters))
         {
             $this->activity = $filters['company_activity_id'];
+        }
+        if(array_key_exists('duration', $filters))
+        {
+            $this->duration = $filters['duration'];
         }
     }
 

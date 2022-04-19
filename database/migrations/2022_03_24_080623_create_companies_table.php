@@ -31,7 +31,6 @@ return new class extends Migration
             $table->string('person_in_charge_email');
             $table->string('person_in_charge_mobile');
             $table->string('person_in_charge_country');
-            $table->unsignedBigInteger('package_id')->nullable();
             $table->unsignedBigInteger('sale_id');
             $table->timestamps();
         });
@@ -40,7 +39,6 @@ return new class extends Migration
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('restrict');
             $table->foreign('city_id')->references('id')->on('cities')->onDelete('restrict');
             $table->foreign('area_id')->references('id')->on('areas')->onDelete('restrict');
-            $table->foreign('package_id')->references('id')->on('packages')->onDelete('restrict');
             $table->foreign('company_activity_id')->references('id')->on('company_activities')->onDelete('restrict');
         });
     }
