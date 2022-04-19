@@ -17,8 +17,8 @@ class SaleRepository implements SaleRepositoryInterface
     public function getSaleById($saleId){
         return Sale::findOrFail($saleId);
     }
-    public function deleteSale($saleId){
-        Sale::destroy($saleId);
+    public function deleteSale(Sale $sale){
+        return $sale->delete();
     }
     public function createSale(array $saleDetails){
         return Sale::create($saleDetails);

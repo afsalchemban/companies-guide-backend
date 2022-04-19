@@ -24,9 +24,9 @@ class CompanyRepository implements CompanyRepositoryInterface
     public function getCompany($company){
         return new CompanyResource($company);
     }
-    public function deleteCompany($companyId)
+    public function deleteCompany(Company $company)
     {
-        Company::destroy($companyId);
+        return $company->delete();
     }
     public function createCompany(array $companyDetails){
 

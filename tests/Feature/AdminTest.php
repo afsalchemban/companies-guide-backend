@@ -71,6 +71,16 @@ class AdminTest extends TestCase
 
     }
 
+    public function test_admin_can_delete_sale(){
+
+        Sanctum::actingAs(User::admin());
+        $sale = Sale::factory()->create();
+        $this->json('delete', 'api/sale/'.$sale->id)
+         ->assertStatus(Response::HTTP_OK);
+         $this->assertDatabaseMissing('sales', $sale->toArray());
+
+    }
+
     public function test_admin_can_view_company(){
 
         Sanctum::actingAs(User::admin());
@@ -88,6 +98,17 @@ class AdminTest extends TestCase
         $this->json('put', 'api/company/1', $company->toArray())
          ->assertStatus(Response::HTTP_OK);
 
+    }
+
+    public function test_admin_can_delete_company(){
+
+        Sanctum::actingAs(User::admin());
+        $company = Company::factory()->create([
+            'sale_id' => 1
+        ]);
+        $this->json('delete', 'api/company/'.$company->id)
+         ->assertStatus(Response::HTTP_OK);
+         $this->assertDatabaseMissing('companies', $company->toArray());
     }
 
     public function test_admin_cannot_create_company(){

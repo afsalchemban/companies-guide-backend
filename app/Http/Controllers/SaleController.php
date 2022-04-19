@@ -75,7 +75,7 @@ class SaleController extends Controller
      */
     public function destroy(Sale $sale)
     {
-        //
+        return $this->saleRepository->deleteSale($sale);
     }
 
     public function dashboard(Request $request)

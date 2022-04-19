@@ -9,7 +9,7 @@ interface SaleRepositoryInterface
 {
     public function getAllSales();
     public function getSaleById($saleId);
-    public function deleteSale($saleId);
+    public function deleteSale(Sale $sale);
     public function createSale(array $saleDetails);
     public function updateSale(Sale $sale, array $newDetails);
     public function createUserForSale(Sale $sale);
