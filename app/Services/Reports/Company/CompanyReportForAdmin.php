@@ -11,33 +11,59 @@ class CompanyReportForAdmin extends CompanyReport implements ReportInterface
 {
     private function _execute()
     {   
+        
+
+
         if($this->company == null)
         {
-            $results = Company::with(['activePackage:id,name','companyActivity:id,title','sale:id,name'])->where(function (Builder $query) {
 
-                if($this->package!=null)
-                { $query->where('package_id',$this->package); }
+            if($this->package!=null) { 
+                $companies = Company::whereHas('packages', function (Builder $query) {
+
+                    $query->where('package_id',$this->package);
+
+                })->with(['activePackage','expiredPackages'])->where(function (Builder $query) {
+
+                    if($this->activity!=null) { $query->where('company_activity_id',$this->activity); }
     
-                if($this->activity!=null)
-                { $query->where('company_activity_id',$this->activity); }
+                })->get();
+            }
+            else
+            {
+                $companies = Company::with(['activePackage','expiredPackages'])->where(function (Builder $query) {
+
+                    if($this->activity!=null) { $query->where('company_activity_id',$this->activity); }
     
-            })->get();
+                })->get();
+            }
+
+            return CompanyReportResource::collection($companies);
         }
-        else
-        {
-            $results = Company::with(['activePackage:id,name','companyActivity:id,title','sale:id,name'])->where(function (Builder $query) {
+        else{
 
-                if($this->package!=null)
-                { $query->where('package_id',$this->package); }
-    
-                if($this->activity!=null)
-                { $query->where('company_activity_id',$this->activity); }
-    
-            })->where('id',$this->company)->get();
-        }
+            if($this->package!=null) { 
+                $companies = Company::whereHas('packages', function (Builder $query) {
 
-        return CompanyReportResource::collection($results);
-        
+                    $query->where('package_id',$this->package);
+
+                })->with(['activePackage','expiredPackages'])->where(function (Builder $query) {
+
+                    $query->where('id',$this->company);
+                    if($this->activity!=null) { $query->where('company_activity_id',$this->activity); }
+    
+                })->get();
+            }
+            else
+            {
+                $companies = Company::with(['activePackage','expiredPackages'])->where(function (Builder $query) {
+
+                    $query->where('id',$this->company);
+                    if($this->activity!=null) { $query->where('company_activity_id',$this->activity); }
+    
+                })->get();
+            }
+            return CompanyReportResource::collection($companies);
+        }        
         
     }
     public function generate()

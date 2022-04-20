@@ -61,23 +61,13 @@ class ReportTest extends TestCase
     {
         Sanctum::actingAs(User::admin());
         $payload = [
-            'company_id' => null,
+            'company_id' => 1,
             'package_id' => null,
             'company_activity_id' => null,
             'duration' => null
         ];
         $response = $this->post('/api/report/company',$payload)
-        ->assertStatus(Response::HTTP_OK)->assertJsonStructure(
-            [
-                'data' => [
-                    '*' => [
-                        'id',
-                        'business_name',
-                        'created_at'
-                    ]
-                ]
-            ]
-        );
+        ->assertStatus(Response::HTTP_OK)->dd();
     }
 
     public function test_company_report_for_sale()
@@ -99,6 +89,6 @@ class ReportTest extends TestCase
                     ]
                 ]
             ]
-        )->dd();
+        );
     }
 }

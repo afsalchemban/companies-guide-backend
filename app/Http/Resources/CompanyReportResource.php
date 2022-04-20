@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\CompanyPackage;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CompanyReportResource extends JsonResource
@@ -19,7 +20,12 @@ class CompanyReportResource extends JsonResource
             'email' => $this->email,
             'business_name' => $this->business_name,
             'phone_number' => $this->phone_number,
-            'package' => $this->package,
+            'active_package' => new PackageResource($this->whenLoaded('activePackage', function () {
+                return $this->activePackage->first();
+            })),
+            'expired_package' => new PackageResource($this->whenLoaded('expiredPackages', function () {
+                return $this->expiredPackages->sortByDesc('subscriptions.end_date')->first();
+            })),
             'activity' => $this->companyActivity,
             'added_by' => $this->sale,
             'created_at' => $this->created_at,

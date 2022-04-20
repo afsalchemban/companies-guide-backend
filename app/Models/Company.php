@@ -25,7 +25,7 @@ class Company extends Model
 
     public function packages()
     {
-        return $this->belongsToMany(Package::class)->using(CompanyPackage::class)->withPivot('id');
+        return $this->belongsToMany(Package::class)->as('subscriptions')->withPivot('status','end_date');
     }
 
     public function country()
@@ -45,7 +45,12 @@ class Company extends Model
 
     public function activePackage()
     {
-        return $this->belongsToMany(Package::class)->using(CompanyPackage::class)->withPivot('id')->wherePivot('status', 'active');
+        return $this->belongsToMany(Package::class)->as('subscriptions')->using(CompanyPackage::class)->withPivot('end_date','status')->wherePivot('status', 'active');
+    }
+
+    public function expiredPackages()
+    {
+        return $this->belongsToMany(Package::class)->as('subscriptions')->using(CompanyPackage::class)->withPivot('end_date','status')->wherePivot('status', 'expired');
     }
 
     public function companyActivity()
