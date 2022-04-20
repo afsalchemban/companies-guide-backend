@@ -10,39 +10,50 @@ use Illuminate\Support\Facades\Auth;
 
 class CompanyReportForSale extends CompanyReport implements ReportInterface 
 {
-    private function _execute()
+    public function __construct()
     {
-        if($this->company == null)
-        {
-            $results = Company::with(['activePackage:id,name','companyActivity:id,title','sale:id,name'])->where(function (Builder $query) {
-                $sale = Auth::user()->userable;
-                $query->where('sale_id',$sale->id);
+        $this->sale = Auth::user()->userable;
+    }
+    private function _loadWithPackage()
+    {
+        return Company::whereHas('packages', function (Builder $query) {
 
-                if($this->package!=null)
-                { $query->where('package_id',$this->package); }
+            $query->where('package_id',$this->package);
 
-                if($this->activity!=null)
-                { $query->where('company_activity_id',$this->activity); }
+        })->with(['activePackage','expiredPackages','companyActivity','sale'])->where(function (Builder $query) {
+            
+            $query->where('sale_id',$this->sale->id);  
+            if($this->company!=null) { $query->where('id',$this->company); }
+            if($this->activity!=null) { $query->where('company_activity_id',$this->activity); }
 
-            })->get();
-        }
-        else
-        {
-            $results = Company::with(['activePackage:id,name','companyActivity:id,title','sale:id,name'])->where(function (Builder $query) {
-                $sale = Auth::user()->userable;
-                $query->where('sale_id',$sale->id);
+        })->get();
+    }
+    private function _loadWithoutPackage()
+    {
+        return Company::with(['activePackage','expiredPackages','companyActivity','sale'])->where(function (Builder $query) {
 
-                if($this->package!=null)
-                { $query->where('package_id',$this->package); }
+            $query->where('sale_id',$this->sale->id);       
+            if($this->company!=null) { $query->where('id',$this->company); }
+            if($this->activity!=null) { $query->where('company_activity_id',$this->activity); }
 
-                if($this->activity!=null)
-                { $query->where('company_activity_id',$this->activity); }
-
-            })->where('id',$this->company)->get();
-        }
-        return CompanyReportResource::collection($results);
+        })->get();
     }
 
+    private function _execute()
+    {   
+        
+            if($this->package!=null) { 
+                $companies = $this->_loadWithPackage();
+            }
+            else
+            {
+                $companies = $this->_loadWithoutPackage();
+            }
+
+            return CompanyReportResource::collection($companies);
+        
+    }
+    
     public function generate()
     {
         return $this->_execute();

@@ -9,63 +9,45 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class CompanyReportForAdmin extends CompanyReport implements ReportInterface 
 {
+
+    private function _loadWithPackage()
+    {
+        return Company::whereHas('packages', function (Builder $query) {
+
+            $query->where('package_id',$this->package);
+
+        })->with(['activePackage','expiredPackages','companyActivity','sale'])->where(function (Builder $query) {
+            
+            if($this->company!=null) { $query->where('id',$this->company); }
+            if($this->activity!=null) { $query->where('company_activity_id',$this->activity); }
+
+        })->get();
+    }
+    private function _loadWithoutPackage()
+    {
+        return Company::with(['activePackage','expiredPackages','companyActivity','sale'])->where(function (Builder $query) {
+                    
+            if($this->company!=null) { $query->where('id',$this->company); }
+            if($this->activity!=null) { $query->where('company_activity_id',$this->activity); }
+
+        })->get();
+    }
+
     private function _execute()
     {   
         
-
-
-        if($this->company == null)
-        {
-
             if($this->package!=null) { 
-                $companies = Company::whereHas('packages', function (Builder $query) {
-
-                    $query->where('package_id',$this->package);
-
-                })->with(['activePackage','expiredPackages'])->where(function (Builder $query) {
-
-                    if($this->activity!=null) { $query->where('company_activity_id',$this->activity); }
-    
-                })->get();
+                $companies = $this->_loadWithPackage();
             }
             else
             {
-                $companies = Company::with(['activePackage','expiredPackages'])->where(function (Builder $query) {
-
-                    if($this->activity!=null) { $query->where('company_activity_id',$this->activity); }
-    
-                })->get();
+                $companies = $this->_loadWithoutPackage();
             }
 
             return CompanyReportResource::collection($companies);
-        }
-        else{
-
-            if($this->package!=null) { 
-                $companies = Company::whereHas('packages', function (Builder $query) {
-
-                    $query->where('package_id',$this->package);
-
-                })->with(['activePackage','expiredPackages'])->where(function (Builder $query) {
-
-                    $query->where('id',$this->company);
-                    if($this->activity!=null) { $query->where('company_activity_id',$this->activity); }
-    
-                })->get();
-            }
-            else
-            {
-                $companies = Company::with(['activePackage','expiredPackages'])->where(function (Builder $query) {
-
-                    $query->where('id',$this->company);
-                    if($this->activity!=null) { $query->where('company_activity_id',$this->activity); }
-    
-                })->get();
-            }
-            return CompanyReportResource::collection($companies);
-        }        
         
     }
+    
     public function generate()
     {
         return $this->_execute();
