@@ -9,12 +9,8 @@ class Package extends Model
 {
     use HasFactory;
 
-    public function companies()
+    public function activeCompanies()
     {
-        return $this->hasMany(Company::class);
-    }
-    public function companiess()
-    {
-        return $this->belongsToMany(Company::class)->using(CompanyPackage::class);
+        return $this->belongsToMany(Company::class)->as('subscriptions')->using(CompanyPackage::class)->withPivot('end_date','status')->wherePivot('status', 'active');
     }
 }

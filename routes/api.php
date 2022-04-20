@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FrontEndController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SaleController;
 use Illuminate\Http\Response;
@@ -96,3 +97,15 @@ Route::get('migrate/refresh', function (Request $request) {
 
 
 Route::get('test', [DataController::class, 'test2']);
+
+
+
+/* 
+| Front End apis
+*/
+
+Route::prefix('frontend')->group(function () {
+
+    Route::get('/companies/{package}', [FrontEndController::class, 'companiesByPackage']);
+
+});

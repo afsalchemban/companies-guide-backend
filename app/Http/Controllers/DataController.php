@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Services\Reports\ReportInterface;
 use App\Interfaces\DataRepositoryInterface;
 use App\Models\City;
+use App\Models\Company;
 use App\Models\Country;
 use Exception;
 use Illuminate\Http\Request;
@@ -12,6 +13,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Google\Cloud\Storage\StorageClient;
+use Carbon\Carbon;
 
 class DataController extends Controller
 {
@@ -75,17 +77,11 @@ class DataController extends Controller
         return $this->dataRepository->getPackages();
     }
 
-    public function test(ReportInterface $report){
-        return $report->getAll();
-    }
     
     public function test2(){
 
 
-        $disk = Storage::disk('gcs');
-
-        $disk->put('example.txt', 'Contents');
-        dd($disk);
+        return Carbon::now()->subDays(30)->toDateTimeString().' - '.Carbon::now()->firstOfMonth()->toDateTimeString().' - '.Carbon::now()->startOfMonth()->subMonth()->toDateString().' - '.Carbon::now()->subMonth()->toDateTimeString();
         
     }
 }

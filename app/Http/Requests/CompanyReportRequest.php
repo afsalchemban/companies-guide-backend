@@ -27,6 +27,7 @@ class CompanyReportRequest extends FormRequest
             'company_id' => 'nullable|exists:companies,id',
             'package_id' => 'nullable|exists:packages,id',
             'company_activity_id' => 'nullable|exists:company_activities,id',
+            'duration' => 'nullable|json',
         ];
     }
 }

@@ -32,10 +32,11 @@ class CompanyReportForAdmin extends CompanyReport implements ReportInterface
 
         })->get();
     }
-
+    private function _calculateDate(){
+    }
     private function _execute()
     {   
-        
+            
             if($this->package!=null) { 
                 $companies = $this->_loadWithPackage();
             }
@@ -50,6 +51,7 @@ class CompanyReportForAdmin extends CompanyReport implements ReportInterface
     
     public function generate()
     {
+        
         return $this->_execute();
     }
 }
