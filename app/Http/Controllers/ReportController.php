@@ -28,9 +28,9 @@ class ReportController extends Controller
         return $report->generate();
     }
 
-    public function company(Request $request, CompanyReport $companyReport){
+    public function company(CompanyReportRequest $request, CompanyReport $companyReport){
         
-        return $request->input('duration.type');
+        
         $report = $companyReport->start();
         
         $report->init($request->validated());

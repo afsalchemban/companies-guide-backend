@@ -7,6 +7,7 @@ use App\Interfaces\ReportInterface;
 use App\Models\Company;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 
+
 class CompanyReportForAdmin extends CompanyReport implements ReportInterface 
 {
 
@@ -18,6 +19,7 @@ class CompanyReportForAdmin extends CompanyReport implements ReportInterface
 
         })->with(['activePackage','expiredPackages','companyActivity','sale'])->where(function (Builder $query) {
             
+            if($this->duration->date!=null) { $query->where('created_at', '>=',$this->duration->date); }
             if($this->company!=null) { $query->where('id',$this->company); }
             if($this->activity!=null) { $query->where('company_activity_id',$this->activity); }
 
@@ -26,14 +28,14 @@ class CompanyReportForAdmin extends CompanyReport implements ReportInterface
     private function _loadWithoutPackage()
     {
         return Company::with(['activePackage','expiredPackages','companyActivity','sale'])->where(function (Builder $query) {
-                    
+             
+            if($this->duration->date!=null) { $query->where('created_at', '>=',$this->duration->date); }
             if($this->company!=null) { $query->where('id',$this->company); }
             if($this->activity!=null) { $query->where('company_activity_id',$this->activity); }
 
         })->get();
     }
-    private function _calculateDate(){
-    }
+    
     private function _execute()
     {   
             
@@ -51,7 +53,6 @@ class CompanyReportForAdmin extends CompanyReport implements ReportInterface
     
     public function generate()
     {
-        
         return $this->_execute();
     }
 }

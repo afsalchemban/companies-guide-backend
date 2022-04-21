@@ -4,6 +4,7 @@ namespace App\Services\Reports\Company;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class CompanyReport
 {
@@ -34,9 +35,21 @@ class CompanyReport
         {
             $this->activity = $filters['company_activity_id'];
         }
-        if(array_key_exists('duration', $filters))
+        if(!empty($filters['duration']))
         {
-            $this->duration = $filters['duration'];
+            $this->_processDate($this->duration = json_decode($filters['duration']));
+        }
+        
+    }
+
+    private function _processDate($duration){
+        
+        switch($duration->type)
+        {
+            case 'last-30' : $this->duration->date = Carbon::now()->subDays(30)->toDateTimeString(); break;
+            case 'current-month' : $this->duration->date = Carbon::now()->firstOfMonth()->toDateTimeString(); break;
+            case 'current-month' : $this->duration->date = Carbon::now()->subMonths(6)->toDateTimeString(); break;
+            default : $this->duration->date=null;
         }
     }
 

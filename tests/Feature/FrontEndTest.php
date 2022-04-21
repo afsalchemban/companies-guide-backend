@@ -17,6 +17,6 @@ class FrontEndTest extends TestCase
     public function test_get_company_by_package()
     {
         $response = $this->getJson('/api/frontend/companies/1')
-        ->assertStatus(Response::HTTP_OK)->dd();
+        ->assertStatus(Response::HTTP_OK);
     }
 }

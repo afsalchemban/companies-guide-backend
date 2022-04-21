@@ -78,10 +78,20 @@ class DataController extends Controller
     }
 
     
-    public function test2(){
+    public function test_get(){
 
 
-        return Carbon::now()->subDays(30)->toDateTimeString().' - '.Carbon::now()->firstOfMonth()->toDateTimeString().' - '.Carbon::now()->startOfMonth()->subMonth()->toDateString().' - '.Carbon::now()->subMonth()->toDateTimeString();
+        return Carbon::now()->subDays(30)->toDateTimeString().' - '.Carbon::now()->firstOfMonth()->toDateTimeString().' - '.Carbon::now()->startOfMonth()->subMonth()->toDateString().' - '.Carbon::now()->subMonth()->toDateTimeString().' - '.Carbon::now()->subMonths(6)->toDateTimeString();
+        
+    }
+
+    public function test_post(Request $request){
+
+        $validated = $request->validate([
+            'duration' => 'required|json'
+        ]);
+        $duration = json_decode($request->input('duration'));
+        return $duration->type;
         
     }
 }

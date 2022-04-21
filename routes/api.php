@@ -96,7 +96,8 @@ Route::get('migrate/refresh', function (Request $request) {
 });
 
 
-Route::get('test', [DataController::class, 'test2']);
+Route::get('test', [DataController::class, 'test_get']);
+Route::post('test', [DataController::class, 'test_post']);
 
 
 

@@ -46,7 +46,7 @@ class SaleTest extends TestCase
 
         Sanctum::actingAs(User::sale());
         $this->json('post', 'api/company', [])
-        ->assertStatus(Response::HTTP_OK)
+        ->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY)
          ->assertJsonValidationErrorFor('business_name');
 
     }

@@ -134,7 +134,7 @@ class AdminTest extends TestCase
             'file' => $file,
         ])->assertStatus(Response::HTTP_OK);
 
-        Storage::disk('local')->assertExists('sales-profile-images/'.$file->hashName());
+        Storage::disk('local')->assertExists('sales/profile-images/'.$file->hashName());
 
     }
 }
