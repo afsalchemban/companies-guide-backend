@@ -19,7 +19,7 @@ class CompanyReportForAdmin extends CompanyReport implements ReportInterface
 
         })->with(['activePackage','expiredPackages','companyActivity','sale'])->where(function (Builder $query) {
             
-            if($this->duration->date!=null) { $query->where('created_at', '>=',$this->duration->date); }
+            if($this->duration!=null) { $query->where('created_at', '>=',$this->duration->date); }
             if($this->company!=null) { $query->where('id',$this->company); }
             if($this->activity!=null) { $query->where('company_activity_id',$this->activity); }
 
@@ -29,7 +29,7 @@ class CompanyReportForAdmin extends CompanyReport implements ReportInterface
     {
         return Company::with(['activePackage','expiredPackages','companyActivity','sale'])->where(function (Builder $query) {
              
-            if($this->duration->date!=null) { $query->where('created_at', '>=',$this->duration->date); }
+            if($this->duration!=null) { $query->where('created_at', '>=',$this->duration->date); }
             if($this->company!=null) { $query->where('id',$this->company); }
             if($this->activity!=null) { $query->where('company_activity_id',$this->activity); }
 

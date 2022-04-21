@@ -43,13 +43,15 @@ class CompanyReport
     }
 
     private function _processDate($duration){
-        
-        switch($duration->type)
+        if($this->duration!=null)
         {
-            case 'last-30' : $this->duration->date = Carbon::now()->subDays(30)->toDateTimeString(); break;
-            case 'current-month' : $this->duration->date = Carbon::now()->firstOfMonth()->toDateTimeString(); break;
-            case 'current-month' : $this->duration->date = Carbon::now()->subMonths(6)->toDateTimeString(); break;
-            default : $this->duration->date=null;
+            switch($duration->type)
+            {
+                case 'last-30' : $this->duration->date = Carbon::now()->subDays(30)->toDateTimeString(); break;
+                case 'current-month' : $this->duration->date = Carbon::now()->firstOfMonth()->toDateTimeString(); break;
+                case 'last-6-month' : $this->duration->date = Carbon::now()->subMonths(6)->toDateTimeString(); break;
+                default : $this->duration->date=null;
+            }
         }
     }
 

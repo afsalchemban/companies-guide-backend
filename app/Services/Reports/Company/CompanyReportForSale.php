@@ -23,6 +23,7 @@ class CompanyReportForSale extends CompanyReport implements ReportInterface
         })->with(['activePackage','expiredPackages','companyActivity','sale'])->where(function (Builder $query) {
             
             $query->where('sale_id',$this->sale->id);  
+            if($this->duration!=null) { $query->where('created_at', '>=',$this->duration->date); }
             if($this->company!=null) { $query->where('id',$this->company); }
             if($this->activity!=null) { $query->where('company_activity_id',$this->activity); }
 
@@ -32,7 +33,8 @@ class CompanyReportForSale extends CompanyReport implements ReportInterface
     {
         return Company::with(['activePackage','expiredPackages','companyActivity','sale'])->where(function (Builder $query) {
 
-            $query->where('sale_id',$this->sale->id);       
+            $query->where('sale_id',$this->sale->id);    
+            if($this->duration!=null) { $query->where('created_at', '>=',$this->duration->date); }   
             if($this->company!=null) { $query->where('id',$this->company); }
             if($this->activity!=null) { $query->where('company_activity_id',$this->activity); }
 
