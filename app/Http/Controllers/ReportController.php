@@ -22,9 +22,9 @@ class ReportController extends Controller
 
     public function singleSale(SaleReportRequest $request,Sale $sale, SaleReport $saleReport){
 
-        $report = $saleReport->start($sale);
+        $report = $saleReport->startSale();
 
-        $report->init([],$sale);
+        $report->initSale($request->validated(),$sale);
         return $report->generate();
     }
 

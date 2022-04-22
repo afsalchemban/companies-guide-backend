@@ -57,4 +57,9 @@ class Company extends Model
     {
         return $this->belongsTo(CompanyActivity::class);
     }
+
+    public function orders()
+    {
+        return $this->hasManyThrough(Order::class, CompanyPackage::class,'company_id','company_package_id','id','id');
+    }
 }

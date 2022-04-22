@@ -24,7 +24,8 @@ class DatabaseSeeder extends Seeder
             IssuedByLegalStatusSeeder::class,
             CountryCityAreaSeeder::class,
             CompanyActivitySeeder::class,
-            CompaniesSeeder::class
+            CompaniesSeeder::class,
+            OrdersSeeder::class
         ]);     
     }
 }

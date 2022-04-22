@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sale extends Model
 {
+    use \Staudenmeir\EloquentHasManyDeep\HasRelationships;
     use HasFactory;
 
     protected $guarded = [];
@@ -21,8 +22,13 @@ class Sale extends Model
         return $this->hasMany(Company::class);
     }
 
-    public function packages()
+    public function companyPackages()
     {
         return $this->hasManyThrough(CompanyPackage::class, Company::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasManyDeep(Order::class,[Company::class,CompanyPackage::class],['sale_id','company_id','company_package_id'],['id','id','id']);
     }
 }

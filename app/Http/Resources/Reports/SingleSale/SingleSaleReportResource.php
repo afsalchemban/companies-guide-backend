@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Reports\SingleSale;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -19,7 +19,8 @@ class SingleSaleReportResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'phone_number' => $this->phone_number,
-            'companies' => $this->companies
+            'total_income' => $this->orders_sum_net_total,
+            'companies' => CompanyResource::collection($this->whenLoaded('companies'))
         ];
     }
 }

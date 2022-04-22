@@ -21,7 +21,7 @@ class SaleReport
 
     public function init(array $filters)
     {
-        if(array_key_exists('sale_id', $filters))
+        if(array_key_exists('sale_id', $filters) && $this->sale==null)
         {
             $this->sale = $filters['sale_id'];
         }
@@ -34,15 +34,31 @@ class SaleReport
             $this->duration = $filters['duration'];
         }
     }
-
-    public function start(Sale $sale = null)
+    public function initSale(array $filters,Sale $sale)
+    {
+        $this->sale = $sale;
+        if(array_key_exists('package_id', $filters))
+        {
+            $this->package = $filters['package_id'];
+        }
+        if(array_key_exists('duration', $filters))
+        {
+            $this->duration = $filters['duration'];
+        }
+    }
+    public function startSale()
     {
         if(Auth::user()->isAdmin())
         {
-            if($sale != null) {
-                return App::make(SingleSaleReportForAdmin::class);
-            }
+            return App::make(SingleSaleReportForAdmin::class);
+        }
+    }
+    public function start()
+    {
+        if(Auth::user()->isAdmin())
+        {
             return App::make(SaleReportForAdmin::class);
+            
         }
         elseif(Auth::user()->isSale())
         {

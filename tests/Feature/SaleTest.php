@@ -71,4 +71,22 @@ class SaleTest extends TestCase
             ]
         );
     }
+
+    public function test_payment_for_package()
+    {
+        $user = User::sale();
+        Sanctum::actingAs($user);
+        $payload = [
+            'order_id' => 1,
+            'discount'  => 10,
+            'payment_type' => 'cash'
+        ];
+        $this->json('put', 'api/pay', $payload)
+         ->assertStatus(Response::HTTP_OK)
+         ->assertExactJson(
+            [
+                'package_added' => true
+            ]
+        );
+    }
 }

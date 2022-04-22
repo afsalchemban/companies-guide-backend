@@ -10,8 +10,8 @@ class CompanyPackage extends Pivot
     protected $table = 'company_package';
     public $incrementing = true;
     
-    public function payment()
+    public function order()
     {
-        return $this->hasOne(Payment::class,'company_package_id');
+        return $this->hasOne(Order::class,'company_package_id');
     }
 }
