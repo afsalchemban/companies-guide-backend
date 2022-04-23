@@ -7,6 +7,7 @@ use App\Interfaces\CompanyRepositoryInterface;
 use App\Models\Company;
 use App\Models\Package;
 use App\Services\UserSwitchingService;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Str;
 use Illuminate\Http\Response;
 

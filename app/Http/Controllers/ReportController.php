@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CompanyReportRequest;
 use App\Http\Requests\SaleReportRequest;
+use App\Models\Company;
 use App\Models\Sale;
 use App\Services\Reports\Company\CompanyReport;
 use App\Services\Reports\Sale\SaleReport;
@@ -25,6 +26,14 @@ class ReportController extends Controller
         $report = $saleReport->startSale();
 
         $report->initSale($request->validated(),$sale);
+        return $report->generate();
+    }
+
+    public function singleCompany(CompanyReportRequest $request,Company $company, CompanyReport $companyReport){
+
+        $report = $companyReport->startCompany();
+
+        $report->initCompany($request->validated(),$company);
         return $report->generate();
     }
 

@@ -32,6 +32,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/sale', [ReportController::class, 'sale']);
         Route::post('/sale/{sale}', [ReportController::class, 'singleSale']);
         Route::post('/company', [ReportController::class, 'company']);
+        Route::post('/company/{company}', [ReportController::class, 'singleCompany']);
 
     });
 

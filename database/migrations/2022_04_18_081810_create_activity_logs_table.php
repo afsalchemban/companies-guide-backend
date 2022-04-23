@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->integer('logable_id');
             $table->string('logable_type');
-            $table->string('type');
             $table->string('action');
             $table->timestamps();
         });

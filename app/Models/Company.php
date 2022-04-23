@@ -62,4 +62,9 @@ class Company extends Model
     {
         return $this->hasManyThrough(Order::class, CompanyPackage::class,'company_id','company_package_id','id','id');
     }
+
+    public function activityLog()
+    {
+        return $this->morphMany(ActivityLog::class, 'logable');
+    }
 }

@@ -50,4 +50,11 @@ class CompanyReportTest extends TestCase
             ]
         );
     }
+
+    public function test_single_company_report_for_admin()
+    {
+        Sanctum::actingAs(User::admin());
+        $response = $this->post('/api/report/company/1')
+        ->assertStatus(Response::HTTP_OK);
+    }
 }

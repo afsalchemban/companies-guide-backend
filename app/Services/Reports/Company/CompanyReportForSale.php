@@ -3,6 +3,7 @@
 namespace App\Services\Reports\Company;
 
 use App\Http\Resources\CompanyReportResource;
+use App\Interfaces\CompanyRepositoryInterface;
 use App\Interfaces\ReportInterface;
 use App\Models\Company;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -10,8 +11,9 @@ use Illuminate\Support\Facades\Auth;
 
 class CompanyReportForSale extends CompanyReport implements ReportInterface 
 {
-    public function __construct()
+    public function __construct(CompanyRepositoryInterface $companyRepository)
     {
+        $this->companyRepository = $companyRepository;
         $this->sale = Auth::user()->userable;
     }
     private function _loadWithPackage()

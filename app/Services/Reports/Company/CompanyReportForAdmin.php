@@ -3,6 +3,7 @@
 namespace App\Services\Reports\Company;
 
 use App\Http\Resources\CompanyReportResource;
+use App\Interfaces\CompanyRepositoryInterface;
 use App\Interfaces\ReportInterface;
 use App\Models\Company;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -11,6 +12,10 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 class CompanyReportForAdmin extends CompanyReport implements ReportInterface 
 {
 
+    public function __construct(CompanyRepositoryInterface $companyRepository)
+    {
+        $this->companyRepository = $companyRepository;
+    }
     private function _loadWithPackage()
     {
         return Company::whereHas('packages', function (Builder $query) {

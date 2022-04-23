@@ -2,6 +2,7 @@
 
 namespace App\Services\Reports\Company;
 
+use App\Models\Company;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -52,6 +53,26 @@ class CompanyReport
                 case 'last-6-month' : $this->duration->date = Carbon::now()->subMonths(6)->toDateTimeString(); break;
                 default : $this->duration->date=null;
             }
+        }
+    }
+
+    public function initCompany(array $filters,Company $company)
+    {
+        $this->company = $company;
+        if(array_key_exists('package_id', $filters))
+        {
+            $this->package = $filters['package_id'];
+        }
+        if(array_key_exists('duration', $filters))
+        {
+            $this->duration = $filters['duration'];
+        }
+    }
+    public function startCompany()
+    {
+        if(Auth::user()->isAdmin())
+        {
+            return App::make(SingleCompanyReportForAdmin::class);
         }
     }
 
