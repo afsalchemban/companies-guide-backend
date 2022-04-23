@@ -14,7 +14,7 @@ class SingleCompanyReportForAdmin extends CompanyReport implements ReportInterfa
     }
     private function _execute()
     { 
-        dd($this->activityService->checkState($this->company));
+        $this->activityService->checkState($this->company);
     }
     public function generate()
     {

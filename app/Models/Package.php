@@ -11,6 +11,6 @@ class Package extends Model
 
     public function activeCompanies()
     {
-        return $this->belongsToMany(Company::class)->as('subscriptions')->using(CompanyPackage::class)->withPivot('end_date','status')->wherePivot('status', 'active');
+        return $this->belongsToMany(Company::class,'subscription')->as('subscriptions')->using(Subscription::class)->withPivot('end_date','status')->wherePivot('status', 'active');
     }
 }

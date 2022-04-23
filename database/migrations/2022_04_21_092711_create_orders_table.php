@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('company_package_id');
+            $table->unsignedBigInteger('subscription_id');
             $table->integer('discount_percentage');
             $table->integer('discount_amount');
             $table->integer('net_total');

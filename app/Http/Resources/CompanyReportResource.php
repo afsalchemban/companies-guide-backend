@@ -2,7 +2,6 @@
 
 namespace App\Http\Resources;
 
-use App\Models\CompanyPackage;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CompanyReportResource extends JsonResource

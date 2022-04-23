@@ -15,7 +15,7 @@ class OrdersSeeder extends Seeder
      */
     public function run()
     {
-        DB::unprepared("INSERT INTO `orders` (`company_package_id`,`discount_percentage`,`discount_amount`,`net_total`) VALUES
+        DB::unprepared("INSERT INTO `orders` (`subscription_id`,`discount_percentage`,`discount_amount`,`net_total`) VALUES
         (1,10,30,7600),
         (2,10,30,7600),
         (3,10,30,7600),

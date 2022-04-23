@@ -17,7 +17,7 @@ class SaleReportForAdmin extends SaleReport implements ReportInterface
         
         if($this->sale==null)
         {
-            return SaleReportResource::collection(Sale::withCount(['companyPackages' => function (Builder $query) {
+            return SaleReportResource::collection(Sale::withCount(['subscriptions' => function (Builder $query) {
                 
                 if($this->package!=null)
                 { $query->where('package_id',$this->package); }
@@ -26,7 +26,7 @@ class SaleReportForAdmin extends SaleReport implements ReportInterface
         }
         else
         {
-            return SaleReportResource::collection(Sale::withCount(['companyPackages' => function (Builder $query) {
+            return SaleReportResource::collection(Sale::withCount(['subscriptions' => function (Builder $query) {
 
                 if($this->package!=null)
                 { $query->where('package_id',$this->package); }

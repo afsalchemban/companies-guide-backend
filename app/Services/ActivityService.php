@@ -16,7 +16,7 @@ class ActivityService
         return $state;
     }
     private function _processActivity($activityLog,$neededActivities){
-        dd($activityLog);
+        
         $state= array();
         foreach($neededActivities as $activity)
         {

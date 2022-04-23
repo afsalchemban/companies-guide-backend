@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->unsignedBigInteger('company_package_id')->nullable();
+            $table->unsignedBigInteger('subscription_id')->nullable();
             $table->timestamps();
         });
     }

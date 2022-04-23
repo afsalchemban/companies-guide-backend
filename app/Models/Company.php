@@ -25,7 +25,7 @@ class Company extends Model
 
     public function packages()
     {
-        return $this->belongsToMany(Package::class)->as('subscriptions')->withPivot('status','end_date');
+        return $this->belongsToMany(Package::class,'subscription')->as('subscriptions')->withPivot('status','end_date');
     }
 
     public function country()
@@ -45,12 +45,12 @@ class Company extends Model
 
     public function activePackage()
     {
-        return $this->belongsToMany(Package::class)->as('subscriptions')->using(CompanyPackage::class)->withPivot('end_date','status')->wherePivot('status', 'active');
+        return $this->belongsToMany(Package::class,'subscription')->as('subscriptions')->using(Subscription::class)->withPivot('end_date','status')->wherePivot('status', 'active');
     }
 
     public function expiredPackages()
     {
-        return $this->belongsToMany(Package::class)->as('subscriptions')->using(CompanyPackage::class)->withPivot('end_date','status')->wherePivot('status', 'expired');
+        return $this->belongsToMany(Package::class,'subscription')->as('subscriptions')->using(Subscription::class)->withPivot('end_date','status')->wherePivot('status', 'expired');
     }
 
     public function companyActivity()
@@ -60,7 +60,7 @@ class Company extends Model
 
     public function orders()
     {
-        return $this->hasManyThrough(Order::class, CompanyPackage::class,'company_id','company_package_id','id','id');
+        return $this->hasManyThrough(Order::class, Subscription::class,'company_id','subscription_id','id','id');
     }
 
     public function activityLog()

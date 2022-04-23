@@ -9,8 +9,8 @@ class Payment extends Model
 {
     use HasFactory;
 
-    public function companyPackage()
+    public function subscription()
     {
-        return $this->belongsTo(CompanyPackage::class);
+        return $this->belongsTo(Subscription::class);
     }
 }

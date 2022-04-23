@@ -22,13 +22,13 @@ class Sale extends Model
         return $this->hasMany(Company::class);
     }
 
-    public function companyPackages()
+    public function subscriptions()
     {
-        return $this->hasManyThrough(CompanyPackage::class, Company::class);
+        return $this->hasManyThrough(Subscription::class, Company::class);
     }
 
     public function orders()
     {
-        return $this->hasManyDeep(Order::class,[Company::class,CompanyPackage::class],['sale_id','company_id','company_package_id'],['id','id','id']);
+        return $this->hasManyDeep(Order::class,[Company::class,Subscription::class],['sale_id','company_id','subscription_id'],['id','id','id']);
     }
 }
