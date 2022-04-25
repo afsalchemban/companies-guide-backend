@@ -8,10 +8,12 @@ use App\Models\Area;
 use App\Models\Company;
 use App\Models\Package;
 use App\Models\Sale;
+use App\Traits\ReportTrait;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class SaleReportForAdmin implements ReportInterface 
 {
+    use ReportTrait;
 
     public $sale;
     public $package;
@@ -25,17 +27,17 @@ class SaleReportForAdmin implements ReportInterface
     }
     public function init(array $filters)
     {
-        if(array_key_exists('sale_id', $filters))
+        if(!empty($filters['sale_id'])){
         {
             $this->sale = $filters['sale_id'];
         }
-        if(array_key_exists('package_id', $filters))
+        if(!empty($filters['package_id'])){
         {
             $this->package = $filters['package_id'];
         }
-        if(array_key_exists('duration', $filters))
+        if(!empty($filters['duration'])){
         {
-            $this->duration = $filters['duration'];
+            $this->duration = $this->convertDurationToDate(json_decode($filters['duration']));
         }
     }
 
