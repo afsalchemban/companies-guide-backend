@@ -25,11 +25,11 @@ class SaleReportForSale implements ReportInterface
     }
     public function init(array $filters)
     {
-        if(!empty($filters['package_id'])){
+        if(!empty($filters['sale_id']))
         {
             $this->package = $filters['package_id'];
         }
-        if(!empty($filters['duration'])){
+        if(!empty($filters['duration']))
         {
             $this->duration = $this->convertDurationToDate(json_decode($filters['duration']));
         }
