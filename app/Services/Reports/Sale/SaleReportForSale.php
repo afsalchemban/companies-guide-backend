@@ -8,8 +8,34 @@ use App\Models\Sale;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 
-class SaleReportForSale extends SaleReport implements ReportInterface 
+class SaleReportForSale implements ReportInterface 
 {
+
+    public $sale;
+    public $package;
+    public $duration;
+
+    public function __construct()
+    {
+        $this->sale = null;
+        $this->package = null;
+        $this->duration = null;
+    }
+    public function init(array $filters)
+    {
+        if(array_key_exists('sale_id', $filters))
+        {
+            $this->sale = $filters['sale_id'];
+        }
+        if(array_key_exists('package_id', $filters))
+        {
+            $this->package = $filters['package_id'];
+        }
+        if(array_key_exists('duration', $filters))
+        {
+            $this->duration = $filters['duration'];
+        }
+    }
 
     private function _execute()
     {

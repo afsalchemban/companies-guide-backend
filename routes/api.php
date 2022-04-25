@@ -30,9 +30,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('report')->group(function () {
 
         Route::post('/sale', [ReportController::class, 'sale']);
-        Route::post('/sale/{sale}', [ReportController::class, 'singleSale']);
+        Route::post('/sale/{sale}', [ReportController::class, 'summarySale']);
         Route::post('/company', [ReportController::class, 'company']);
-        Route::post('/company/{company}', [ReportController::class, 'singleCompany']);
+        Route::post('/company/{company}', [ReportController::class, 'summaryCompany']);
 
     });
 

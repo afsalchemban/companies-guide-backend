@@ -17,7 +17,9 @@ return new class extends Migration
             $table->id();
             $table->integer('logable_id');
             $table->string('logable_type');
-            $table->string('action');
+            $table->string('name');
+            $table->boolean('status');
+            $table->string('more_info');
             $table->timestamps();
         });
     }

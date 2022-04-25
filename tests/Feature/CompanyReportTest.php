@@ -55,6 +55,6 @@ class CompanyReportTest extends TestCase
     {
         Sanctum::actingAs(User::admin());
         $response = $this->post('/api/report/company/1')
-        ->assertStatus(Response::HTTP_OK);
+        ->assertStatus(Response::HTTP_OK)->dd();
     }
 }
