@@ -17,16 +17,12 @@ class SaleReportForSale implements ReportInterface
 
     public function __construct()
     {
-        $this->sale = null;
+        $this->sale = Auth::user()->userable;
         $this->package = null;
         $this->duration = null;
     }
     public function init(array $filters)
     {
-        if(array_key_exists('sale_id', $filters))
-        {
-            $this->sale = $filters['sale_id'];
-        }
         if(array_key_exists('package_id', $filters))
         {
             $this->package = $filters['package_id'];
@@ -38,17 +34,31 @@ class SaleReportForSale implements ReportInterface
     }
 
     private function _execute()
-    {
+    {   
+
+        if($this->package!=null) { 
+            $sales = $this->_loadWithPackage();
+        }
+        else
+        {
+            $sales = $this->_loadWithoutPackage();
+        }
+
+        return new SaleReportResource($sales);
         
-        $sale = Auth::user()->userable;
-        return SaleReportResource::collection(Sale::withCount(['subscriptions' => function (Builder $query) {
-
-            if($this->package!=null)
-            { $query->where('package_id',$this->package); }
-
-        }])->where('id',$sale->id)->get()); 
+    }
+    private function _loadWithPackage(){
+        return [];
     }
 
+    private function _loadWithoutPackage(){
+        return $this->sale->loadCount(['Companies'=>function (Builder $query) {
+                
+            if($this->duration!=null&&is_string($this->duration)) { $query->where('created_at', '>=',$this->duration); }
+            if($this->duration!=null&&is_array($this->duration)) { $query->whereBetween('created_at', [$this->duration->from,$this->duration->to]); }
+
+        }]);
+    }
     public function generate()
     {
         return $this->_execute();

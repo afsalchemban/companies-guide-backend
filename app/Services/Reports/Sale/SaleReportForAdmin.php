@@ -5,6 +5,7 @@ namespace App\Services\Reports\Sale;
 use App\Http\Resources\SaleReportResource;
 use App\Interfaces\ReportInterface;
 use App\Models\Area;
+use App\Models\Company;
 use App\Models\Package;
 use App\Models\Sale;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -40,26 +41,35 @@ class SaleReportForAdmin implements ReportInterface
 
     private function _execute()
     {   
-        
-        if($this->sale==null)
-        {
-            return SaleReportResource::collection(Sale::withCount(['subscriptions' => function (Builder $query) {
-                
-                if($this->package!=null)
-                { $query->where('package_id',$this->package); }
 
-            }])->get());
+        if($this->package!=null) { 
+            $sales = $this->_loadWithPackage();
         }
         else
         {
-            return SaleReportResource::collection(Sale::withCount(['subscriptions' => function (Builder $query) {
-
-                if($this->package!=null)
-                { $query->where('package_id',$this->package); }
-
-            }])->where('id',$this->sale)->get()); 
+            $sales = $this->_loadWithoutPackage();
         }
+
+        return SaleReportResource::collection($sales);
         
+    }
+    private function _loadWithPackage(){
+        return [];
+    }
+
+    private function _loadWithoutPackage(){
+        return Sale::withCount(['companies' => function (Builder $query) {
+                
+            if($this->duration!=null&&is_string($this->duration)) { $query->where('created_at', '>=',$this->duration); }
+            if($this->duration!=null&&is_array($this->duration)) { $query->whereBetween('created_at', [$this->duration->from,$this->duration->to]); }
+
+        }])->where(function (Builder $query) {
+
+            if($this->sale!=null){
+                $query->where('id',$this->sale);   
+            }
+
+        })->get();
     }
     public function generate()
     {
