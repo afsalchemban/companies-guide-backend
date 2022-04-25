@@ -4,6 +4,7 @@ namespace App\Services\Activity;
 
 use App\Models\Company;
 use App\Constants\ActivitiesCompanyConstants;
+use Throwable;
 
 class PackageActions
 {
@@ -12,8 +13,15 @@ class PackageActions
     }
     public function getPackages($company)
     {
-        $activePackage = $company->activePackage->first();
-        switch($activePackage->name){
+        try
+        {
+            $package = $company->activePackage->first()->name;
+        }
+        catch(Throwable $e){
+            $package = $company->expiredPackages->sortByDesc('subscriptions.end_date')->first()->name;
+        }
+
+        switch($package){
             case 'Full' : return new FullPackageActions();
                 break;
             case 'Profile' : return new ProfilePackageActions();

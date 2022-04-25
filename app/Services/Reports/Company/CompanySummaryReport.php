@@ -3,6 +3,7 @@
 namespace App\Services\Reports\Company;
 
 use App\Constants\ActivitiesCompanyConstants;
+use App\Http\Resources\CompanyReportResource;
 use App\Interfaces\ReportInterface;
 use App\Interfaces\SummaryReportInterface;
 use App\Services\Activity\ActivityService;
@@ -30,7 +31,7 @@ class CompanySummaryReport implements SummaryReportInterface
     { 
         return response()->json([
             'status' => $this->activityService->summary($this->company),
-            'state' => 'CA',
+            'info' => new CompanyReportResource($this->company->load('companyActivity','sale')),
         ]);
     }
     public function generate()
