@@ -5,11 +5,13 @@ namespace App\Services\Reports\Sale;
 use App\Http\Resources\SaleReportResource;
 use App\Interfaces\ReportInterface;
 use App\Models\Sale;
+use App\Traits\ReportTrait;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 
 class SaleReportForSale implements ReportInterface 
 {
+    use ReportTrait;
 
     public $sale;
     public $package;
@@ -23,13 +25,13 @@ class SaleReportForSale implements ReportInterface
     }
     public function init(array $filters)
     {
-        if(array_key_exists('package_id', $filters))
+        if(!empty($filters['package_id'])){
         {
             $this->package = $filters['package_id'];
         }
-        if(array_key_exists('duration', $filters))
+        if(!empty($filters['duration'])){
         {
-            $this->duration = $filters['duration'];
+            $this->duration = $this->convertDurationToDate(json_decode($filters['duration']));
         }
     }
 
