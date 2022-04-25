@@ -10,14 +10,7 @@ class LatestCompanyLogs
         foreach($actions as $action)
         {
             $log = $company->activityLog()->select('status')->where('name',$action->name)->latest()->first();
-            if($log!=null)
-            {
-                $logs[] = new LatestActivity($action->name,$log->status);
-            }
-            else
-            {
-                $logs[] = new LatestActivity($action->name,0);
-            }
+            $logs[] = new LatestActivity($action->title,is_null($log)?0:$log->status);
         }
         return $logs;
     }

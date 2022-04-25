@@ -4,11 +4,11 @@ namespace App\Constants;
 
 final class ActivitiesCompanyConstants
 {
-    public const BANNER = 'BANNER';
-    public const COMPANY_INFROMATION = 'COMPANY_INFROMATION';
-    public const FOLLOW_US = 'FOLLOW_US';
-    public const CATEGORIES = 'CATEGORIES';
-    public const ABOUT_COMPANY = 'ABOUT_COMPANY';
-    public const PROFILE_IMAGES = 'PROFILE_IMAGES';
-    public const LOGO = 'LOGO';
+    public const BANNER = ['name'=>'BANNER','title'=>'Banner'];
+    public const COMPANY_INFROMATION = ['name'=>'COMPANY_INFORMATION','title'=>'Company Information'];
+    public const FOLLOW_US = ['name'=>'FOLLOW_US','title'=>'Follow Us'];
+    public const CATEGORIES = ['name'=>'CATEGORIES','title'=>'Categories'];
+    public const ABOUT_COMPANY = ['name'=>'ABOUT_COMPANY','title'=>'About Company'];
+    public const PROFILE_IMAGES = ['name'=>'PROFILE_IMAGES','title'=>'Profile Images'];
+    public const LOGO = ['name'=>'LOGO','title'=>'Logo'];
 }

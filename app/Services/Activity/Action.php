@@ -5,8 +5,10 @@ namespace App\Services\Activity;
 class Action
 {
     public $name;
-    public function __construct($name)
+    public $title;
+    public function __construct($action)
     {
-        $this->name = $name;
+        $this->name = $action['name'];
+        $this->title = $action['title'];
     }
 }
