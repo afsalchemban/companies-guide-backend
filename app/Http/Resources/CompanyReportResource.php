@@ -27,7 +27,7 @@ class CompanyReportResource extends JsonResource
             })),
             'activity' => $this->whenLoaded('companyActivity'),
             'added_by' => $this->whenLoaded('sale'),
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at->format('Y-m-d'),
         ];
     }
 }
