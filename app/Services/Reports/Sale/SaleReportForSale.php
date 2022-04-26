@@ -25,7 +25,7 @@ class SaleReportForSale implements ReportInterface
     }
     public function init(array $filters)
     {
-        if(!empty($filters['sale_id']))
+        if(!empty($filters['package_id']))
         {
             $this->package = $filters['package_id'];
         }
@@ -35,31 +35,31 @@ class SaleReportForSale implements ReportInterface
         }
     }
 
-    private function _execute()
-    {   
-
-        if($this->package!=null) { 
-            $sales = $this->_loadWithPackage();
-        }
-        else
-        {
-            $sales = $this->_loadWithoutPackage();
-        }
-
-        return new SaleReportResource($sales);
+    private function _execute(){
         
-    }
-    private function _loadWithPackage(){
-        return [];
-    }
+        $sales =  Sale::withSum(['orders'=>function (Builder $query) {
 
-    private function _loadWithoutPackage(){
-        return $this->sale->loadCount(['Companies'=>function (Builder $query) {
-                
+            if($this->package!=null){
+                $query->where('package_id',$this->package);
+            }
             if($this->duration!=null&&is_string($this->duration)) { $query->where('created_at', '>=',$this->duration); }
             if($this->duration!=null&&is_array($this->duration)) { $query->whereBetween('created_at', [$this->duration->from,$this->duration->to]); }
 
-        }]);
+        }],'net_total')->withCount(['companies' => function (Builder $query) {
+
+            if($this->package!=null){
+                $query->whereHas('packages', function (Builder $qry) {
+                    $qry->where('package_id',$this->package);
+                });
+            }
+
+            if($this->duration!=null&&is_string($this->duration)) { $query->where('created_at', '>=',$this->duration); }
+            if($this->duration!=null&&is_array($this->duration)) { $query->whereBetween('created_at', [$this->duration->from,$this->duration->to]); }
+
+        }])->where(function (Builder $query) {
+                $query->where('id',$this->sale->id);   
+        })->get();
+        return SaleReportResource::collection($sales);
     }
     public function generate()
     {

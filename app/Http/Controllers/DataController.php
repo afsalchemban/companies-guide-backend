@@ -2,18 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\Reports\ReportInterface;
 use App\Interfaces\DataRepositoryInterface;
 use App\Models\City;
-use App\Models\Company;
 use App\Models\Country;
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
-use Google\Cloud\Storage\StorageClient;
-use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
 
 class DataController extends Controller
 {
@@ -80,8 +75,8 @@ class DataController extends Controller
     
     public function test_get(){
 
-
-        return Carbon::now()->subDays(30)->toDateTimeString().' - '.Carbon::now()->firstOfMonth()->toDateTimeString().' - '.Carbon::now()->startOfMonth()->subMonth()->toDateString().' - '.Carbon::now()->subMonth()->toDateTimeString().' - '.Carbon::now()->subMonths(6)->toDateTimeString();
+        return Cache::get('keys');
+        //return Carbon::now()->subDays(30)->toDateTimeString().' - '.Carbon::now()->firstOfMonth()->toDateTimeString().' - '.Carbon::now()->startOfMonth()->subMonth()->toDateString().' - '.Carbon::now()->subMonth()->toDateTimeString().' - '.Carbon::now()->subMonths(6)->toDateTimeString();
         
     }
 
