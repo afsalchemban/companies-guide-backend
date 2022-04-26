@@ -27,8 +27,12 @@ class Sale extends Model
         return $this->hasManyThrough(Subscription::class, Company::class);
     }
 
-    public function orders()
+    public function orderswithdeep()
     {
         return $this->hasManyDeep(Order::class,[Company::class,Subscription::class],['sale_id','company_id','subscription_id'],['id','id','id']);
+    }
+    public function orders()
+    {
+        return $this->hasManyThrough(Order::class, Company::class,'sale_id','company_id','id','id');
     }
 }

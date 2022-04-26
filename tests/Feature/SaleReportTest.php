@@ -21,11 +21,11 @@ class SaleReportTest extends TestCase
         Sanctum::actingAs(User::admin());
         $payload = [
             'sale_id' => null,
-            'package_id' => null,
+            'package_id' => 3,
             'duration' => null
         ];
         $response = $this->post('/api/report/sale',$payload)
-        ->assertStatus(Response::HTTP_OK);
+        ->assertStatus(Response::HTTP_OK)->dd();
     }
 
     public function test_sale_report_for_sale()
@@ -36,7 +36,7 @@ class SaleReportTest extends TestCase
             'duration' => null
         ];
         $response = $this->post('/api/report/sale',$payload)
-        ->assertStatus(Response::HTTP_OK)->dd();
+        ->assertStatus(Response::HTTP_OK);
     }
 
 

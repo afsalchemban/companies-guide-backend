@@ -60,7 +60,7 @@ class Company extends Model
 
     public function orders()
     {
-        return $this->hasManyThrough(Order::class, Subscription::class,'company_id','subscription_id','id','id');
+        return $this->hasMany(Order::class);
     }
 
     public function activityLog()

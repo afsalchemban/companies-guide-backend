@@ -16,10 +16,16 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('subscription_id');
+            $table->unsignedBigInteger('company_id');
+            $table->unsignedBigInteger('package_id');
             $table->integer('discount_percentage');
             $table->integer('discount_amount');
             $table->integer('net_total');
             $table->timestamps();
+        });
+        Schema::table('orders', function (Blueprint $table) {
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
+            $table->foreign('package_id')->references('id')->on('packages')->onDelete('cascade');
         });
     }
 

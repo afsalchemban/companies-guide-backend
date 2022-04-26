@@ -19,9 +19,10 @@ class SaleReportResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'phone_number' => $this->phone_number,
+            'total_income' => $this->orders_sum_net_total,
             'companies_added' => [
                 "total" => $this->companies_count
-            ]
+            ],
         ];
     }
 }
