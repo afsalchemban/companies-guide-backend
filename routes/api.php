@@ -46,6 +46,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('company')->group(function () {
 
         Route::put('/company_select_package', [CompanyController::class, 'selectPackage']);
+        Route::get('/order_info', [CompanyController::class, 'getOrderDetailsFromCache']);
+        Route::post('/pay', [CompanyController::class, 'orderpay']);
 
     });
 

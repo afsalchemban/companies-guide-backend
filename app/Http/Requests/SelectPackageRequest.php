@@ -15,8 +15,7 @@ class SelectPackageRequest extends FormRequest
      */
     public function authorize()
     {
-        $company = Company::find($this->company_id);
-        return $this->user()->can('changePackage', $company);
+        return $this->user()->isSale();
     }
 
     protected function failedAuthorization()
@@ -32,7 +31,6 @@ class SelectPackageRequest extends FormRequest
     public function rules()
     {
         return [
-            'company_id' => 'required|exists:companies,id',
             'package_id' => 'required|exists:packages,id',
         ];
     }

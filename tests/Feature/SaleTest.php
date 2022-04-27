@@ -9,6 +9,7 @@ use App\Models\Company;
 use Illuminate\Http\Response;
 use Laravel\Sanctum\Sanctum;
 use App\Models\User;
+use Illuminate\Support\Facades\Cache;
 
 class SaleTest extends TestCase
 {
@@ -26,19 +27,16 @@ class SaleTest extends TestCase
          ->assertStatus(Response::HTTP_OK);
     }
 
-    public function test_company_registered_successfully()
+    public function test_company_added_to_cache()
     {
-        $user = User::sale();
+        $user = User::sale(2);
         Sanctum::actingAs($user);
         $company = Company::factory()->make();
-        $this->json('post', 'api/company', $company->toArray())
-         ->assertStatus(Response::HTTP_CREATED)->assertJsonStructure(
+        $this->json('post', 'api/company', $company->toArray())->assertExactJson(
             [
-                'business_name',
-                'id'
+                'company_added' => true
             ]
         );
-        $this->assertDatabaseHas('companies', $company->toArray());
 
     }
 
@@ -51,16 +49,11 @@ class SaleTest extends TestCase
 
     }
 
-    public function test_package_selected_successfully()
+    public function test_package_selected_added_to_cache()
     {
-        $user = User::sale();
+        $user = User::sale(2);
         Sanctum::actingAs($user);
-        $sale = $user->userable;
-        $company = Company::factory()->create([
-            'sale_id' => $sale->id,
-        ]);
         $payload = [
-            'company_id' => $company->id,
             'package_id'  => 1
         ];
         $this->json('put', 'api/company/company_select_package', $payload)
@@ -72,21 +65,22 @@ class SaleTest extends TestCase
         );
     }
 
+    public function test_order_page_data(){
+        $user = User::sale(2);
+        Sanctum::actingAs($user);
+        $this->json('get', 'api/company/order_info')
+         ->assertStatus(Response::HTTP_OK);
+    }
+
     public function test_payment_for_package()
     {
-        $user = User::sale();
+        $user = User::sale(2);
         Sanctum::actingAs($user);
         $payload = [
             'order_id' => 1,
             'discount'  => 10,
             'payment_type' => 'cash'
         ];
-        $this->json('put', 'api/pay', $payload)
-         ->assertStatus(Response::HTTP_OK)
-         ->assertExactJson(
-            [
-                'package_added' => true
-            ]
-        );
+        $this->json('post', 'api/company/pay', $payload);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 use Carbon\Carbon;
+use Exception;
 
 trait ReportTrait
 {
@@ -13,7 +14,7 @@ trait ReportTrait
                 case 'current-month' : return Carbon::now()->firstOfMonth()->toDateTimeString(); break;
                 case 'last-6-month' : return Carbon::now()->subMonths(6)->toDateTimeString(); break;
                 case 'custom' : return []; break;
-                default : return null;
+                default : throw new Exception("This duation is not allowed");
             }
     }
 }

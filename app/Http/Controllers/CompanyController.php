@@ -37,7 +37,7 @@ class CompanyController extends Controller
      */
     public function store(StoreCompanyRequest $request)
     {        
-        return $this->companyRepository->createCompany($request->validated());
+        return $this->companyRepository->createCompanyInCache($request->validated());
     }
 
     /**
@@ -80,7 +80,17 @@ class CompanyController extends Controller
 
     public function selectPackage(SelectPackageRequest $request){
 
-        return $this->companyRepository->createPackage($request->validated());
+        return $this->companyRepository->createPackageInCache($request->validated());
 
+    }
+
+    public function getOrderDetailsFromCache()
+    {
+        return $this->companyRepository->getOrderDetailsFromCache();
+    }
+
+    public function orderPay()
+    {
+        return $this->companyRepository->orderPay();
     }
 }

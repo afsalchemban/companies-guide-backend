@@ -7,10 +7,16 @@ use App\Http\Resources\CompanyResource;
 use App\Interfaces\CompanyRepositoryInterface;
 use App\Models\Company;
 use App\Models\Package;
+use App\Services\Payments\BankPayment;
+use App\Services\Payments\CashPayment;
+use App\Services\Payments\ChequePayment;
 use App\Services\UserSwitchingService;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Str;
+use Exception;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+
+use function PHPUnit\Framework\throwException;
 
 class CompanyRepository implements CompanyRepositoryInterface
 {
@@ -30,15 +36,14 @@ class CompanyRepository implements CompanyRepositoryInterface
     {
         return $company->delete();
     }
-    public function createCompany(array $companyDetails){
+    public function createCompanyInCache(array $companyDetails){
 
-        $company = new Company($companyDetails);
+        Cache::put('registered-company-'.Auth::user()->id, $companyDetails);
 
-        $sale = $this->userSwitch->sale();
-
-        $sale->companies()->save($company);
-
-        return $company;
+        return response()->json([
+            'company_added' => true
+        ],Response::HTTP_OK);
+        
     }
     public function updateCompany(Company $company, array $newDetails)
     {
@@ -48,14 +53,47 @@ class CompanyRepository implements CompanyRepositoryInterface
     {
         
     }
-    public function createPackage($data)
+    public function createPackageInCache($data)
     {
-        $company = Company::find($data['company_id']);
+        Cache::put('registered-company-package-id-'.Auth::user()->id, $data['package_id']);
+        //$company = Company::find($data['company_id']);
 
-        $company->packages()->attach($data['package_id'], ['start_date' => '2022-01-01','end_date' => '2022-11-11','status' => 'new']);
+        //$company->packages()->attach($data['package_id'], ['start_date' => '2022-01-01','end_date' => '2022-11-11','status' => 'new']);
 
         return response()->json([
             'package_added' => true
         ],Response::HTTP_OK);
+    }
+    public function getOrderDetailsFromCache()
+    {
+        return response()->json([
+            'company_info' => Cache::get('registered-company-'.Auth::user()->id),
+            'package_info' => Package::find(Cache::get('registered-company-package-id-'.Auth::user()->id),['id', 'name']),
+        ],Response::HTTP_OK);
+    }
+    private function _saveCompanyFromCache()
+    {
+
+        $sale = $this->userSwitch->sale();
+        
+        $company = $sale->companies()->create(Cache::get('registered-company-'.Auth::user()->id));
+
+        return $company->id;
+    }
+    public function orderPay()
+    {
+        return $this->_saveCompanyFromCache();
+
+
+        // switch($paymentType){
+        //     case 'cash' : (new CashPayment)->setAmount(120);
+        //     break;
+        //     case 'bank' : (new BankPayment)->setAmount(120);
+        //     break;
+        //     case 'cheque' : (new ChequePayment)->setAmount(120);
+        //     break;
+        //     default : throw new Exception("No payment method selected");
+        // }
+        // return (new CashPayment)->setAmount(120)->pay();
     }
 }
