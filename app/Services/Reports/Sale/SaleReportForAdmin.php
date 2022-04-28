@@ -50,7 +50,7 @@ class SaleReportForAdmin implements ReportInterface
                 $query->where('package_id',$this->package);
             }
             if($this->duration!=null&&is_string($this->duration)) { $query->where('orders.created_at', '>=',$this->duration); }
-            if($this->duration!=null&&is_array($this->duration)) { $query->whereBetween('orders.created_at', [$this->duration->from,$this->duration->to]); }
+            if($this->duration!=null&&!is_string($this->duration)) { $query->whereBetween('orders.created_at', [$this->duration->from,$this->duration->to]); }
 
         }],'net_total')->withCount(['companies' => function (Builder $query) {
 
@@ -60,7 +60,7 @@ class SaleReportForAdmin implements ReportInterface
                 });
             }
             if($this->duration!=null&&is_string($this->duration)) { $query->where('created_at', '>=',$this->duration); }
-            if($this->duration!=null&&is_array($this->duration)) { $query->whereBetween('created_at', [$this->duration->from,$this->duration->to]); }
+            if($this->duration!=null&&!is_string($this->duration)) { $query->whereBetween('created_at', [$this->duration->from,$this->duration->to]); }
 
         }])->where(function (Builder $query) {
 

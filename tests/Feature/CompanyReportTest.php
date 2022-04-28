@@ -23,10 +23,10 @@ class CompanyReportTest extends TestCase
             'company_id' => null,
             'package_id' => null,
             'company_activity_id' => null,
-            'duration' => '{"type":"current-month"}'
+            'duration' => '{"type":"custom","from":"2022-04-01","to":"2022-05-29"}'
         ];
         $response = $this->post('/api/report/company',$payload)
-        ->assertStatus(Response::HTTP_OK);
+        ->assertStatus(Response::HTTP_OK)->dd();
     }
 
     public function test_company_report_for_sale()
@@ -48,7 +48,7 @@ class CompanyReportTest extends TestCase
                     ]
                 ]
             ]
-        )->dd();
+        );
     }
 
     public function test_single_company_report_for_admin()
