@@ -47,7 +47,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::put('/company_select_package', [CompanyController::class, 'selectPackage']);
         Route::get('/order_info', [CompanyController::class, 'getOrderDetailsFromCache']);
-        Route::post('/pay', [CompanyController::class, 'orderpay']);
+        Route::post('/pay/cash', [CompanyController::class, 'payByCash']);
+        Route::post('/pay/bank', [CompanyController::class, 'payByBank']);
+        Route::post('/pay/cheque', [CompanyController::class, 'payByCheque']);
 
     });
 

@@ -15,9 +15,13 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->unsignedBigInteger('subscription_id')->nullable();
+            $table->string('type');
+            $table->string('details');
+            $table->unsignedBigInteger('order_id');
             $table->timestamps();
+        });
+        Schema::table('payments', function (Blueprint $table) {
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
         });
     }
 

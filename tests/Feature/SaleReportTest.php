@@ -25,7 +25,7 @@ class SaleReportTest extends TestCase
             'duration' => '{"type":"last-7"}'
         ];
         $response = $this->post('/api/report/sale',$payload)
-        ->assertStatus(Response::HTTP_OK)->dd();
+        ->assertStatus(Response::HTTP_OK);
     }
 
     public function test_sale_report_for_sale()

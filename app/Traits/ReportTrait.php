@@ -13,7 +13,7 @@ trait ReportTrait
                 case 'last-7' : return Carbon::now()->subDays(7)->toDateTimeString(); break;
                 case 'current-month' : return Carbon::now()->firstOfMonth()->toDateTimeString(); break;
                 case 'last-6-month' : return Carbon::now()->subMonths(6)->toDateTimeString(); break;
-                case 'custom' : return []; break;
+                case 'custom' : return $duration; break;
                 default : throw new Exception("This duation is not allowed");
             }
     }

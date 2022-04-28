@@ -7,10 +7,9 @@ use App\Interfaces\PaymentInterface;
 class CashPayment implements PaymentInterface
 {
     private $amount;
-    public function setAmount($amount)
+    public function __construct($data)
     {
-        $this->amount = $amount;
-        return $this;
+        $this->amount = $data['amount'];
     }
     public function pay()
     {

@@ -48,7 +48,7 @@ class CompanyReportTest extends TestCase
                     ]
                 ]
             ]
-        );
+        )->dd();
     }
 
     public function test_single_company_report_for_admin()

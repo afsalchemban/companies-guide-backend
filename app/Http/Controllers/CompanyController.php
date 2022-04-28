@@ -2,12 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PayByBankRequest;
+use App\Http\Requests\PayByCashRequest;
+use App\Http\Requests\PayByChequeRequest;
 use App\Http\Requests\SelectPackageRequest;
 use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
 use App\Interfaces\CompanyRepositoryInterface;
 use App\Models\Company;
 use App\Models\Package;
+use App\Services\Payments\BankPayment;
+use App\Services\Payments\CashPayment;
+use App\Services\Payments\ChequePayment;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -37,7 +43,7 @@ class CompanyController extends Controller
      */
     public function store(StoreCompanyRequest $request)
     {        
-        return $this->companyRepository->createCompanyInCache($request->validated());
+        return $this->companyRepository->storeCompanyInCache($request->validated());
     }
 
     /**
@@ -80,7 +86,7 @@ class CompanyController extends Controller
 
     public function selectPackage(SelectPackageRequest $request){
 
-        return $this->companyRepository->createPackageInCache($request->validated());
+        return $this->companyRepository->storePackageInCache($request->validated());
 
     }
 
@@ -89,8 +95,18 @@ class CompanyController extends Controller
         return $this->companyRepository->getOrderDetailsFromCache();
     }
 
-    public function orderPay()
+    public function payByCash(PayByCashRequest $request)
     {
-        return $this->companyRepository->orderPay();
+        return $this->companyRepository->orderPay(new CashPayment($request->validated()));
+    }
+
+    public function payByCheque(PayByChequeRequest $request)
+    {
+        return $this->companyRepository->orderPay(new ChequePayment($request->validated()));
+    }
+
+    public function payByBank(PayByBankRequest $request)
+    {
+        return $this->companyRepository->orderPay(new BankPayment($request->validated()));
     }
 }

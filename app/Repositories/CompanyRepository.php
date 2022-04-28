@@ -5,8 +5,10 @@ namespace App\Repositories;
 use App\Http\Resources\CompanyReportResource;
 use App\Http\Resources\CompanyResource;
 use App\Interfaces\CompanyRepositoryInterface;
+use App\Interfaces\PaymentInterface;
 use App\Models\Company;
 use App\Models\Package;
+use App\Services\Company\CompanyRegistrationFromCache;
 use App\Services\Payments\BankPayment;
 use App\Services\Payments\CashPayment;
 use App\Services\Payments\ChequePayment;
@@ -36,7 +38,7 @@ class CompanyRepository implements CompanyRepositoryInterface
     {
         return $company->delete();
     }
-    public function createCompanyInCache(array $companyDetails){
+    public function storeCompanyInCache(array $companyDetails){
 
         Cache::put('registered-company-'.Auth::user()->id, $companyDetails);
 
@@ -53,7 +55,7 @@ class CompanyRepository implements CompanyRepositoryInterface
     {
         
     }
-    public function createPackageInCache($data)
+    public function storePackageInCache($data)
     {
         Cache::put('registered-company-package-id-'.Auth::user()->id, $data['package_id']);
         //$company = Company::find($data['company_id']);
@@ -75,15 +77,17 @@ class CompanyRepository implements CompanyRepositoryInterface
     {
 
         $sale = $this->userSwitch->sale();
-        
+
         $company = $sale->companies()->create(Cache::get('registered-company-'.Auth::user()->id));
 
         return $company->id;
     }
-    public function orderPay()
+    public function orderPay(PaymentInterface $payment)
     {
-        return $this->_saveCompanyFromCache();
+        $companyRegistration = new CompanyRegistrationFromCache();
+        $companyRegistration->register()->attachPackage()->createOrder();
 
+        (new PaymentService())->pay($payment);
 
         // switch($paymentType){
         //     case 'cash' : (new CashPayment)->setAmount(120);
