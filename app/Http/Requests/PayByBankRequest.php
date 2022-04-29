@@ -26,6 +26,9 @@ class PayByBankRequest extends FormRequest
         return [
             'amount' => 'required',
             'reference_number' => 'required',
+            'discount_percentage' => 'required',
+            'discount_amount' => 'required',
+            'bank_name' => 'required'
         ];
     }
 }

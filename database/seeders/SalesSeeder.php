@@ -41,7 +41,7 @@ class SalesSeeder extends Seeder
             'remember_token' => Str::random(10),
             'user_type' => 'sale',
             'userable_id' => 1,
-            'userable_type' => 'App\Models\Sale'
+            'userable_type' => 'sale'
         ]);
 
         DB::table('users')->insert([
@@ -52,7 +52,7 @@ class SalesSeeder extends Seeder
             'remember_token' => Str::random(10),
             'user_type' => 'sale',
             'userable_id' => 2,
-            'userable_type' => 'App\Models\Sale'
+            'userable_type' => 'sale'
         ]);
     }
 }

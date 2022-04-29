@@ -11,8 +11,7 @@ use App\Repositories\DataRepository;
 use App\Repositories\CompanyRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Services\UserSwitchingService;
-use Exception;
-use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\Relations\Relation;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -43,6 +42,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Relation::enforceMorphMap([
+            'cash' => 'App\Models\CashPayment',
+            'cheque' => 'App\Models\ChequePayment',
+            'bank' => 'App\Models\BankPayment',
+            'company' => 'App\Models\Company',
+            'sale' => 'App\Models\Sale',
+            'user' => 'App\Models\User',
+            'order' => 'App\Models\Order',
+        ]);
     }
 }

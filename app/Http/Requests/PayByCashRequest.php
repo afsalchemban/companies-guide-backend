@@ -13,7 +13,7 @@ class PayByCashRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class PayByCashRequest extends FormRequest
     public function rules()
     {
         return [
-            'amount' => 'required'
+            'amount' => 'required',
+            'discount_percentage' => 'required',
+            'discount_amount' => 'required'
         ];
     }
 }

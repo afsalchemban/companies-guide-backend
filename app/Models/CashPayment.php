@@ -5,8 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Order extends Model
+class CashPayment extends Model
 {
-    protected $guarded = [];
     use HasFactory;
+
+    public function payment()
+    {
+        return $this->morphOne(Payment::class, 'payable');
+    }
 }

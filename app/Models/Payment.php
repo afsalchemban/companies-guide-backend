@@ -13,4 +13,9 @@ class Payment extends Model
     {
         return $this->belongsTo(Subscription::class);
     }
+
+    public function payable()
+    {
+        return $this->morphTo();
+    }
 }

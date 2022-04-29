@@ -13,17 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('payments', function (Blueprint $table) {
+        Schema::create('cheque_payments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('order_id');
-            $table->integer('payable_id')->nullable();
-            $table->string('payable_type')->nullable();
             $table->string('amount');
-            $table->boolean('status');
+            $table->string('bank_name');
+            $table->string('cheque_number');
+            $table->string('cheque_image_path');
             $table->timestamps();
-        });
-        Schema::table('payments', function (Blueprint $table) {
-            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
         });
     }
 
@@ -34,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('payments');
+        Schema::dropIfExists('cheque_payments');
     }
 };

@@ -27,6 +27,9 @@ class PayByChequeRequest extends FormRequest
             'amount' => 'required',
             'bank_name' => 'required',
             'cheque_number' => 'required',
+            'discount_percentage' => 'required',
+            'discount_amount' => 'required',
+            'cheque_image' => 'required|image'
         ];
     }
 }

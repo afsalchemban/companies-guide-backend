@@ -9,14 +9,17 @@ use App\Interfaces\PaymentInterface;
 use App\Models\Company;
 use App\Models\Package;
 use App\Services\Company\CompanyRegistrationFromCache;
+use App\Services\Company\SubscriptionRegistrationFromCache;
 use App\Services\Payments\BankPayment;
 use App\Services\Payments\CashPayment;
 use App\Services\Payments\ChequePayment;
+use App\Services\Payments\OrderPaymentService;
 use App\Services\UserSwitchingService;
 use Exception;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 use function PHPUnit\Framework\throwException;
 
@@ -58,9 +61,6 @@ class CompanyRepository implements CompanyRepositoryInterface
     public function storePackageInCache($data)
     {
         Cache::put('registered-company-package-id-'.Auth::user()->id, $data['package_id']);
-        //$company = Company::find($data['company_id']);
-
-        //$company->packages()->attach($data['package_id'], ['start_date' => '2022-01-01','end_date' => '2022-11-11','status' => 'new']);
 
         return response()->json([
             'package_added' => true
@@ -84,20 +84,11 @@ class CompanyRepository implements CompanyRepositoryInterface
     }
     public function orderPay(PaymentInterface $payment)
     {
-        $companyRegistration = new CompanyRegistrationFromCache();
-        $companyRegistration->register()->attachPackage()->createOrder();
-
-        (new PaymentService())->pay($payment);
-
-        // switch($paymentType){
-        //     case 'cash' : (new CashPayment)->setAmount(120);
-        //     break;
-        //     case 'bank' : (new BankPayment)->setAmount(120);
-        //     break;
-        //     case 'cheque' : (new ChequePayment)->setAmount(120);
-        //     break;
-        //     default : throw new Exception("No payment method selected");
-        // }
-        // return (new CashPayment)->setAmount(120)->pay();
+        DB::transaction(function () use ($payment) {
+            $company_registered = (new CompanyRegistrationFromCache())->registerFromCache();
+            $subscription_registered = (new SubscriptionRegistrationFromCache())->setCompany($company_registered)->addPackageFromCache();
+            $payment = (new OrderPaymentService())->setCompany($company_registered)->setPayment($payment)->setSubscription($subscription_registered)->createOrder()->pay();
+        });
+    
     }
 }

@@ -72,15 +72,42 @@ class SaleTest extends TestCase
          ->assertStatus(Response::HTTP_OK);
     }
 
-    public function test_payment_for_package()
+    public function test_pay_by_cash()
     {
         $user = User::sale(2);
         Sanctum::actingAs($user);
         $payload = [
-            'order_id' => 1,
-            'discount'  => 10,
-            'payment_type' => 'cash'
+            'discount_percentage'  => 10,
+            'discount_amount'  => 500,
+            'amount'  => 6700,
         ];
-        $this->json('post', 'api/company/pay', $payload);
+        $this->json('post', 'api/company/pay/cash', $payload)
+        ->assertStatus(Response::HTTP_OK);
+    }
+
+    public function test_pay_by_cheque()
+    {
+        $user = User::sale(2);
+        Sanctum::actingAs($user);
+        $payload = [
+            'discount_percentage'  => 10,
+            'discount_amount'  => 500,
+            'amount'  => 6700,
+        ];
+        $this->json('post', 'api/company/pay/cheque', $payload)
+        ->assertStatus(Response::HTTP_OK);
+    }
+
+    public function test_pay_by_bank()
+    {
+        $user = User::sale(2);
+        Sanctum::actingAs($user);
+        $payload = [
+            'discount_percentage'  => 10,
+            'discount_amount'  => 500,
+            'amount'  => 6700,
+        ];
+        $this->json('post', 'api/company/pay/bank', $payload)
+        ->assertStatus(Response::HTTP_OK);
     }
 }
