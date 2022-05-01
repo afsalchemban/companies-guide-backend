@@ -17,7 +17,7 @@ class SalesSeeder extends Seeder
     public function run()
     {
         DB::table('sales')->insert([
-            'name' => 'Sale Test Account',
+            'name' => 'Sulaiman',
             'email' => 'sale@admin.com',
             'phone_number' => '000000',
             'gender' => 'Male',
@@ -34,7 +34,7 @@ class SalesSeeder extends Seeder
         
 
         DB::table('users')->insert([
-            'name' => 'Sale Test Account',
+            'name' => 'Sulaiman',
             'email' => 'sale@admin.com',
             'email_verified_at' => now(),
             'password' => bcrypt('dummypassword'), // password
