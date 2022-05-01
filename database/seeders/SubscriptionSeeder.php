@@ -17,10 +17,10 @@ class SubscriptionSeeder extends Seeder
     {
         DB::unprepared("
         INSERT INTO `subscription` (`company_id`, `package_id`, `start_date`, `end_date`, `status`) VALUES
-        (1, 2, '1975-09-16', '1984-01-30', 'active'),
-        (2, 2, '2005-05-13', '1987-10-25', 'expired'),
-        (3, 3, '1992-03-20', '2010-07-11', 'active'),
-        (4, 1, '2021-05-22', '1973-05-31', 'active'),
-        (5, 1, '1977-07-13', '1988-12-20', 'expired');");
+        (1, 2, '2021-06-01', '2022-06-01', 'active'),
+        (2, 2, '2020-03-14', '2021-03-14', 'expired'),
+        (3, 3, '2022-01-01', '2023-01-01', 'active'),
+        (4, 1, '2021-11-01', '2022-11-01', 'active'),
+        (5, 1, '2020-10-14', '2021-10-14', 'expired');");
     }
 }
