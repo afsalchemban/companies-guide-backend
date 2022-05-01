@@ -106,9 +106,8 @@ class CompanyPolicy
         return $user->isSale() && $sale->id == $company->sale_id && is_null($company->package);
     }
 
-    public function pay(User $user, Company $company)
+    public function pay(User $user)
     {
-        $sale = $user->userable;
-        return $user->isSale() && $sale->id == $company->sale_id;
+        return $user->isSale();
     }
 }

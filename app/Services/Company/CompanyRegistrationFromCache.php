@@ -15,6 +15,9 @@ class CompanyRegistrationFromCache
 
     public function __construct()
     {
+        if (!Cache::has('registered-company-'.Auth::user()->id)) {
+            throw new Exception("No company information");
+        }
         $this->companyData = Cache::get('registered-company-'.Auth::user()->id);
     }
 

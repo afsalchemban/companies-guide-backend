@@ -73,14 +73,9 @@ class CompanyRepository implements CompanyRepositoryInterface
             'package_info' => Package::find(Cache::get('registered-company-package-id-'.Auth::user()->id),['id', 'name']),
         ],Response::HTTP_OK);
     }
-    private function _saveCompanyFromCache()
-    {
-
-        $sale = $this->userSwitch->sale();
-
-        $company = $sale->companies()->create(Cache::get('registered-company-'.Auth::user()->id));
-
-        return $company->id;
+    private function _clearRegistrationCache(){
+        Cache::forget('registered-company-'.Auth::user()->id);
+        Cache::forget('registered-company-package-id-'.Auth::user()->id);
     }
     public function orderPay(PaymentInterface $payment)
     {
@@ -89,6 +84,11 @@ class CompanyRepository implements CompanyRepositoryInterface
             $subscription_registered = (new SubscriptionRegistrationFromCache($company_registered))->addPackageFromCache();
             $payment = (new OrderPaymentService($company_registered,$payment,$subscription_registered))->pay();
         });
+        $this->_clearRegistrationCache();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Company Added Successfully',
+        ],Response::HTTP_OK);
     
     }
 }

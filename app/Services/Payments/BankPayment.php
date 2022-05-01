@@ -19,6 +19,7 @@ class BankPayment implements PaymentInterface
         $this->amount = $data['amount'];
         $this->reference_number = $data['reference_number'];
         $this->discount_percentage = $data['discount_percentage'];
+        $this->discount_amount = $data['discount_amount'];
         $this->bank_name = $data['bank_name'];
     }
     public function getDiscountPercentage()

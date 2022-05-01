@@ -4,7 +4,7 @@ namespace App\Services\Company;
 
 use App\Models\Company;
 use App\Models\Subscription;
-
+use Exception;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,6 +16,9 @@ class SubscriptionRegistrationFromCache
 
     public function __construct(Company $company)
     {
+        if (!Cache::has('registered-company-package-id-'.Auth::user()->id)) {
+            throw new Exception("No Package information");
+        }
         $this->package_id = Cache::get('registered-company-package-id-'.Auth::user()->id);
         $this->company = $company;
     }
