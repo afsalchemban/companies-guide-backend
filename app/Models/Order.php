@@ -9,4 +9,9 @@ class Order extends Model
 {
     protected $guarded = [];
     use HasFactory;
+
+    public function payable()
+    {
+        return $this->morphTo();
+    }
 }

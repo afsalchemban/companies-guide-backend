@@ -13,7 +13,7 @@ class PayByBankRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return $this->user()->can('pay', Company::class);
     }
 
     /**

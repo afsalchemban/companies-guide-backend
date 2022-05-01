@@ -30,18 +30,11 @@ class CashPayment implements PaymentInterface
     {
         return $this->amount;
     }
-    public function pay($orderId,$amount)
+    public function addPaymentType()
     {
         $cashPayment = new ModelsCashPayment();
         $cashPayment->amount = $this->amount;
         $cashPayment->save();
-
-
-        $payment = new Payment();
-        $payment->order_id = $orderId;
-        $payment->amount = $amount;
-        $payment->status = true;
-        $payment->payable()->associate($cashPayment);
-        $payment->save();
+        return $cashPayment;
     }
 }

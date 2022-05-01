@@ -33,20 +33,13 @@ class BankPayment implements PaymentInterface
     {
         return $this->amount;
     }
-    public function pay($orderId,$amount)
+    public function addPaymentType()
     {
         $bankPayment = new ModelsBankPayment;
         $bankPayment->bank_name = $this->bank_name;
         $bankPayment->reference_number = $this->reference_number;
         $bankPayment->amount = $this->amount;
         $bankPayment->save();
-
-
-        $payment = new Payment;
-        $payment->order_id = $orderId;
-        $payment->amount = $amount;
-        $payment->status = true;
-        $payment->payable()->associate($bankPayment);
-        $payment->save();
+        return $bankPayment;
     }
 }

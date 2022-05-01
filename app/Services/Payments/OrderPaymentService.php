@@ -4,42 +4,40 @@ namespace App\Services\Payments;
 
 use App\Interfaces\PaymentInterface;
 use App\Models\Company;
+use App\Models\Payment;
 use App\Services\Company\CompanyRegistrationFromCache;
 
 class OrderPaymentService
 {
-    protected $payment;
+    protected $paymentInterface;
     protected $company;
     protected $subscription;
     protected $order;
-    public function setPayment(PaymentInterface $payment)
-    {
-        $this->payment = $payment;
-        return $this;
-    }
-    public function setCompany(Company $company)
+
+    public function __construct(Company $company, PaymentInterface $paymentInterface, $subscription)
     {
         $this->company = $company;
-        return $this;
-    }
-    public function setSubscription($subscription)
-    {
+        $this->paymentInterface = $paymentInterface;
         $this->subscription = $subscription;
-        return $this;
     }
-    public function pay()
-    {
-        $this->payment->pay($this->order->id,$this->payment->getAmount());
-    }
-    public function createOrder(){
+    private function _createOrder(){
         $this->order = $this->subscription->order()->create([
             'subscription_id' => $this->subscription->id,
             'company_id' => $this->company->id,
             'package_id' => $this->subscription->package_id,
-            'discount_percentage' => $this->payment->getDiscountPercentage(),
-            'discount_amount' => $this->payment->getDiscountAmount(),
-            'net_total' => $this->payment->getAmount(),
+            'discount_percentage' => $this->paymentInterface->getDiscountPercentage(),
+            'discount_amount' => $this->paymentInterface->getDiscountAmount(),
+            'net_total' => $this->paymentInterface->getAmount(),
         ]);
-        return $this;
+    }
+    private function _createPayment(){
+        $payment = $this->paymentInterface->addPaymentType(); 
+        $this->order->payable()->associate($payment);
+        $this->order->save();
+    }
+    public function pay()
+    {
+        $this->_createOrder();
+        $this->_createPayment();
     }
 }

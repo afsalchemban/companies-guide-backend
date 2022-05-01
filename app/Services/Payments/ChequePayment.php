@@ -36,7 +36,7 @@ class ChequePayment implements PaymentInterface
     {
         return $this->amount;
     }
-    public function pay($orderId,$amount)
+    public function addPaymentType()
     {
         $chequePayment = new ModelsChequePayment();
         $chequePayment->amount = $this->amount;
@@ -44,13 +44,6 @@ class ChequePayment implements PaymentInterface
         $chequePayment->bank_name = $this->bank_name;
         $chequePayment->cheque_image_path = $this->cheque_image_path;
         $chequePayment->save();
-
-
-        $payment = new Payment();
-        $payment->order_id = $orderId;
-        $payment->amount = $amount;
-        $payment->status = true;
-        $payment->payable()->associate($chequePayment);
-        $payment->save();
+        return $chequePayment;
     }
 }

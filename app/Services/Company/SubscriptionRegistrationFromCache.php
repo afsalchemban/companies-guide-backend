@@ -14,15 +14,10 @@ class SubscriptionRegistrationFromCache
     protected $package_id;
     protected $company;
 
-    public function __construct()
+    public function __construct(Company $company)
     {
         $this->package_id = Cache::get('registered-company-package-id-'.Auth::user()->id);
-    }
-
-    public function setCompany(Company $company)
-    {
         $this->company = $company;
-        return $this;
     }
     public function addPackageFromCache(){
 

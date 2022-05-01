@@ -86,8 +86,8 @@ class CompanyRepository implements CompanyRepositoryInterface
     {
         DB::transaction(function () use ($payment) {
             $company_registered = (new CompanyRegistrationFromCache())->registerFromCache();
-            $subscription_registered = (new SubscriptionRegistrationFromCache())->setCompany($company_registered)->addPackageFromCache();
-            $payment = (new OrderPaymentService())->setCompany($company_registered)->setPayment($payment)->setSubscription($subscription_registered)->createOrder()->pay();
+            $subscription_registered = (new SubscriptionRegistrationFromCache($company_registered))->addPackageFromCache();
+            $payment = (new OrderPaymentService($company_registered,$payment,$subscription_registered))->pay();
         });
     
     }

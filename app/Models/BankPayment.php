@@ -9,8 +9,8 @@ class BankPayment extends Model
 {
     use HasFactory;
 
-    public function payment()
+    public function order()
     {
-        return $this->morphOne(Payment::class, 'payable');
+        return $this->morphOne(Order::class, 'payable');
     }
 }
