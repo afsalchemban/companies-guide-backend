@@ -50,6 +50,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/pay/cash', [CompanyController::class, 'payByCash']);
         Route::post('/pay/bank', [CompanyController::class, 'payByBank']);
         Route::post('/pay/cheque', [CompanyController::class, 'payByCheque']);
+        Route::post('/upload_logo/{company}', [CompanyController::class, 'uploadLogo']);
+        Route::post('/upload_banner/{company}', [CompanyController::class, 'uploadBanner']);
 
     });
 
@@ -103,6 +105,8 @@ Route::get('migrate/refresh', function (Request $request) {
 
 Route::get('test', [DataController::class, 'test_get']);
 Route::post('test', [DataController::class, 'test_post']);
+Route::get('mail', [DataController::class, 'test_mail']);
+Route::get('invoice', [DataController::class, 'test_invoice']);
 
 
 

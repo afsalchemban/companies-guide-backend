@@ -26,7 +26,10 @@ class DatabaseSeeder extends Seeder
             CompanyActivitySeeder::class,
             CompaniesSeeder::class,
             SubscriptionSeeder::class,
-            OrdersSeeder::class
+            OrdersSeeder::class,
+            BankSeeder::class,
+            CashSeeder::class,
+            ChequeSeeder::class
         ]);     
     }
 }

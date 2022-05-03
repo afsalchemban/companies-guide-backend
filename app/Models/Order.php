@@ -14,4 +14,12 @@ class Order extends Model
     {
         return $this->morphTo();
     }
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
+    public function package()
+    {
+        return $this->belongsTo(Package::class);
+    }
 }

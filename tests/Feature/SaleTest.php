@@ -49,6 +49,7 @@ class SaleTest extends TestCase
                 'company_added' => true
             ]
         );
+
         $payload = [
             'package_id'  => 1
         ];
@@ -59,6 +60,7 @@ class SaleTest extends TestCase
                 'package_added' => true
             ]
         );
+
         $payload = [
             'discount_percentage'  => 10,
             'discount_amount'  => 500,
@@ -79,8 +81,9 @@ class SaleTest extends TestCase
                 'company_added' => true
             ]
         );
+
         $payload = [
-            'package_id'  => 1
+            'package_id'  => 2
         ];
         $this->json('put', 'api/company/company_select_package', $payload)
          ->assertStatus(Response::HTTP_OK)
@@ -89,6 +92,7 @@ class SaleTest extends TestCase
                 'package_added' => true
             ]
         );
+
         $file = UploadedFile::fake()->image('avatar.jpg');
         $payload = [
             'discount_percentage'  => 10,
@@ -113,8 +117,9 @@ class SaleTest extends TestCase
                 'company_added' => true
             ]
         );
+
         $payload = [
-            'package_id'  => 1
+            'package_id'  => 3
         ];
         $this->json('put', 'api/company/company_select_package', $payload)
          ->assertStatus(Response::HTTP_OK)
@@ -123,6 +128,7 @@ class SaleTest extends TestCase
                 'package_added' => true
             ]
         );
+        
         $payload = [
             'discount_percentage'  => 10,
             'discount_amount'  => 500,
@@ -139,6 +145,6 @@ class SaleTest extends TestCase
         $user = User::sale(2);
         Sanctum::actingAs($user);
         $this->json('get', 'api/company/order_info')
-         ->assertStatus(Response::HTTP_OK)->dd();
+         ->assertStatus(Response::HTTP_OK);
     }
 }

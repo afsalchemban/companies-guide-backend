@@ -137,4 +137,27 @@ class AdminTest extends TestCase
         Storage::disk('local')->assertExists('sales/profile-images/'.$file->hashName());
 
     }
+
+    public function test_admin_can_upload_logo_of_company(){
+        Sanctum::actingAs(User::admin());
+        $file = UploadedFile::fake()->image('avatar.jpg');
+ 
+        $this->post('api/company/upload_logo/1', [
+            'file' => $file,
+        ])->assertStatus(Response::HTTP_OK);
+
+        Storage::disk('local')->assertExists('companies/logo/'.$file->hashName());
+
+    }
+    public function test_admin_can_upload_banner_of_company(){
+        Sanctum::actingAs(User::admin());
+        $file = UploadedFile::fake()->image('avatar.jpg');
+ 
+        $this->post('api/company/upload_banner/1', [
+            'file' => $file,
+        ])->assertStatus(Response::HTTP_OK);
+
+        Storage::disk('local')->assertExists('companies/banner/'.$file->hashName());
+
+    }
 }

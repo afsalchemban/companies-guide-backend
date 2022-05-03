@@ -9,6 +9,12 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use App\Mail\DemoMail;
+use Illuminate\Support\Facades\Mail;
+
+use LaravelDaily\Invoices\Invoice;
+use LaravelDaily\Invoices\Classes\Party;
+use LaravelDaily\Invoices\Classes\InvoiceItem;
 
 class DataController extends Controller
 {
@@ -87,5 +93,18 @@ class DataController extends Controller
         $duration = json_decode($request->input('duration'));
         return $duration->type;
         
+    }
+
+    public function test_mail(){
+
+        $mailData = [
+            'title' => 'Mail from ItSolutionStuff.com',
+            'body' => 'This is for testing email using smtp.'
+        ];
+         
+        Mail::to('afsalcodes@gmail.com')->send(new DemoMail($mailData));
+        //return new DemoMail($mailData);
+           
+        dd("Email is sent successfully.");
     }
 }

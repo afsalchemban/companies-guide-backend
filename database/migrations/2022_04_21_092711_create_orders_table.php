@@ -21,8 +21,9 @@ return new class extends Migration
             $table->integer('discount_percentage');
             $table->integer('discount_amount');
             $table->integer('net_total');
-            $table->integer('payable_id')->nullable();
-            $table->string('payable_type')->nullable();
+            $table->string('invoice_file_path')->nullable();
+            $table->integer('payable_id');
+            $table->string('payable_type');
             $table->timestamps();
         });
         Schema::table('orders', function (Blueprint $table) {

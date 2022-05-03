@@ -10,6 +10,7 @@ use App\Models\Company;
 use App\Models\Package;
 use App\Services\Company\CompanyRegistrationFromCache;
 use App\Services\Company\SubscriptionRegistrationFromCache;
+use App\Services\Invoice\InvoiceService;
 use App\Services\Payments\BankPayment;
 use App\Services\Payments\CashPayment;
 use App\Services\Payments\ChequePayment;
@@ -18,13 +19,17 @@ use App\Services\UserSwitchingService;
 use Exception;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Response;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 use function PHPUnit\Framework\throwException;
 
 class CompanyRepository implements CompanyRepositoryInterface
 {
+    private $orderPaymentService;
+
     public function __construct(UserSwitchingService $userSwitch) 
     {
         $this->userSwitch = $userSwitch;
@@ -82,13 +87,28 @@ class CompanyRepository implements CompanyRepositoryInterface
         DB::transaction(function () use ($payment) {
             $company_registered = (new CompanyRegistrationFromCache())->registerFromCache();
             $subscription_registered = (new SubscriptionRegistrationFromCache($company_registered))->addPackageFromCache();
-            $payment = (new OrderPaymentService($company_registered,$payment,$subscription_registered))->pay();
+            $this->orderPaymentService = (new OrderPaymentService($company_registered,$payment,$subscription_registered))->pay();
+            $this->_clearRegistrationCache();
         });
-        $this->_clearRegistrationCache();
+        $this->orderPaymentService->updateInvoicePathToOrder((new InvoiceService($this->orderPaymentService->order->id))->generate());
         return response()->json([
             'status' => 'success',
             'message' => 'Company Added Successfully',
         ],Response::HTTP_OK);
     
+    }
+    public function uploadLogo(UploadedFile $file){
+        if($path = Storage::putFile('companies/logo', $file))
+        {
+            return $path;
+        }
+        return false;
+    }
+    public function uploadBanner(UploadedFile $file){
+        if($path = Storage::putFile('companies/banner', $file))
+        {
+            return $path;
+        }
+        return false;
     }
 }

@@ -8,6 +8,7 @@ use App\Http\Requests\PayByChequeRequest;
 use App\Http\Requests\SelectPackageRequest;
 use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
+use App\Http\Requests\UploadCompanyImageRequest;
 use App\Interfaces\CompanyRepositoryInterface;
 use App\Models\Company;
 use App\Models\Package;
@@ -108,5 +109,15 @@ class CompanyController extends Controller
     public function payByBank(PayByBankRequest $request)
     {
         return $this->companyRepository->orderPay(new BankPayment($request->validated()));
+    }
+
+    public function uploadLogo(UploadCompanyImageRequest $request, Company $company)
+    {
+        $this->companyRepository->uploadLogo($request->validated()['file']);
+    }
+
+    public function uploadBanner(UploadCompanyImageRequest $request, Company $company)
+    {
+        $this->companyRepository->uploadBanner($request->validated()['file']);
     }
 }

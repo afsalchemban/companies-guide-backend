@@ -3,6 +3,7 @@
 namespace App\Interfaces;
 
 use App\Models\Company;
+use Illuminate\Http\UploadedFile;
 
 interface CompanyRepositoryInterface
 {
@@ -15,4 +16,6 @@ interface CompanyRepositoryInterface
     public function storePackageInCache(array $data);
     public function getOrderDetailsFromCache();
     public function orderPay(PaymentInterface $payment);
+    public function uploadLogo(UploadedFile $file);
+    public function uploadBanner(UploadedFile $file);
 }
