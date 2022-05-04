@@ -59,7 +59,7 @@ class DataRepository implements DataRepositoryInterface
     public function getPackages()
     {
         return response()->json([
-            'packages' => DB::select('select id ,name, price from packages')
+            'packages' => DB::select('select id ,name, price, description from packages')
         ]);
     }
     public function searchSales($param)
