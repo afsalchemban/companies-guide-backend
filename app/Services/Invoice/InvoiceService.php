@@ -31,7 +31,7 @@ class InvoiceService
         $items = [
             (new InvoiceItem())
                 ->title($package->name)
-                ->description('Banner + Profile + Directory Listing for one year')
+                ->description($package->description.' for one year')
                 ->pricePerUnit((int)$package->price)
                 ->quantity(1)
                 ->discountByPercent(10)
