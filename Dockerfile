@@ -4,6 +4,8 @@ RUN apk add --no-cache nginx wget
 
 RUN docker-php-ext-install pdo pdo_mysql mysqli
 
+RUN docker-php-ext-configure intl && docker-php-ext-install intl
+
 RUN docker-php-ext-enable pdo_mysql
 
 RUN mkdir -p /run/nginx
