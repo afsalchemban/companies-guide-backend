@@ -9,8 +9,10 @@ use App\Interfaces\PaymentInterface;
 use App\Models\Company;
 use App\Models\Package;
 use App\Services\Company\CompanyRegistrationFromCache;
+use App\Services\Company\CreateUserForCompany;
 use App\Services\Company\SubscriptionRegistrationFromCache;
 use App\Services\Invoice\InvoiceService;
+use App\Services\Mail\MailService;
 use App\Services\Payments\BankPayment;
 use App\Services\Payments\CashPayment;
 use App\Services\Payments\ChequePayment;
@@ -87,10 +89,14 @@ class CompanyRepository implements CompanyRepositoryInterface
         DB::transaction(function () use ($payment) {
             $company_registered = (new CompanyRegistrationFromCache())->registerFromCache();
             $subscription_registered = (new SubscriptionRegistrationFromCache($company_registered))->addPackageFromCache();
+            (new CreateUserForCompany($subscription_registered))->createUserForFullProfile();
             $this->orderPaymentService = (new OrderPaymentService($company_registered,$payment,$subscription_registered))->pay();
             $this->_clearRegistrationCache();
         });
         $this->orderPaymentService->updateInvoicePathToOrder((new InvoiceService($this->orderPaymentService->order->id))->generate());
+        MailService::sendInvoiceMail($this->orderPaymentService->order->id);
+        MailService::sendContractMail($this->orderPaymentService->order->id);
+
         return response()->json([
             'status' => 'success',
             'message' => 'Company Added Successfully',

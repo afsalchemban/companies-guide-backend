@@ -14,4 +14,8 @@ class Subscription extends Pivot
     {
         return $this->hasOne(Order::class,'subscription_id');
     }
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
 }

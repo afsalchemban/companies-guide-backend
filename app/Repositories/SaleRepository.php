@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Interfaces\SaleRepositoryInterface;
 use App\Models\Sale;
 use App\Models\User;
+use App\Services\Mail\MailService;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
@@ -35,6 +36,7 @@ class SaleRepository implements SaleRepositoryInterface
         $user->user_type = 'sale';
         $user->userable()->associate($sale);
         $user->save();
+        MailService::sendSaleCredentialMail($sale,bcrypt('dummypassword'));
         return $user;
     }
     public function uploadImage(UploadedFile $file){

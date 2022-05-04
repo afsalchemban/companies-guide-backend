@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class DemoMail extends Mailable
+class InvoiceMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -30,7 +30,7 @@ class DemoMail extends Mailable
      */
     public function build()
     {
-        return $this->from('afsalchemban@gmail.com', 'Afsal')
-                    ->view('emails.demoMail');
+        return $this->from('afsalchemban@gmail.com', 'Business Council Network')
+                    ->view('emails.invoiceMail')->attachFromStorage($this->mailData['invoice_file_path']);
     }
 }

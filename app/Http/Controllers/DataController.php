@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Interfaces\DataRepositoryInterface;
+use App\Mail\CompanyCredentialMail;
+use App\Mail\ContractMail;
 use App\Models\City;
 use App\Models\Country;
 use Illuminate\Http\Request;
@@ -10,6 +12,8 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Mail\DemoMail;
+use App\Mail\InvoiceMail;
+use App\Mail\SaleCredentialMail;
 use Illuminate\Support\Facades\Mail;
 
 use LaravelDaily\Invoices\Invoice;
@@ -98,13 +102,15 @@ class DataController extends Controller
     public function test_mail(){
 
         $mailData = [
-            'title' => 'Mail from ItSolutionStuff.com',
-            'body' => 'This is for testing email using smtp.'
+            'date' => Carbon::now()->format('d/m/Y'),
+            'name' => 'START ENTERPRISES',
+            'email' => 'afsalcodes@gmail.com',
+            'password' => 'dummypassword'
         ];
          
-        Mail::to('afsalcodes@gmail.com')->send(new DemoMail($mailData));
-        //return new DemoMail($mailData);
+        Mail::to('afsalcodes@gmail.com')->send(new SaleCredentialMail($mailData));
            
         dd("Email is sent successfully.");
+        
     }
 }

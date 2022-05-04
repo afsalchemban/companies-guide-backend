@@ -17,11 +17,11 @@ class InvoiceService
     public function generate()
     {
         $order = Order::find($this->orderId);
-        $company = $order->company->load('country');
+        $company = $order->company;
         $package = $order->package;
         $customer = new Party([
             'name'          => $company->business_name,
-            'address'       => $company->city->name.' '.$company->area->name.' '.$company->country->name,
+            'address'       => $company->city->name.', '.$company->area->name.', '.$company->country->name,
             'code'          => $company->trade_license_number,
             'custom_fields' => [
                 'order number' => '#'.$order->id,
