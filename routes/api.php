@@ -116,6 +116,7 @@ Route::get('invoice', [DataController::class, 'test_invoice']);
 
 Route::prefix('frontend')->group(function () {
 
+    Route::get('/companies/active', [FrontEndController::class, 'allActiveCompanies']);
     Route::get('/companies/{package}', [FrontEndController::class, 'companiesByPackage']);
 
 });
