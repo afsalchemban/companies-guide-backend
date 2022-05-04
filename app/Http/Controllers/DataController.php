@@ -15,7 +15,7 @@ use App\Mail\DemoMail;
 use App\Mail\InvoiceMail;
 use App\Mail\SaleCredentialMail;
 use Illuminate\Support\Facades\Mail;
-
+use Illuminate\Support\Facades\Storage;
 use LaravelDaily\Invoices\Invoice;
 use LaravelDaily\Invoices\Classes\Party;
 use LaravelDaily\Invoices\Classes\InvoiceItem;
@@ -112,5 +112,13 @@ class DataController extends Controller
            
         dd("Email is sent successfully.");
         
+    }
+
+    public function image(Request $request){
+        $validated = $request->validate([
+            'file' => 'required',
+        ]);
+        $file = $request->file('file');
+        return Storage::putFile('test', $file);
     }
 }

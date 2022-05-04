@@ -22,6 +22,6 @@ class FrontEndTest extends TestCase
     public function test_get_company_all_active()
     {
         $response = $this->getJson('/api/frontend/companies/active')
-        ->assertStatus(Response::HTTP_OK)->dd();
+        ->assertStatus(Response::HTTP_OK);
     }
 }
