@@ -36,7 +36,7 @@ class SaleRepository implements SaleRepositoryInterface
         $user->user_type = 'sale';
         $user->userable()->associate($sale);
         $user->save();
-        MailService::sendSaleCredentialMail($sale,bcrypt('dummypassword'));
+        MailService::sendSaleCredentialMail($sale,'dummypassword');
         return $user;
     }
     public function uploadImage(UploadedFile $file){

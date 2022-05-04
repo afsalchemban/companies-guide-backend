@@ -25,7 +25,7 @@ class CreateUserForCompany
             $user->user_type = 'sale';
             $user->userable()->associate($company);
             $user->save();
-            MailService::sendCompanyCredentialMail($company,bcrypt('dummypassword'));
+            MailService::sendCompanyCredentialMail($company,'dummypassword');
         }
     }
 }
