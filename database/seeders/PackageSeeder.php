@@ -15,9 +15,9 @@ class PackageSeeder extends Seeder
      */
     public function run()
     {
-        DB::unprepared("INSERT INTO `packages` (`name`,`price`) VALUES
-        ('Full',7000),
-        ('Profile',5000),
-        ('Directory',3000);");
+        DB::unprepared("INSERT INTO `packages` (`name`,`price`,`description`) VALUES
+        ('Full',7000,'Advanced package with all options plus showing banner in the homepage for one month'),
+        ('Profile',5000,'Intermediate package with company profile, gallery along with directory listing'),
+        ('Directory',3000,'Basic package with directory listing');");
     }
 }
