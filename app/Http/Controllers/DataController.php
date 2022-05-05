@@ -17,7 +17,7 @@ use App\Mail\SaleCredentialMail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use LaravelDaily\Invoices\Invoice;
-use LaravelDaily\Invoices\Classes\Party;
+use LaravelDaily\Invoices\Classes\Buyer;
 use LaravelDaily\Invoices\Classes\InvoiceItem;
 
 class DataController extends Controller
@@ -120,5 +120,26 @@ class DataController extends Controller
         ]);
         $file = $request->file('file');
         return Storage::putFile('test', $file);
+    }
+
+    public function test_invoice()
+    {
+        $customer = new Buyer([
+            'name'          => 'John Doe',
+            'custom_fields' => [
+                'email' => 'test@example.com',
+            ],
+        ]);
+
+        $item = (new InvoiceItem())->title('Service 1')->pricePerUnit(2);
+
+        $invoice = Invoice::make()
+            ->buyer($customer)
+            ->discountByPercent(10)
+            ->taxRate(15)
+            ->shipping(1.99)
+            ->addItem($item);
+
+        return $invoice->stream();
     }
 }
