@@ -122,11 +122,6 @@ class DataController extends Controller
         return Storage::putFile('test', $file);
     }
 
-    public function putonly(){
-
-       return Storage::get('invoice.pdf');
-    }
-
     public function test_invoice()
     {
         $mailData = [

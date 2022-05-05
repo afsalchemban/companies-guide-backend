@@ -108,7 +108,6 @@ Route::post('test', [DataController::class, 'test_post']);
 Route::get('mail', [DataController::class, 'test_mail']);
 Route::get('invoice', [DataController::class, 'test_invoice']);
 Route::post('image', [DataController::class, 'image']);
-Route::get('putonly', [DataController::class, 'putonly']);
 
 
 

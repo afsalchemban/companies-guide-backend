@@ -57,13 +57,13 @@ class InvoiceService
             ->currencyFormat('{SYMBOL} {VALUE}')
             ->currencyThousandsSeparator(',')
             ->currencyDecimalPoint('.')
-            ->filename('companies/invoices/invoice_'.$customer->name.' '.now())
+            ->filename('companies/invoices/invoice_'.$customer->name.'_'.$order->id)
             ->addItems($items)
             ->notes($notes)
             ->logo(public_path('vendor/invoices/sample-logo.png'))
             // You can additionally save generated invoice to configured disk
-            ->save();
+            ->save('gcs');
 
-        return $invoice->url();
+        return 'companies/invoices/invoice_'.$customer->name.'_'.$order->id;
     }
 }
