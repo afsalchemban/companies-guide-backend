@@ -122,6 +122,11 @@ class DataController extends Controller
         return Storage::putFile('test', $file);
     }
 
+    public function putonly(){
+
+        Storage::put('teste.txt', 'This is test content.');
+    }
+
     public function test_invoice()
     {
         $customer = new Buyer([
@@ -138,8 +143,9 @@ class DataController extends Controller
             ->discountByPercent(10)
             ->taxRate(15)
             ->shipping(1.99)
-            ->addItem($item);
+            ->addItem($item)
+            ->filename('invoice')->save();
 
-        return $invoice->stream();
+        return $invoice->url();
     }
 }
