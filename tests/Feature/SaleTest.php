@@ -39,19 +39,23 @@ class SaleTest extends TestCase
 
     }
 
-    public function test_company_package_added_to_cache_and_pay_by_cash()
+    public function test_company_registration_and_pay_by_cash()
     {
-        $user = User::sale();
+        $user = User::sale(2);
         Sanctum::actingAs($user);
-        $company = Company::factory()->make([
-            'email' => 'afsalcodes@gmail.com',
-        ]);
+        $company = Company::factory()->make();
         $this->json('post', 'api/company', $company->toArray())->assertExactJson(
             [
                 'company_added' => true
             ]
         );
 
+    }
+
+    public function test_package_registration_and_pay_by_cash()
+    {
+        $user = User::sale(2);
+        Sanctum::actingAs($user);
         $payload = [
             'package_id'  => 1
         ];
@@ -62,6 +66,12 @@ class SaleTest extends TestCase
                 'package_added' => true
             ]
         );
+    }
+
+    public function test_pay_by_cash()
+    {
+        $user = User::sale(2);
+        Sanctum::actingAs($user);
 
         $payload = [
             'discount_percentage'  => 10,
@@ -70,12 +80,11 @@ class SaleTest extends TestCase
         ];
         $this->json('post', 'api/company/pay/cash', $payload)
         ->assertStatus(Response::HTTP_OK);
-
     }
 
-    public function test_company_package_added_to_cache_and_pay_by_cheque()
+    public function test_company_registration_and_pay_by_cheque()
     {
-        $user = User::sale();
+        $user = User::sale(2);
         Sanctum::actingAs($user);
         $company = Company::factory()->make();
         $this->json('post', 'api/company', $company->toArray())->assertExactJson(
@@ -83,6 +92,12 @@ class SaleTest extends TestCase
                 'company_added' => true
             ]
         );
+
+    }
+    public function test_package_registration_and_pay_by_cheque()
+    {
+        $user = User::sale(2);
+        Sanctum::actingAs($user);
 
         $payload = [
             'package_id'  => 2
@@ -94,6 +109,12 @@ class SaleTest extends TestCase
                 'package_added' => true
             ]
         );
+    }
+
+    public function test_pay_by_cheque()
+    {
+        $user = User::sale(2);
+        Sanctum::actingAs($user);
 
         $file = UploadedFile::fake()->image('avatar.jpg');
         $payload = [
@@ -105,12 +126,11 @@ class SaleTest extends TestCase
             'cheque_image' => $file
         ];
         $this->json('post', 'api/company/pay/cheque', $payload)->assertStatus(Response::HTTP_OK);
+    }    
 
-    }
-
-    public function test_company_package_added_to_cache_and_pay_by_bank()
+    public function test_company_registration_and_pay_by_bank()
     {
-        $user = User::sale();
+        $user = User::sale(2);
         Sanctum::actingAs($user);
         $company = Company::factory()->make();
         $this->json('post', 'api/company', $company->toArray())->assertExactJson(
@@ -118,6 +138,14 @@ class SaleTest extends TestCase
                 'company_added' => true
             ]
         );
+
+    }
+
+    public function test_package_registration_and_pay_by_bank()
+    {
+        $user = User::sale(2);
+        Sanctum::actingAs($user);
+
 
         $payload = [
             'package_id'  => 3
@@ -129,6 +157,12 @@ class SaleTest extends TestCase
                 'package_added' => true
             ]
         );
+    }
+
+    public function test_pay_by_bank()
+    {
+        $user = User::sale(2);
+        Sanctum::actingAs($user);
         
         $payload = [
             'discount_percentage'  => 10,
@@ -138,7 +172,6 @@ class SaleTest extends TestCase
             'bank_name' => 'DIB',
         ];
         $this->json('post', 'api/company/pay/bank', $payload)->assertStatus(Response::HTTP_OK);
-
     }
 
     public function test_order_page_data(){

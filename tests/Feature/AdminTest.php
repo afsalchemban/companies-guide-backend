@@ -8,6 +8,7 @@ use Tests\TestCase;
 use App\Models\User;
 use App\Models\Sale;
 use App\Models\Company;
+use App\Models\Council;
 use Illuminate\Http\Response;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -158,6 +159,14 @@ class AdminTest extends TestCase
         ])->assertStatus(Response::HTTP_OK);
 
         Storage::disk('local')->assertExists('companies/banner/'.$file->hashName());
+
+    }
+    public function test_business_council_registration(){
+        Sanctum::actingAs(User::admin());
+        $council = Council::factory()->make();
+        $this->json('post', 'api/council', $council->toArray())
+         ->assertStatus(Response::HTTP_CREATED);
+        $this->assertDatabaseHas('councils', $council->toArray());
 
     }
 }
