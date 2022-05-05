@@ -144,7 +144,7 @@ class DataController extends Controller
             ->taxRate(15)
             ->shipping(1.99)
             ->addItem($item)
-            ->filename('invoice')->save();
+            ->filename('invoice')->save('gcs');
 
         return $invoice->url();
     }
