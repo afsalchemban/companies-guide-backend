@@ -104,8 +104,7 @@ class SaleTest extends TestCase
             'bank_name' => 'DIB',
             'cheque_image' => $file
         ];
-        //commented this line because to prevent sending email to the fake company mail
-        //$this->json('post', 'api/company/pay/cheque', $payload)->assertStatus(Response::HTTP_OK);
+        $this->json('post', 'api/company/pay/cheque', $payload)->assertStatus(Response::HTTP_OK);
 
     }
 
@@ -138,8 +137,7 @@ class SaleTest extends TestCase
             'reference_number' => 'AE324889279FD',
             'bank_name' => 'DIB',
         ];
-        //commented this line because to prevent sending email to the fake company mail
-        //$this->json('post', 'api/company/pay/bank', $payload)->assertStatus(Response::HTTP_OK);
+        $this->json('post', 'api/company/pay/bank', $payload)->assertStatus(Response::HTTP_OK);
 
     }
 

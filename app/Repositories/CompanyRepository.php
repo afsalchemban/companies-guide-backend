@@ -89,13 +89,15 @@ class CompanyRepository implements CompanyRepositoryInterface
         DB::transaction(function () use ($payment) {
             $company_registered = (new CompanyRegistrationFromCache())->registerFromCache();
             $subscription_registered = (new SubscriptionRegistrationFromCache($company_registered))->addPackageFromCache();
-            (new CreateUserForCompany($subscription_registered))->createUserForFullProfile();
+            if($password = (new CreateUserForCompany($subscription_registered))->createUserForFullProfile()){
+                //MailService::sendCompanyCredentialMail($company_registered,$password);
+            }
             $this->orderPaymentService = (new OrderPaymentService($company_registered,$payment,$subscription_registered))->pay();
             $this->_clearRegistrationCache();
         });
         $this->orderPaymentService->updateInvoicePathToOrder((new InvoiceService($this->orderPaymentService->order->id))->generate());
-        MailService::sendInvoiceMail($this->orderPaymentService->order->id);
-        MailService::sendContractMail($this->orderPaymentService->order->id);
+        //MailService::sendInvoiceMail($this->orderPaymentService->order->id);
+        //MailService::sendContractMail($this->orderPaymentService->order->id);
 
         return response()->json([
             'status' => 'success',
