@@ -64,6 +64,6 @@ class InvoiceService
             // You can additionally save generated invoice to configured disk
             ->save('gcs');
 
-        return 'companies/invoices/invoice_'.$customer->name.'_'.$order->id;
+        return 'companies/invoices/invoice_'.$customer->name.'_'.$order->id.'.pdf';
     }
 }
