@@ -124,28 +124,25 @@ class DataController extends Controller
 
     public function putonly(){
 
-        Storage::put('teste.txt', 'This is test content.');
+       return Storage::get('invoice.pdf');
     }
 
     public function test_invoice()
     {
-        $customer = new Buyer([
-            'name'          => 'John Doe',
-            'custom_fields' => [
-                'email' => 'test@example.com',
-            ],
-        ]);
+        $mailData = [
+            'date' => '2022/2/2',
+            'amount' => 'Dhs. 1500',
+            'business_name' => 'Star',
+            'email' =>  'afsalcodes@gmail.com',
+            'phone_number' => 232132,
+            'trade_license_number' => 232323,
+            'address' => 'address',
+            'package_name' => 'Full',
+            'package_price' => 7500,
+            'invoice_file_path' => 'invoice.pdf',
+        ];
 
-        $item = (new InvoiceItem())->title('Service 1')->pricePerUnit(2);
-
-        $invoice = Invoice::make()
-            ->buyer($customer)
-            ->discountByPercent(10)
-            ->taxRate(15)
-            ->shipping(1.99)
-            ->addItem($item)
-            ->filename('invoice')->save('gcs');
-
-        return $invoice->url();
+        
+        Mail::to('afsalcodes@gmail.com')->send(new InvoiceMail($mailData));
     }
 }
