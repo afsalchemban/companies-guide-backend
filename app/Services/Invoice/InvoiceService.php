@@ -9,14 +9,15 @@ use LaravelDaily\Invoices\Classes\InvoiceItem;
 
 class InvoiceService
 {
-    public $orderId;
-    public function __construct($orderId)
+    public $order;
+    protected $pdfFilePath;
+    public function __construct($order)
     {
-        $this->orderId = $orderId;
+        $this->order = $order;
     }
     public function generate()
     {
-        $order = Order::find($this->orderId);
+        $order = $this->order;
         $company = $order->company;
         $package = $order->package;
         $customer = new Party([
@@ -63,7 +64,12 @@ class InvoiceService
             ->logo(public_path('vendor/invoices/sample-logo.png'))
             // You can additionally save generated invoice to configured disk
             ->save('gcs');
-
-        return 'companies/invoices/invoice_'.$customer->name.'_'.$order->id.'.pdf';
+        $this->pdfFilePath = 'companies/invoices/invoice_'.$customer->name.'_'.$order->id.'.pdf';
+        return $this;
+    }
+    public function attachInvoiceToOrder()
+    {
+        $this->order->invoice_file_path = $this->pdfFilePath;
+        $this->order->save();
     }
 }

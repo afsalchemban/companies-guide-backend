@@ -173,7 +173,7 @@ class AdminTest extends TestCase
 
         Sanctum::actingAs(User::admin());
         $this->json('get', 'api/council')
-         ->assertStatus(Response::HTTP_OK)->dd();
+         ->assertStatus(Response::HTTP_OK);
 
     }
 }

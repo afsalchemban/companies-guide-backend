@@ -41,7 +41,7 @@ class CouncilCompanyPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->isCouncil();
     }
 
     /**

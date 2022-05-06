@@ -2,6 +2,7 @@
 
 namespace App\Services\Company;
 
+use App\Events\UserCreated;
 use App\Models\User;
 use App\Services\Mail\MailService;
 use Illuminate\Support\Str;
@@ -13,7 +14,7 @@ class CreateUserForCompany
     {
         $this->subscription = $subscription;
     }
-    public function createUserForFullProfile(){
+    public function createUserForFullPackage(){
         if($this->subscription->package_id!=3)
         {
             $company = $this->subscription->company;
@@ -25,7 +26,8 @@ class CreateUserForCompany
             $user->user_type = 'sale';
             $user->userable()->associate($company);
             $user->save();
-            return 'dummypassword';
+            UserCreated::dispatch($user,'dummypassword');
+            return $user;
         }
         return false;
     }

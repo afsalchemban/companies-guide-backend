@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CouncilCompanyController;
 use App\Http\Controllers\CouncilController;
 use App\Http\Controllers\CouncilMemberController;
 use App\Http\Controllers\FrontEndController;
@@ -63,6 +64,7 @@ Route::middleware('auth:sanctum')->group(function () {
         'sale'=>SaleController::class,
         'council'=>CouncilController::class,
         'council_member'=>CouncilMemberController::class,
+        'council_company'=>CouncilCompanyController::class,
     ]);
 
     Route::get('logout', [AuthController::class, 'logout']);

@@ -17,7 +17,22 @@ class CouncilCompanyFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'business_name' => $this->faker->name(),
+            'email' => $this->faker->unique()->safeEmail(),
+            'phone_number' => $this->faker->phoneNumber(),
+            'landline_number' => $this->faker->phoneNumber(),
+            'trade_license_number' => $this->faker->text(),
+            'company_activity_id' => 1,
+            'legal_status' => 'Freezone',
+            'issued_by' => 'LLC',
+            'country_id' => 1,
+            'city_id' => 1,
+            'area_id' => 1,
+            'person_in_charge_name' => $this->faker->name(),
+            'person_in_charge_designation' => $this->faker->text(),
+            'person_in_charge_email' => $this->faker->unique()->safeEmail(),
+            'person_in_charge_mobile' => $this->faker->phoneNumber(),
+            'person_in_charge_country' => $this->faker->text(),
         ];
     }
 }

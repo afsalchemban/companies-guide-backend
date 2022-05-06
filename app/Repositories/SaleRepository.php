@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Events\UserCreated;
 use App\Interfaces\SaleRepositoryInterface;
 use App\Models\Sale;
 use App\Models\User;
@@ -36,7 +37,7 @@ class SaleRepository implements SaleRepositoryInterface
         $user->user_type = 'sale';
         $user->userable()->associate($sale);
         $user->save();
-        MailService::sendSaleCredentialMail($sale,'dummypassword');
+        UserCreated::dispatch($user,'dummypassword');
         return $user;
     }
     public function uploadImage(UploadedFile $file){

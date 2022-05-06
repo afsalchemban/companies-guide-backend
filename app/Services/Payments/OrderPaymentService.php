@@ -39,11 +39,6 @@ class OrderPaymentService
     public function pay()
     {
         $this->_createOrder($this->_createPayment());
-        return $this;
-    }
-    public function updateInvoicePathToOrder($path){
-
-        $this->order->invoice_file_path = $path;
-        $this->order->save();
+        return $this->order;
     }
 }

@@ -4,10 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCouncilCompanyRequest;
 use App\Http\Requests\UpdateCouncilCompanyRequest;
+use App\Interfaces\CouncilCompanyRepositoryInterface;
 use App\Models\CouncilCompany;
 
 class CouncilCompanyController extends Controller
 {
+    public function __construct(CouncilCompanyRepositoryInterface $companyRepository) 
+    {
+        $this->companyRepository = $companyRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -26,7 +31,7 @@ class CouncilCompanyController extends Controller
      */
     public function store(StoreCouncilCompanyRequest $request)
     {
-        //
+        return $this->companyRepository->createCouncilCompany($request->validated());
     }
 
     /**

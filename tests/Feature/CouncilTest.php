@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\CouncilCompany;
 use App\Models\CouncilMember;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -22,6 +23,14 @@ class CouncilTest extends TestCase
         Sanctum::actingAs(User::council());
         $councilMember = CouncilMember::factory()->make();
         $this->json('post', 'api/council_member', $councilMember->toArray())
+         ->assertStatus(Response::HTTP_CREATED);
+    }
+
+    public function test_add_council_companies()
+    {
+        Sanctum::actingAs(User::council());
+        $councilCompany = CouncilCompany::factory()->make();
+        $this->json('post', 'api/council_company', $councilCompany->toArray())
          ->assertStatus(Response::HTTP_CREATED);
     }
 }

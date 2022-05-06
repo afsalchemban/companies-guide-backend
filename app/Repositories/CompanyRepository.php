@@ -2,6 +2,8 @@
 
 namespace App\Repositories;
 
+use App\Events\OrderCreated;
+use App\Events\UserCreated;
 use App\Http\Resources\CompanyReportResource;
 use App\Http\Resources\CompanyResource;
 use App\Interfaces\CompanyRepositoryInterface;
@@ -86,23 +88,27 @@ class CompanyRepository implements CompanyRepositoryInterface
     }
     public function orderPay(PaymentInterface $payment)
     {
-        DB::transaction(function () use ($payment) {
+        DB::beginTransaction();
+
+        try {
             $company_registered = (new CompanyRegistrationFromCache())->registerFromCache();
             $subscription_registered = (new SubscriptionRegistrationFromCache($company_registered))->addPackageFromCache();
-            if($password = (new CreateUserForCompany($subscription_registered))->createUserForFullProfile()){
-                //MailService::sendCompanyCredentialMail($company_registered,$password);
-            }
-            $this->orderPaymentService = (new OrderPaymentService($company_registered,$payment,$subscription_registered))->pay();
+            $user = (new CreateUserForCompany($subscription_registered))->createUserForFullPackage();
+            $order = (new OrderPaymentService($company_registered,$payment,$subscription_registered))->pay();
+            (new InvoiceService($order))->generate()->attachInvoiceToOrder();
             $this->_clearRegistrationCache();
-        });
-        $this->orderPaymentService->updateInvoicePathToOrder((new InvoiceService($this->orderPaymentService->order->id))->generate());
-        //MailService::sendInvoiceMail($this->orderPaymentService->order->id);
-        //MailService::sendContractMail($this->orderPaymentService->order->id);
+            DB::commit();
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Company Added Successfully',
-        ],Response::HTTP_OK);
+            //sending all necessary emails
+            OrderCreated::dispatch($order);
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Company Added Successfully',
+            ],Response::HTTP_OK);
+        } catch (\Exception $e) {
+            DB::rollback();
+        }
     
     }
     public function uploadLogo(UploadedFile $file){
