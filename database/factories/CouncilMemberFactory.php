@@ -17,7 +17,16 @@ class CouncilMemberFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->name(),
+            'dob' => $this->faker->date('Y-m-d'),
+            'email' => $this->faker->unique()->safeEmail(),
+            'website' => $this->faker->url(),
+            'designation' => $this->faker->text(10),
+            'nationality' => 1,
+            'mobile' => $this->faker->phoneNumber(),
+            'country_id' => 1,
+            'city_id' => 1,
+            'area_id' => 1,
         ];
     }
 }

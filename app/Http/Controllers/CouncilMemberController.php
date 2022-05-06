@@ -4,10 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCouncilMemberRequest;
 use App\Http\Requests\UpdateCouncilMemberRequest;
+use App\Interfaces\CouncilMemberRepositoryInterface;
 use App\Models\CouncilMember;
 
 class CouncilMemberController extends Controller
 {
+    public function __construct(CouncilMemberRepositoryInterface $councilMemberRepository) 
+    {
+        $this->councilMemberRepository = $councilMemberRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -26,7 +31,7 @@ class CouncilMemberController extends Controller
      */
     public function store(StoreCouncilMemberRequest $request)
     {
-        //
+        return $this->councilMemberRepository->createCouncilMember($request->validated());
     }
 
     /**

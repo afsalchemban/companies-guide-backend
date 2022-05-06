@@ -11,7 +11,7 @@ class CouncilRepository implements CouncilRepositoryInterface
 {
     public function getAllCouncils()
     {
-        
+        return Council::withCount(['companies','members'])->get();
     }
     public function getCouncilById($councilId)
     {

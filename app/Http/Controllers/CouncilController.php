@@ -20,7 +20,7 @@ class CouncilController extends Controller
      */
     public function index()
     {
-        //
+        return $this->councilRepository->getAllCouncils();
     }
 
     /**

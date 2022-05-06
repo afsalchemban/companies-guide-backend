@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Interfaces\CompanyRepositoryInterface;
+use App\Interfaces\CouncilMemberRepositoryInterface;
 use App\Interfaces\CouncilRepositoryInterface;
 use App\Interfaces\DataRepositoryInterface;
 use App\Interfaces\SaleReportInterface;
@@ -10,6 +11,7 @@ use App\Interfaces\SaleRepositoryInterface;
 use App\Repositories\SaleRepository;
 use App\Repositories\DataRepository;
 use App\Repositories\CompanyRepository;
+use App\Repositories\CouncilMemberRepository;
 use App\Repositories\CouncilRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Services\UserSwitchingService;
@@ -31,6 +33,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(SaleRepositoryInterface::class, SaleRepository::class);
 
         $this->app->bind(CouncilRepositoryInterface::class, CouncilRepository::class);
+
+        $this->app->bind(CouncilMemberRepositoryInterface::class, CouncilMemberRepository::class);
 
         $this->app->bind(CompanyRepositoryInterface::class, function ($app) {
             return new CompanyRepository($app->make(UserSwitchingService::class));

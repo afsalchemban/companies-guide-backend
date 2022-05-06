@@ -169,4 +169,11 @@ class AdminTest extends TestCase
         $this->assertDatabaseHas('councils', $council->toArray());
 
     }
+    public function test_admin_can_view_all_councils(){
+
+        Sanctum::actingAs(User::admin());
+        $this->json('get', 'api/council')
+         ->assertStatus(Response::HTTP_OK)->dd();
+
+    }
 }

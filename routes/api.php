@@ -6,9 +6,11 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CouncilController;
+use App\Http\Controllers\CouncilMemberController;
 use App\Http\Controllers\FrontEndController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SaleController;
+use App\Models\CouncilMember;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Artisan;
 
@@ -60,6 +62,7 @@ Route::middleware('auth:sanctum')->group(function () {
         'company'=>CompanyController::class,
         'sale'=>SaleController::class,
         'council'=>CouncilController::class,
+        'council_member'=>CouncilMemberController::class,
     ]);
 
     Route::get('logout', [AuthController::class, 'logout']);
