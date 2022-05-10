@@ -49,7 +49,7 @@ class CouncilRepository implements CouncilRepositoryInterface
     {
         $council = Auth::user()->userable;
         
-        if($path = $file->store('councils/logo'))
+        if($path = $file->store('councils/logos'))
         {
             $council->logo_image_path = Storage::url($path);
             $council->save();
