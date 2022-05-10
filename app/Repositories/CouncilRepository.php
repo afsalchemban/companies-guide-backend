@@ -34,15 +34,16 @@ class CouncilRepository implements CouncilRepositoryInterface
     }
     public function createCouncil(array $councilDetails)
     {
-        isset($councilDetails['cover_image_file'])?
+        $councilDetails['cover_image_path'] = isset($councilDetails['cover_image_file'])?
             Storage::url($this->_uploadCoverImage($councilDetails['cover_image_file'])):
             Storage::url('councils/cover-images/no-image.png');
         unset($councilDetails['cover_image_file']);   
 
-        isset($councilDetails['logo_file'])?
+        $councilDetails['logo_image_path'] = isset($councilDetails['logo_file'])?
             Storage::url($this->_uploadLogoImage($councilDetails['logo_file'])):
             Storage::url('councils/logos/no-image.png');
-        unset($councilDetails['logo_file']); 
+        unset($councilDetails['logo_file']);
+        
 
         return Council::create($councilDetails);
     }
@@ -66,7 +67,6 @@ class CouncilRepository implements CouncilRepositoryInterface
     public function changeLogo(UploadedFile $file)
     {
         $council = Auth::user()->userable;
-        
         if($path = $file->store('councils/logos'))
         {
             $council->logo_image_path = Storage::url($path);
