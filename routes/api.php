@@ -133,5 +133,6 @@ Route::prefix('frontend')->group(function () {
     Route::get('/companies/active', [FrontEndController::class, 'allActiveCompanies']);
     Route::get('/companies/{package}', [FrontEndController::class, 'companiesByPackage']);
     Route::get('/councils', [FrontEndController::class, 'allCouncils']);
+    Route::get('/council/{council}', [FrontEndController::class, 'councilById']);
 
 });

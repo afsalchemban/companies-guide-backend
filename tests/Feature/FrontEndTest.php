@@ -29,4 +29,10 @@ class FrontEndTest extends TestCase
         $response = $this->getJson('/api/frontend/councils')
         ->assertStatus(Response::HTTP_OK);
     }
+
+    public function test_get_council_by_id()
+    {
+        $response = $this->getJson('/api/frontend/council/1')
+        ->assertStatus(Response::HTTP_OK);
+    }
 }

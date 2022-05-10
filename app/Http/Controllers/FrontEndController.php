@@ -24,4 +24,8 @@ class FrontEndController extends Controller
     public function allCouncils(){
         return Council::all();
     }
+    public function councilById(Council $council)
+    {
+        return $council;
+    }
 }
