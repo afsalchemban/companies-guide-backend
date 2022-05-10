@@ -29,7 +29,9 @@ class CouncilCompanyRepository implements CouncilCompanyRepositoryInterface
     }
     public function createCouncilCompany(array $councilCompanyDetails)
     {
-        $councilCompanyDetails['logo_image_path'] = Storage::url($this->_uploadLogoImage($councilCompanyDetails['logo_file']));
+        $councilCompanyDetails['logo_image_path'] = isset($councilCompanyDetails['logo_file'])?
+            Storage::url($this->_uploadLogoImage($councilCompanyDetails['logo_file'])):
+            Storage::url('councils/companies/logos/no-image.png');
         unset($councilCompanyDetails['logo_file']);
         $council = Auth::user()->userable;
         $company = $council->companies()->create($councilCompanyDetails);

@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class CouncilRepository implements CouncilRepositoryInterface
 {
@@ -50,7 +51,7 @@ class CouncilRepository implements CouncilRepositoryInterface
         
         if($path = $file->store('councils/logo'))
         {
-            $council->logo_image_path = '/storage/'.$path;
+            $council->logo_image_path = Storage::url($path);
             $council->save();
             return $council;
         }

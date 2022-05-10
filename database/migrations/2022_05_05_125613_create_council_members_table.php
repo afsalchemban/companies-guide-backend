@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('website')->nullable();
             $table->string('mobile');
             $table->string('designation');
-            $table->string('profile_image')->default('council/members/profile-images/no-image.png');
+            $table->string('profile_image')->nullabel();
             $table->unsignedBigInteger('country_id');
             $table->unsignedBigInteger('city_id');
             $table->unsignedBigInteger('area_id');

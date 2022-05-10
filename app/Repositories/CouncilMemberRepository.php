@@ -11,7 +11,8 @@ class CouncilMemberRepository implements CouncilMemberRepositoryInterface
 {
     public function getAllCouncilMembers(Council $council)
     {
-        
+        $council = Auth::user()->userable;
+        return $council->members;
     }
     public function getCouncilMemberById($councilMemberId)
     {
