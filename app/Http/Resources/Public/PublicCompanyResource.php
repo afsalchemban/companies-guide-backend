@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Frontend;
+namespace App\Http\Resources\Public;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class FrontendCompanyResource extends JsonResource
+class PublicCompanyResource extends JsonResource
 {
     /**
      * Transform the resource into an array.

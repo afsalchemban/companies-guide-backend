@@ -8,7 +8,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CouncilCompanyController;
 use App\Http\Controllers\CouncilController;
 use App\Http\Controllers\CouncilMemberController;
-use App\Http\Controllers\FrontEndController;
+use App\Http\Controllers\PublicController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SaleController;
 use App\Models\CouncilMember;
@@ -128,11 +128,13 @@ Route::post('image', [DataController::class, 'image']);
 | Front End apis
 */
 
-Route::prefix('frontend')->group(function () {
+Route::prefix('public')->group(function () {
 
-    Route::get('/companies/active', [FrontEndController::class, 'allActiveCompanies']);
-    Route::get('/companies/{package}', [FrontEndController::class, 'companiesByPackage']);
-    Route::get('/councils', [FrontEndController::class, 'allCouncils']);
-    Route::get('/council/{council}', [FrontEndController::class, 'councilById']);
+    Route::get('/companies/active', [PublicController::class, 'allActiveCompanies']);
+    Route::get('/companies/{package}', [PublicController::class, 'companiesByPackage']);
+    Route::get('/councils', [PublicController::class, 'allCouncils']);
+    Route::get('/council/{council}', [PublicController::class, 'councilById']);
+    Route::get('/council_company/{council}', [PublicController::class, 'councilCompanyById']);
+    Route::get('/council_member/{council}', [PublicController::class, 'councilMemberById']);
 
 });
