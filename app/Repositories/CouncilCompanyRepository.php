@@ -25,11 +25,11 @@ class CouncilCompanyRepository implements CouncilCompanyRepositoryInterface
     }
     private function _uploadLogoImage($file)
     {
-        return $file->store('councils/companies/logos','public');
+        return $file->store('councils/companies/logos');
     }
     public function createCouncilCompany(array $councilCompanyDetails)
     {
-        $councilCompanyDetails['logo_image_path'] = '/storage/'.$this->_uploadLogoImage($councilCompanyDetails['logo_file']);
+        $councilCompanyDetails['logo_image_path'] = Storage::url($this->_uploadLogoImage($councilCompanyDetails['logo_file']));
         unset($councilCompanyDetails['logo_file']);
         $council = Auth::user()->userable;
         $company = $council->companies()->create($councilCompanyDetails);
