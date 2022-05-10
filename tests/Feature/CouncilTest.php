@@ -10,6 +10,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 use Illuminate\Http\Response;
+use Illuminate\Http\UploadedFile;
 
 class CouncilTest extends TestCase
 {
@@ -29,8 +30,18 @@ class CouncilTest extends TestCase
     public function test_add_council_companies()
     {
         Sanctum::actingAs(User::council());
-        $councilCompany = CouncilCompany::factory()->make();
+        $file = UploadedFile::fake()->image('avatar.jpg');
+        $councilCompany = CouncilCompany::factory()->make([
+            'logo_file' => $file,
+        ]);
         $this->json('post', 'api/council_company', $councilCompany->toArray())
          ->assertStatus(Response::HTTP_CREATED);
+    }
+
+    public function test_get_all_council_companies()
+    {
+        Sanctum::actingAs(User::council());
+        $response = $this->getJson('/api/council_company')
+        ->assertStatus(Response::HTTP_OK);
     }
 }

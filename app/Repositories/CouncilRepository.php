@@ -5,7 +5,9 @@ namespace App\Repositories;
 use App\Interfaces\CouncilRepositoryInterface;
 use App\Models\Council;
 use App\Models\User;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class CouncilRepository implements CouncilRepositoryInterface
 {
@@ -41,5 +43,16 @@ class CouncilRepository implements CouncilRepositoryInterface
         $user->save();
         //MailService::sendSaleCredentialMail($sale,'dummypassword');
         return $user;
+    }
+    public function changeLogo(UploadedFile $file)
+    {
+        $council = Auth::user()->userable;
+        
+        if($path = $file->store('councils/logo'))
+        {
+            $council->logo_image_path = '/storage/'.$path;
+            $council->save();
+            return $council;
+        }
     }
 }

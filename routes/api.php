@@ -59,6 +59,10 @@ Route::middleware('auth:sanctum')->group(function () {
 
     });
 
+    Route::prefix('council')->group(function(){
+        Route::post('/change_profile_image', [CouncilController::class, 'changeProfileImage']);
+    });
+
     Route::apiResources([
         'company'=>CompanyController::class,
         'sale'=>SaleController::class,
@@ -127,5 +131,6 @@ Route::prefix('frontend')->group(function () {
 
     Route::get('/companies/active', [FrontEndController::class, 'allActiveCompanies']);
     Route::get('/companies/{package}', [FrontEndController::class, 'companiesByPackage']);
+    Route::get('/councils', [FrontEndController::class, 'allCouncils']);
 
 });

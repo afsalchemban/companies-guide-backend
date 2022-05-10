@@ -24,4 +24,9 @@ class FrontEndTest extends TestCase
         $response = $this->getJson('/api/frontend/companies/active')
         ->assertStatus(Response::HTTP_OK);
     }
+    public function test_get_company_all_councils()
+    {
+        $response = $this->getJson('/api/frontend/councils')
+        ->assertStatus(Response::HTTP_OK);
+    }
 }

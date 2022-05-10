@@ -9,9 +9,9 @@ use App\Models\CouncilCompany;
 
 class CouncilCompanyController extends Controller
 {
-    public function __construct(CouncilCompanyRepositoryInterface $companyRepository) 
+    public function __construct(CouncilCompanyRepositoryInterface $councilCompanyRepository) 
     {
-        $this->companyRepository = $companyRepository;
+        $this->councilCompanyRepository = $councilCompanyRepository;
     }
     /**
      * Display a listing of the resource.
@@ -20,7 +20,7 @@ class CouncilCompanyController extends Controller
      */
     public function index()
     {
-        //
+        return $this->councilCompanyRepository->getAllCouncilCompanies();
     }
 
     /**
@@ -31,7 +31,7 @@ class CouncilCompanyController extends Controller
      */
     public function store(StoreCouncilCompanyRequest $request)
     {
-        return $this->companyRepository->createCouncilCompany($request->validated());
+        return $this->councilCompanyRepository->createCouncilCompany($request->validated());
     }
 
     /**

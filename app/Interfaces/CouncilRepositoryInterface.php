@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Interfaces;
+use Illuminate\Http\UploadedFile;
 
 use App\Models\Council;
 
@@ -12,4 +13,5 @@ interface CouncilRepositoryInterface
     public function createCouncil(array $councilDetails);
     public function updateCouncil(Council $council, array $newDetails);
     public function createUserForCouncil(Council $council);
+    public function changeLogo(UploadedFile $file);
 }
