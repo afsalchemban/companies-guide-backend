@@ -72,4 +72,8 @@ class CouncilController extends Controller
     public function changeProfileImage(ChangeCouncilLogoRequest $request){
         return $this->councilRepository->changeLogo($request->validated()['file']);
     }
+
+    public function changeCoverImage(ChangeCouncilLogoRequest $request){
+        return $this->councilRepository->changeCover($request->validated()['file']);
+    }
 }

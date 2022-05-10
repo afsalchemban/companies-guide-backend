@@ -16,8 +16,8 @@ class CouncilSeeder extends Seeder
      */
     public function run()
     {
-        DB::unprepared("INSERT INTO `councils` (`council_name`, `email`, `mobile_number`, `landline_number`, `country_id`, `city_id`, `area_id`, `person_in_charge_name`, `person_in_charge_designation`, `person_in_charge_email`, `person_in_charge_mobile`, `person_in_charge_country`, `logo_image_path`, `created_at`, `updated_at`) VALUES
-        ('UAE Business Council', 'uae@council.com', '+18289565075', '+1 (806) 258-9977', 1, 1, 1, 'Ahammed', 'Vice President', 'ahammed@council.com', '252.762.6310', 'United Arab Emirates', 'https://storage.googleapis.com/business-council-bucket/councils/logos/no-image.png', '2022-05-09 15:39:38', '2022-05-09 15:39:38');");
+        DB::unprepared("INSERT INTO `councils` (`council_name`, `email`, `mobile_number`, `landline_number`, `country_id`, `city_id`, `area_id`, `person_in_charge_name`, `person_in_charge_designation`, `person_in_charge_email`, `person_in_charge_mobile`, `person_in_charge_country`, `logo_image_path`, `cover_image_path`, `created_at`, `updated_at`) VALUES
+        ('UAE Business Council', 'uae@council.com', '+18289565075', '+1 (806) 258-9977', 1, 1, 1, 'Ahammed', 'Vice President', 'ahammed@council.com', '252.762.6310', 'United Arab Emirates', 'https://storage.googleapis.com/business-council-bucket/councils/logos/no-image.png', 'https://storage.googleapis.com/business-council-bucket/councils/cover-images/no-image.png', '2022-05-09 15:39:38', '2022-05-09 15:39:38');");
 
         DB::table('users')->insert([
             'name' => 'UAE Business Council',

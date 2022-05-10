@@ -24,8 +24,26 @@ class CouncilRepository implements CouncilRepositoryInterface
     {
         
     }
+    private function _uploadCoverImage($file)
+    {
+        return $file->store('councils/cover-images');
+    }
+    private function _uploadLogoImage($file)
+    {
+        return $file->store('councils/logos');
+    }
     public function createCouncil(array $councilDetails)
     {
+        isset($councilDetails['cover_image_file'])?
+            Storage::url($this->_uploadCoverImage($councilDetails['cover_image_file'])):
+            Storage::url('councils/cover-images/no-image.png');
+        unset($councilDetails['cover_image_file']);   
+
+        isset($councilDetails['logo_file'])?
+            Storage::url($this->_uploadLogoImage($councilDetails['logo_file'])):
+            Storage::url('councils/logos/no-image.png');
+        unset($councilDetails['logo_file']); 
+
         return Council::create($councilDetails);
     }
     public function updateCouncil(Council $council, array $newDetails)
@@ -52,6 +70,17 @@ class CouncilRepository implements CouncilRepositoryInterface
         if($path = $file->store('councils/logos'))
         {
             $council->logo_image_path = Storage::url($path);
+            $council->save();
+            return $council;
+        }
+    }
+    public function changeCover(UploadedFile $file)
+    {
+        $council = Auth::user()->userable;
+        
+        if($path = $file->store('councils/cover-images'))
+        {
+            $council->cover_image_path = Storage::url($path);
             $council->save();
             return $council;
         }

@@ -33,7 +33,8 @@ class StoreCouncilMemberRequest extends FormRequest
             'designation' => 'required',
             'country_id' => 'required|integer',
             'city_id' => 'required|integer',
-            'area_id' => 'required|integer'         
+            'area_id' => 'required|integer',
+            'profile_image_file' => 'nullable|image',            
         ];
     }
 }

@@ -61,6 +61,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('council')->group(function(){
         Route::post('/change_profile_image', [CouncilController::class, 'changeProfileImage']);
+        Route::post('/change_cover_image', [CouncilController::class, 'changeCoverImage']);
     });
 
     Route::apiResources([
