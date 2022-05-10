@@ -29,7 +29,10 @@ class DatabaseSeeder extends Seeder
             OrdersSeeder::class,
             BankSeeder::class,
             CashSeeder::class,
-            ChequeSeeder::class
+            ChequeSeeder::class,
+            CouncilSeeder::class,
+            CouncilCompanySeeder::class,
+            CouncilMemberSeeder::class
         ]);     
     }
 }
