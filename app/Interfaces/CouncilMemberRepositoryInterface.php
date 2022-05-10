@@ -7,7 +7,7 @@ use App\Models\CouncilMember;
 
 interface CouncilMemberRepositoryInterface
 {
-    public function getAllCouncilMembers(Council $council);
+    public function getAllCouncilMembers();
     public function getCouncilMemberById($councilMemberId);
     public function deleteCouncilMember(CouncilMember $councilMember);
     public function createCouncilMember(array $councilMemberDetails);

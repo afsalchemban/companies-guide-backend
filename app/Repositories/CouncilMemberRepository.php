@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class CouncilMemberRepository implements CouncilMemberRepositoryInterface
 {
-    public function getAllCouncilMembers(Council $council)
+    public function getAllCouncilMembers()
     {
         $council = Auth::user()->userable;
         return $council->members;

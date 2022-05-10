@@ -44,4 +44,11 @@ class CouncilTest extends TestCase
         $response = $this->getJson('/api/council_company')
         ->assertStatus(Response::HTTP_OK);
     }
+
+    public function test_get_all_council_members()
+    {
+        Sanctum::actingAs(User::council());
+        $response = $this->getJson('/api/council_member')
+        ->assertStatus(Response::HTTP_OK);
+    }
 }
