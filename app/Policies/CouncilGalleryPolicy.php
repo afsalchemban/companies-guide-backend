@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Council;
+use App\Models\CouncilGallery;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class CouncilPolicy
+class CouncilGalleryPolicy
 {
     use HandlesAuthorization;
 
@@ -25,10 +25,10 @@ class CouncilPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Council  $council
+     * @param  \App\Models\CouncilGallery  $councilGallery
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Council $council)
+    public function view(User $user, CouncilGallery $councilGallery)
     {
         //
     }
@@ -41,17 +41,17 @@ class CouncilPolicy
      */
     public function create(User $user)
     {
-        return $user->isAdmin();
+        //
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Council  $council
+     * @param  \App\Models\CouncilGallery  $councilGallery
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Council $council)
+    public function update(User $user, CouncilGallery $councilGallery)
     {
         //
     }
@@ -60,10 +60,10 @@ class CouncilPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Council  $council
+     * @param  \App\Models\CouncilGallery  $councilGallery
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Council $council)
+    public function delete(User $user, CouncilGallery $councilGallery)
     {
         //
     }
@@ -72,10 +72,10 @@ class CouncilPolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Council  $council
+     * @param  \App\Models\CouncilGallery  $councilGallery
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Council $council)
+    public function restore(User $user, CouncilGallery $councilGallery)
     {
         //
     }
@@ -84,17 +84,11 @@ class CouncilPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Council  $council
+     * @param  \App\Models\CouncilGallery  $councilGallery
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Council $council)
+    public function forceDelete(User $user, CouncilGallery $councilGallery)
     {
         //
-    }
-
-    public function changeImageFile(User $user, Council $council)
-    {
-        $userable = $user->userable;
-        return $user->isCouncil() && $council->id == $userable->id;
     }
 }

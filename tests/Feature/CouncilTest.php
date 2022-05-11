@@ -30,9 +30,9 @@ class CouncilTest extends TestCase
 
     public function test_change_council_logo()
     {
-        Sanctum::actingAs(User::council());
+        Sanctum::actingAs(User::council(4));
         $file = UploadedFile::fake()->image('avatar.jpg');
-        $this->json('post', 'api/council/change_profile_image',[
+        $this->json('post', 'api/council/change_council_logo/1',[
             'file' => $file,
         ])
         ->assertStatus(Response::HTTP_OK);
@@ -51,10 +51,21 @@ class CouncilTest extends TestCase
 
     public function test_change_council_cover_image()
     {
-        Sanctum::actingAs(User::council());
+        Sanctum::actingAs(User::council(4));
         $file = UploadedFile::fake()->image('avatar.jpg');
-        $this->json('post', 'api/council/change_cover_image',[
+        $this->json('post', 'api/council/change_cover_image/1',[
             'file' => $file,
+        ])
+        ->assertStatus(Response::HTTP_OK);
+    }
+
+    public function test_change_council_can_upload_gallery()
+    {
+        Sanctum::actingAs(User::council(4));
+        $file = UploadedFile::fake()->image('avatar.jpg');
+        $this->json('post', 'api/council_gallery/1',[
+            'file' => $file,
+            'title' => 'Test Description',
         ])
         ->assertStatus(Response::HTTP_OK);
     }

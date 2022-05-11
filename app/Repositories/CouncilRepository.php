@@ -64,9 +64,8 @@ class CouncilRepository implements CouncilRepositoryInterface
         //MailService::sendSaleCredentialMail($sale,'dummypassword');
         return $user;
     }
-    public function changeLogo(UploadedFile $file)
+    public function changeLogo(UploadedFile $file, Council $council)
     {
-        $council = Auth::user()->userable;
         if($path = $file->store('councils/logos'))
         {
             $council->logo_image_path = Storage::url($path);
@@ -74,9 +73,8 @@ class CouncilRepository implements CouncilRepositoryInterface
             return $council;
         }
     }
-    public function changeCover(UploadedFile $file)
+    public function changeCover(UploadedFile $file, Council $council)
     {
-        $council = Auth::user()->userable;
         
         if($path = $file->store('councils/cover-images'))
         {

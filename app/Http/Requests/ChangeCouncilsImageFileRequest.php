@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Council;
 use Illuminate\Foundation\Http\FormRequest;
 
-class ChangeCouncilLogoRequest extends FormRequest
+class ChangeCouncilsImageFileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +14,8 @@ class ChangeCouncilLogoRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        $council = $this->route('council');
+        return $council && $this->user()->can('changeImageFile', $council);
     }
 
     /**

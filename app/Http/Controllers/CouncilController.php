@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ChangeCouncilLogoRequest;
+use App\Http\Requests\ChangeCouncilsImageFileRequest;
 use App\Http\Requests\StoreCouncilRequest;
 use App\Http\Requests\UpdateCouncilRequest;
 use App\Interfaces\CouncilRepositoryInterface;
@@ -69,11 +69,11 @@ class CouncilController extends Controller
         //
     }
 
-    public function changeProfileImage(ChangeCouncilLogoRequest $request){
-        return $this->councilRepository->changeLogo($request->validated()['file']);
+    public function changeCouncilLogo(ChangeCouncilsImageFileRequest $request, Council $council){
+        return $this->councilRepository->changeLogo($request->validated()['file'], $council);
     }
 
-    public function changeCoverImage(ChangeCouncilLogoRequest $request){
-        return $this->councilRepository->changeCover($request->validated()['file']);
+    public function changeCoverImage(ChangeCouncilsImageFileRequest $request, Council $council){
+        return $this->councilRepository->changeCover($request->validated()['file'], $council);
     }
 }
