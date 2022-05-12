@@ -16,4 +16,5 @@ interface CouncilRepositoryInterface
     public function changeLogo(UploadedFile $file, Council $council);
     public function changeCover(UploadedFile $file, Council $council);
     public function addGalleryImage(array $galleryDetails, Council $council);
+    public function addEvent(array $eventDetails, Council $council);
 }

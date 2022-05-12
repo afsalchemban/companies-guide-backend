@@ -21,4 +21,7 @@ class Council extends Model
     public function medias(){
         return $this->hasMany(CouncilGallery::class);
     }
+    public function events(){
+        return $this->hasMany(CouncilEvents::class);
+    }
 }

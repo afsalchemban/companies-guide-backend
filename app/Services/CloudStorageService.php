@@ -17,4 +17,8 @@ class CloudStorageService implements CloudStorageInterface
         }
         return false;
     }
+    public function storeFile($path, UploadedFile $file)
+    {
+        return $file->store($path);
+    }
 }

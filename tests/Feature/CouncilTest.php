@@ -70,4 +70,18 @@ class CouncilTest extends TestCase
         ])
         ->assertStatus(Response::HTTP_CREATED);
     }
+
+    public function test_council_can_add_event()
+    {
+        Sanctum::actingAs(User::council(4));
+        $file = UploadedFile::fake()->image('avatar.jpg');
+        $this->json('post', 'api/council/add_event/1',[
+            'name' => 'afsal',
+            'location' => 'dubai',
+            'event_date' => '2022-01-01',
+            'link' => 'testlink',
+            'image' => $file
+        ])
+        ->assertStatus(Response::HTTP_CREATED);
+    }
 }

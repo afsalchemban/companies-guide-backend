@@ -97,4 +97,9 @@ class CouncilPolicy
         $userable = $user->userable;
         return $user->isCouncil() && $council->id == $userable->id;
     }
+    public function addEvent(User $user, Council $council)
+    {
+        $userable = $user->userable;
+        return $user->isCouncil() && $council->id == $userable->id;
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ChangeCouncilsImageFileRequest;
+use App\Http\Requests\StoreCouncilEventsRequest;
 use App\Http\Requests\StoreCouncilGalleryRequest;
 use App\Http\Requests\StoreCouncilRequest;
 use App\Http\Requests\UpdateCouncilRequest;
@@ -81,5 +82,10 @@ class CouncilController extends Controller
     public function addMediaImage(StoreCouncilGalleryRequest $request, Council $council)
     {
         return $this->councilRepository->addGalleryImage($request->validated(), $council);
+    }
+
+    public function addEvent(StoreCouncilEventsRequest $request, Council $council)
+    {
+        return $this->councilRepository->addEvent($request->validated(), $council);
     }
 }

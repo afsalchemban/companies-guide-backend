@@ -13,7 +13,8 @@ class StoreCouncilEventsRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        $council = $this->route('council');
+        return $council && $this->user()->can('addEvent', $council);
     }
 
     /**
@@ -24,7 +25,11 @@ class StoreCouncilEventsRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required',
+            'location' => 'required',
+            'event_date' => 'required',
+            'link' => 'required',
+            'image' => 'required'
         ];
     }
 }

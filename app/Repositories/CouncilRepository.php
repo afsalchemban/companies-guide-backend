@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Interfaces\CouncilRepositoryInterface;
+use App\Services\CloudStorageService;
 use App\Models\Council;
 use App\Models\CouncilGallery;
 use App\Models\User;
@@ -13,6 +14,10 @@ use Illuminate\Support\Facades\Storage;
 
 class CouncilRepository implements CouncilRepositoryInterface
 {
+    public function __construct(CloudStorageService $cloudStorage)
+    {
+        $this->cloudStorage = $cloudStorage;
+    }
     public function getAllCouncils()
     {
         return Council::withCount(['companies','members'])->get();
@@ -84,19 +89,24 @@ class CouncilRepository implements CouncilRepositoryInterface
             return $council;
         }
     }
-    private function _uploadGalleryImage($file)
-    {
-        return $file->store('councils/gallery');
-    }
     public function addGalleryImage(array $galleryDetails, Council $council)
     {
-        if($path = $this->_uploadGalleryImage($galleryDetails['file'])){
-
+        if($path = $this->cloudStorage->storeFile('councils/gallery', $galleryDetails['file']))
+        {   
             $galleryDetails['file_path']= Storage::url($path);
             unset($galleryDetails['file']);
-
             $gallery = $council->medias()->create($galleryDetails);
             return $gallery;
+        }
+    }
+    public function addEvent(array $eventDetails, Council $council)
+    {
+        if($path = $this->cloudStorage->storeFile('councils/events', $eventDetails['image']))   
+        {
+            $eventDetails['image_path']= Storage::url($path);
+            unset($eventDetails['image']);
+            $event = $council->events()->create($eventDetails);
+            return $event;
         }
     }
 }
