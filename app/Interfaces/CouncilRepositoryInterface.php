@@ -15,4 +15,5 @@ interface CouncilRepositoryInterface
     public function createUserForCouncil(Council $council);
     public function changeLogo(UploadedFile $file, Council $council);
     public function changeCover(UploadedFile $file, Council $council);
+    public function addGalleryImage(array $galleryDetails, Council $council);
 }

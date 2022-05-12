@@ -18,4 +18,7 @@ class Council extends Model
     public function companies(){
         return $this->hasMany(CouncilCompany::class);
     }
+    public function medias(){
+        return $this->hasMany(CouncilGallery::class);
+    }
 }

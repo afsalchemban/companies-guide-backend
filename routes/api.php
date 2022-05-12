@@ -62,6 +62,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('council')->group(function(){
         Route::post('/change_council_logo/{council}', [CouncilController::class, 'changeCouncilLogo']);
         Route::post('/change_cover_image/{council}', [CouncilController::class, 'changeCoverImage']);
+        Route::post('/add_media_image/{council}', [CouncilController::class, 'addMediaImage']);
     });
 
     Route::apiResources([
@@ -136,5 +137,6 @@ Route::prefix('public')->group(function () {
     Route::get('/council/{council}', [PublicController::class, 'councilById']);
     Route::get('/council_company/{council}', [PublicController::class, 'councilCompanyById']);
     Route::get('/council_member/{council}', [PublicController::class, 'councilMemberById']);
+    Route::get('/council_media/{council}', [PublicController::class, 'councilMediaById']);
 
 });

@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Interfaces\CouncilRepositoryInterface;
 use App\Models\Council;
+use App\Models\CouncilGallery;
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
@@ -81,6 +82,21 @@ class CouncilRepository implements CouncilRepositoryInterface
             $council->cover_image_path = Storage::url($path);
             $council->save();
             return $council;
+        }
+    }
+    private function _uploadGalleryImage($file)
+    {
+        return $file->store('councils/gallery');
+    }
+    public function addGalleryImage(array $galleryDetails, Council $council)
+    {
+        if($path = $this->_uploadGalleryImage($galleryDetails['file'])){
+
+            $galleryDetails['file_path']= Storage::url($path);
+            unset($galleryDetails['file']);
+
+            $gallery = $council->medias()->create($galleryDetails);
+            return $gallery;
         }
     }
 }

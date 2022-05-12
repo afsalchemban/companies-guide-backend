@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreCouncilGalleryRequest extends FormRequest
+class UpdateCouncilEventsRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,8 +13,7 @@ class StoreCouncilGalleryRequest extends FormRequest
      */
     public function authorize()
     {
-        $council = $this->route('council');
-        return $council && $this->user()->can('changeImageFile', $council);
+        return false;
     }
 
     /**
@@ -24,10 +23,8 @@ class StoreCouncilGalleryRequest extends FormRequest
      */
     public function rules()
     {
-        return [          
-            'file' => 'nullable|image',           
-            'title' => 'required',           
-            'description' => 'required'          
+        return [
+            //
         ];
     }
 }

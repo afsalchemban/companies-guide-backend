@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ChangeCouncilsImageFileRequest;
+use App\Http\Requests\StoreCouncilGalleryRequest;
 use App\Http\Requests\StoreCouncilRequest;
 use App\Http\Requests\UpdateCouncilRequest;
 use App\Interfaces\CouncilRepositoryInterface;
@@ -75,5 +76,10 @@ class CouncilController extends Controller
 
     public function changeCoverImage(ChangeCouncilsImageFileRequest $request, Council $council){
         return $this->councilRepository->changeCover($request->validated()['file'], $council);
+    }
+
+    public function addMediaImage(StoreCouncilGalleryRequest $request, Council $council)
+    {
+        return $this->councilRepository->addGalleryImage($request->validated(), $council);
     }
 }

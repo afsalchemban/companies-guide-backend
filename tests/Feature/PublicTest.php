@@ -49,7 +49,7 @@ class PublicEndTest extends TestCase
     }
     public function test_get_council_gallery()
     {
-        $response = $this->getJson('/api/public/council_gallery/1')
+        $response = $this->getJson('/api/public/council_media/1')
         ->assertStatus(Response::HTTP_OK);
     }
 }

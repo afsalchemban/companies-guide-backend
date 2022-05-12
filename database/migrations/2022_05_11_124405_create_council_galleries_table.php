@@ -15,7 +15,14 @@ return new class extends Migration
     {
         Schema::create('council_galleries', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->string('description');
+            $table->string('file_path');
+            $table->unsignedBigInteger('council_id');
             $table->timestamps();
+        });
+        Schema::table('council_galleries', function (Blueprint $table) {
+            $table->foreign('council_id')->references('id')->on('councils')->onDelete('restrict');
         });
     }
 

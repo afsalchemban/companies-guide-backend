@@ -36,4 +36,8 @@ class PublicController extends Controller
     {
         return $council->members;
     }
+    public function councilMediaById(Council $council)
+    {
+        return $council->medias;
+    }
 }

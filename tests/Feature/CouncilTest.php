@@ -59,14 +59,15 @@ class CouncilTest extends TestCase
         ->assertStatus(Response::HTTP_OK);
     }
 
-    public function test_change_council_can_upload_gallery()
+    public function test_council_can_upload_gallery()
     {
         Sanctum::actingAs(User::council(4));
         $file = UploadedFile::fake()->image('avatar.jpg');
-        $this->json('post', 'api/council_gallery/1',[
+        $this->json('post', 'api/council/add_media_image/1',[
             'file' => $file,
-            'title' => 'Test Description',
+            'title' => 'Test Title',
+            'description' => 'Test Description',
         ])
-        ->assertStatus(Response::HTTP_OK);
+        ->assertStatus(Response::HTTP_CREATED);
     }
 }
