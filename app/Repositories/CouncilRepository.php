@@ -30,23 +30,15 @@ class CouncilRepository implements CouncilRepositoryInterface
     {
         
     }
-    private function _uploadCoverImage($file)
-    {
-        return $file->store('councils/cover-images');
-    }
-    private function _uploadLogoImage($file)
-    {
-        return $file->store('councils/logos');
-    }
     public function createCouncil(array $councilDetails)
     {
         $councilDetails['cover_image_path'] = isset($councilDetails['cover_image_file'])?
-            Storage::url($this->_uploadCoverImage($councilDetails['cover_image_file'])):
+            Storage::url($this->cloudStorage->storeFile('councils/cover-images', $councilDetails['cover_image_file'])):
             Storage::url('councils/cover-images/no-image.png');
         unset($councilDetails['cover_image_file']);   
 
         $councilDetails['logo_image_path'] = isset($councilDetails['logo_file'])?
-            Storage::url($this->_uploadLogoImage($councilDetails['logo_file'])):
+            Storage::url($this->cloudStorage->storeFile('councils/logos', $councilDetails['logo_file'])):
             Storage::url('councils/logos/no-image.png');
         unset($councilDetails['logo_file']);
         
@@ -72,7 +64,7 @@ class CouncilRepository implements CouncilRepositoryInterface
     }
     public function changeLogo(UploadedFile $file, Council $council)
     {
-        if($path = $file->store('councils/logos'))
+        if($path = $this->cloudStorage->storeFile('councils/logos', $file))
         {
             $council->logo_image_path = Storage::url($path);
             $council->save();
@@ -81,8 +73,7 @@ class CouncilRepository implements CouncilRepositoryInterface
     }
     public function changeCover(UploadedFile $file, Council $council)
     {
-        
-        if($path = $file->store('councils/cover-images'))
+        if($path = $this->cloudStorage->storeFile('councils/cover-images', $file))
         {
             $council->cover_image_path = Storage::url($path);
             $council->save();

@@ -40,4 +40,8 @@ class PublicController extends Controller
     {
         return $council->medias;
     }
+    public function councilEventById(Council $council)
+    {
+        return $council->events;
+    }
 }
