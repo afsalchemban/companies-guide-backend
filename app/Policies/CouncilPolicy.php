@@ -53,7 +53,8 @@ class CouncilPolicy
      */
     public function update(User $user, Council $council)
     {
-        //
+        $userable = $user->userable;
+        return $user->isCouncil() && $council->id == $userable->id;
     }
 
     /**

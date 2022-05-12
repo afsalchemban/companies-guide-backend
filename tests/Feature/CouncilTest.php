@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Council;
 use App\Models\CouncilCompany;
 use App\Models\CouncilMember;
 use App\Models\User;
@@ -83,5 +84,13 @@ class CouncilTest extends TestCase
             'image' => $file
         ])
         ->assertStatus(Response::HTTP_CREATED);
+    }
+
+    public function test_council_can_update()
+    {
+        Sanctum::actingAs(User::council(4));
+        $council = Council::factory()->make();
+        $this->json('put', 'api/council/1', $council->toArray())
+        ->assertStatus(Response::HTTP_OK);
     }
 }

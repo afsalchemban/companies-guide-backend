@@ -47,7 +47,7 @@ class CouncilRepository implements CouncilRepositoryInterface
     }
     public function updateCouncil(Council $council, array $newDetails)
     {
-        
+        return $council->update($newDetails);
     }
     public function createUserForCouncil(Council $council)
     {

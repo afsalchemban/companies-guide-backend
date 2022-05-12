@@ -57,7 +57,7 @@ class CouncilController extends Controller
      */
     public function update(UpdateCouncilRequest $request, Council $council)
     {
-        //
+        return $this->councilRepository->updateCouncil($council,$request->validated());
     }
 
     /**
