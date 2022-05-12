@@ -5,7 +5,9 @@ namespace App\Repositories;
 use App\Interfaces\CouncilRepositoryInterface;
 use App\Services\CloudStorageService;
 use App\Models\Council;
+use App\Models\CouncilCompany;
 use App\Models\CouncilGallery;
+use App\Models\CouncilMember;
 use App\Models\User;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
@@ -127,5 +129,13 @@ class CouncilRepository implements CouncilRepositoryInterface
         $council = Auth::user()->userable;
         $company = $council->companies()->create($councilCompanyDetails);
         return $company;
+    }
+    public function updateCouncilCompany(array $newDetails, CouncilCompany $councilCompany)
+    {
+        return $councilCompany->update($newDetails);
+    }
+    public function updateCouncilMember(array $newDetails, CouncilMember $councilMember)
+    {
+        return $councilMember->update($newDetails);
     }
 }

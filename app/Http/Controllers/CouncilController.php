@@ -8,9 +8,13 @@ use App\Http\Requests\StoreCouncilEventsRequest;
 use App\Http\Requests\StoreCouncilGalleryRequest;
 use App\Http\Requests\StoreCouncilMemberRequest;
 use App\Http\Requests\StoreCouncilRequest;
+use App\Http\Requests\UpdateCouncilCompanyRequest;
+use App\Http\Requests\UpdateCouncilMemberRequest;
 use App\Http\Requests\UpdateCouncilRequest;
 use App\Interfaces\CouncilRepositoryInterface;
 use App\Models\Council;
+use App\Models\CouncilCompany;
+use App\Models\CouncilMember;
 
 class CouncilController extends Controller
 {
@@ -98,5 +102,13 @@ class CouncilController extends Controller
     public function addCompany(StoreCouncilCompanyRequest $request, Council $council)
     {
         return $this->councilRepository->createCouncilCompany($request->validated());
+    }
+    public function updateMember(UpdateCouncilMemberRequest $request, Council $council, CouncilMember $councilMember)
+    {
+        return $this->councilRepository->updateCouncilMember($request->validated(), $councilMember);
+    }
+    public function updateCompany(UpdateCouncilCompanyRequest $request, Council $council, CouncilCompany $councilCompany)
+    {
+        return $this->councilRepository->updateCouncilCompany($request->validated(),$councilCompany);
     }
 }

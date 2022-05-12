@@ -4,6 +4,8 @@ namespace App\Interfaces;
 use Illuminate\Http\UploadedFile;
 
 use App\Models\Council;
+use App\Models\CouncilCompany;
+use App\Models\CouncilMember;
 
 interface CouncilRepositoryInterface
 {
@@ -19,4 +21,6 @@ interface CouncilRepositoryInterface
     public function addEvent(array $eventDetails, Council $council);
     public function createCouncilMember(array $councilMemberDetails);
     public function createCouncilCompany(array $councilCompanyDetails);
+    public function updateCouncilCompany(array $newDetails,CouncilCompany $councilCompany);
+    public function updateCouncilMember(array $newDetails,CouncilMember $councilMember);
 }

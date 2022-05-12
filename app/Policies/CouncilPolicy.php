@@ -113,4 +113,13 @@ class CouncilPolicy
         $userable = $user->userable;
         return $user->isCouncil() && $council->id == $userable->id;
     }
+    public function updateCompany(User $user, Council $council)
+    {
+        $userable = $user->userable;
+        return $user->isCouncil() && $council->id == $userable->id;
+    }public function updateMember(User $user, Council $council)
+    {
+        $userable = $user->userable;
+        return $user->isCouncil() && $council->id == $userable->id;
+    }
 }

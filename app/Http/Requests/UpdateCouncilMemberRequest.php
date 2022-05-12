@@ -13,7 +13,8 @@ class UpdateCouncilMemberRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        $council = $this->route('council');
+        return $council && $this->user()->can('updateMember', $council);
     }
 
     /**
@@ -24,7 +25,15 @@ class UpdateCouncilMemberRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required',
+            'dob' => 'required',
+            'email' => 'required',
+            'nationality' => 'required',
+            'mobile' => 'required',
+            'designation' => 'required',
+            'country_id' => 'required|integer',
+            'city_id' => 'required|integer',
+            'area_id' => 'required|integer',         
         ];
     }
 }

@@ -13,7 +13,8 @@ class UpdateCouncilCompanyRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        $council = $this->route('council');
+        return $council && $this->user()->can('updateCompany', $council);
     }
 
     /**
@@ -24,7 +25,22 @@ class UpdateCouncilCompanyRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'business_name' => 'required',
+            'email' => 'required',
+            'phone_number' => 'required',
+            'landline_number' => 'required',
+            'trade_license_number' => 'required',
+            'company_activity_id' => 'required',
+            'legal_status' => 'required',
+            'issued_by' => 'required',
+            'country_id' => 'required|integer',
+            'city_id' => 'required|integer',
+            'area_id' => 'required|integer',
+            'person_in_charge_name' => 'required',
+            'person_in_charge_designation' => 'required',
+            'person_in_charge_email' => 'required',
+            'person_in_charge_mobile' => 'required',
+            'person_in_charge_country' => 'required',           
         ];
     }
 }

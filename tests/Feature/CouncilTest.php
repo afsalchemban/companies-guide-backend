@@ -6,6 +6,8 @@ use App\Models\Council;
 use App\Models\CouncilCompany;
 use App\Models\CouncilMember;
 use App\Models\User;
+use Database\Factories\CouncilCompanyFactory;
+use Database\Factories\CouncilMemberFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Sanctum\Sanctum;
@@ -97,8 +99,16 @@ class CouncilTest extends TestCase
     public function test_council_can_update_member()
     {
         Sanctum::actingAs(User::council(4));
-        $council = Council::factory()->make();
-        $this->json('put', 'api/council/1', $council->toArray())
+        $councilMember = CouncilMember::factory()->make();
+        $this->json('put', 'api/council/council_member/1/1', $councilMember->toArray())
+        ->assertStatus(Response::HTTP_OK);
+    }
+
+    public function test_council_can_update_company()
+    {
+        Sanctum::actingAs(User::council(4));
+        $councilCompany = CouncilCompany::factory()->make();
+        $this->json('put', 'api/council/council_company/1/1', $councilCompany->toArray())
         ->assertStatus(Response::HTTP_OK);
     }
 }
