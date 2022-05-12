@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ChangeCouncilsImageFileRequest;
+use App\Http\Requests\StoreCouncilCompanyRequest;
 use App\Http\Requests\StoreCouncilEventsRequest;
 use App\Http\Requests\StoreCouncilGalleryRequest;
+use App\Http\Requests\StoreCouncilMemberRequest;
 use App\Http\Requests\StoreCouncilRequest;
 use App\Http\Requests\UpdateCouncilRequest;
 use App\Interfaces\CouncilRepositoryInterface;
@@ -87,5 +89,14 @@ class CouncilController extends Controller
     public function addEvent(StoreCouncilEventsRequest $request, Council $council)
     {
         return $this->councilRepository->addEvent($request->validated(), $council);
+    }
+
+    public function addMember(StoreCouncilMemberRequest $request, Council $council)
+    {
+        return $this->councilRepository->createCouncilMember($request->validated());
+    }
+    public function addCompany(StoreCouncilCompanyRequest $request, Council $council)
+    {
+        return $this->councilRepository->createCouncilCompany($request->validated());
     }
 }

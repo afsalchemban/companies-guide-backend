@@ -100,4 +100,32 @@ class CouncilRepository implements CouncilRepositoryInterface
             return $event;
         }
     }
+    private function _uploadProfileImage($file)
+    {
+        return $file->store('councils/members/profile-images');
+    }
+    public function createCouncilMember(array $councilMemberDetails)
+    {
+        $council = Auth::user()->userable;
+        $councilMemberDetails['profile_image'] = isset($councilMemberDetails['profile_image_file'])?
+            Storage::url($this->_uploadProfileImage($councilMemberDetails['profile_image_file'])):
+            Storage::url('councils/members/profile-images/no-image.png');
+        unset($councilMemberDetails['logo_file']);
+        $member = $council->members()->create($councilMemberDetails);
+        return $member;
+    }
+    private function _uploadLogoImage($file)
+    {
+        return $file->store('councils/companies/logos');
+    }
+    public function createCouncilCompany(array $councilCompanyDetails)
+    {
+        $councilCompanyDetails['logo_image_path'] = isset($councilCompanyDetails['logo_file'])?
+            Storage::url($this->_uploadLogoImage($councilCompanyDetails['logo_file'])):
+            Storage::url('councils/companies/logos/no-image.png');
+        unset($councilCompanyDetails['logo_file']);
+        $council = Auth::user()->userable;
+        $company = $council->companies()->create($councilCompanyDetails);
+        return $company;
+    }
 }

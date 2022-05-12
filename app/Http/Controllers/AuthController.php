@@ -21,7 +21,7 @@ class AuthController extends Controller
             return response()->json($success, Response::HTTP_OK);
         } 
         else{ 
-            return response()->json(['status'=>'Unauthorised'], Response::HTTP_UNAUTHORIZED);
+            return response()->json(['status'=>'failed','message'=>'Username/Password is incorrect. Please enter correct details.'], Response::HTTP_UNAUTHORIZED);
         } 
     }
 

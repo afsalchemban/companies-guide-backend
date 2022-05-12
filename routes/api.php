@@ -5,9 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CouncilCompanyController;
 use App\Http\Controllers\CouncilController;
-use App\Http\Controllers\CouncilMemberController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SaleController;
@@ -64,14 +62,14 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/change_cover_image/{council}', [CouncilController::class, 'changeCoverImage']);
         Route::post('/add_media_image/{council}', [CouncilController::class, 'addMediaImage']);
         Route::post('/add_event/{council}', [CouncilController::class, 'addEvent']);
+        Route::post('/council_member/{council}', [CouncilController::class, 'addMember']);
+        Route::post('/council_company/{council}', [CouncilController::class, 'addCompany']);
     });
 
     Route::apiResources([
         'company'=>CompanyController::class,
         'sale'=>SaleController::class,
         'council'=>CouncilController::class,
-        'council_member'=>CouncilMemberController::class,
-        'council_company'=>CouncilCompanyController::class,
     ]);
 
     Route::get('logout', [AuthController::class, 'logout']);

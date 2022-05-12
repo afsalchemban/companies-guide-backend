@@ -14,7 +14,8 @@ class StoreCouncilMemberRequest extends FormRequest
      */
     public function authorize()
     {
-        return $this->user()->can('create', CouncilMember::class);
+        $council = $this->route('council');
+        return $council && $this->user()->can('addMember', $council);
     }
 
     /**

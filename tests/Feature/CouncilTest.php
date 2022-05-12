@@ -22,9 +22,9 @@ class CouncilTest extends TestCase
      */
     public function test_add_council_members()
     {
-        Sanctum::actingAs(User::council());
+        Sanctum::actingAs(User::council(4));
         $councilMember = CouncilMember::factory()->make();
-        $this->json('post', 'api/council_member', $councilMember->toArray())
+        $this->json('post', 'api/council/council_member/1', $councilMember->toArray())
          ->assertStatus(Response::HTTP_CREATED);
     }
 
@@ -41,12 +41,12 @@ class CouncilTest extends TestCase
 
     public function test_add_council_companies()
     {
-        Sanctum::actingAs(User::council());
+        Sanctum::actingAs(User::council(4));
         $file = UploadedFile::fake()->image('avatar.jpg');
         $councilCompany = CouncilCompany::factory()->make([
             'logo_file' => $file,
         ]);
-        $this->json('post', 'api/council_company', $councilCompany->toArray())
+        $this->json('post', 'api/council/council_company/1', $councilCompany->toArray())
          ->assertStatus(Response::HTTP_CREATED);
     }
 
@@ -86,7 +86,15 @@ class CouncilTest extends TestCase
         ->assertStatus(Response::HTTP_CREATED);
     }
 
-    public function test_council_can_update()
+    public function test_council_can_update_council()
+    {
+        Sanctum::actingAs(User::council(4));
+        $council = Council::factory()->make();
+        $this->json('put', 'api/council/1', $council->toArray())
+        ->assertStatus(Response::HTTP_OK);
+    }
+
+    public function test_council_can_update_member()
     {
         Sanctum::actingAs(User::council(4));
         $council = Council::factory()->make();

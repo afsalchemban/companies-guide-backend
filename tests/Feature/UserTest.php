@@ -17,13 +17,13 @@ class UserTest extends TestCase
      *
      * @return void
      */
-    public function test_1_user_registration_success()
+    public function test_user_registration_success()
     {
         $user = User::factory()->create();
         $this->assertDatabaseHas('users', $user->toArray());
     }
 
-    public function test_2_user_login_with_wrong_credentials(){
+    public function test_user_login_with_wrong_credentials(){
         $payload = [
             'email' => $this->faker->unique()->safeEmail(),
             'password'  => 'fakepassword'
@@ -32,14 +32,14 @@ class UserTest extends TestCase
         ->assertStatus(Response::HTTP_UNAUTHORIZED);
     }
 
-    public function test_4_access_api_without_login(){
+    public function test_access_api_without_login(){
         $this->withHeaders([
             'Accept' => 'application/json',
         ])->get('/api/user')
         ->assertStatus(Response::HTTP_UNAUTHORIZED);
     }
 
-    public function test_5_get_user_after_login(){
+    public function test_get_user_after_login(){
         Sanctum::actingAs(
             User::factory()->create());
         $response = $this->get('/api/user');
@@ -47,7 +47,7 @@ class UserTest extends TestCase
         $response->assertStatus(Response::HTTP_OK);
 
     }
-    public function test_5_logout_successfully(){
+    public function test_logout_successfully(){
         Sanctum::actingAs(
             User::admin());
         $response = $this->get('/api/logout');
