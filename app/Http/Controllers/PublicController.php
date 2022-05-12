@@ -26,7 +26,7 @@ class PublicController extends Controller
     }
     public function councilById(Council $council)
     {
-        return $council;
+        return $council->load('country','city','area');
     }
     public function councilCompanyById(Council $council)
     {

@@ -24,4 +24,13 @@ class Council extends Model
     public function events(){
         return $this->hasMany(CouncilEvents::class);
     }
+    public function country(){
+        return $this->belongsTo(Country::class);
+    }
+    public function city(){
+        return $this->belongsTo(City::class);
+    }
+    public function area(){
+        return $this->belongsTo(Area::class);
+    }
 }
