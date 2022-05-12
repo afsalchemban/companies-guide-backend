@@ -111,4 +111,12 @@ class CouncilController extends Controller
     {
         return $this->councilRepository->updateCouncilCompany($request->validated(),$councilCompany);
     }
+    public function changeMemberImage(ChangeCouncilsImageFileRequest $request, Council $council, CouncilMember $councilMember)
+    {
+        return $this->councilRepository->changeMemberImage($request->validated()['file'], $councilMember);
+    }
+    public function changeCompanyLogo(ChangeCouncilsImageFileRequest $request, Council $council, CouncilCompany $councilCompany)
+    {
+        return $this->councilRepository->changeCompanyLogo($request->validated()['file'], $councilCompany);
+    }
 }

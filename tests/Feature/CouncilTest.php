@@ -111,4 +111,22 @@ class CouncilTest extends TestCase
         $this->json('put', 'api/council/council_company/1/1', $councilCompany->toArray())
         ->assertStatus(Response::HTTP_OK);
     }
+    public function test_council_can_change_company_logo()
+    {
+        Sanctum::actingAs(User::council(4));
+        $file = UploadedFile::fake()->image('avatar.jpg');
+        $this->json('put', 'api/council/change_company_logo/1/1', [
+            'file' => $file
+        ])
+        ->assertStatus(Response::HTTP_OK);
+    }
+    public function test_council_can_change_member_image()
+    {
+        Sanctum::actingAs(User::council(4));
+        $file = UploadedFile::fake()->image('avatar.jpg');
+        $this->json('put', 'api/council/change_member_image/1/1', [
+            'file' => $file
+        ])
+        ->assertStatus(Response::HTTP_OK);
+    }
 }

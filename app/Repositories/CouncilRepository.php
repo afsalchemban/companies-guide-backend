@@ -138,4 +138,22 @@ class CouncilRepository implements CouncilRepositoryInterface
     {
         return $councilMember->update($newDetails);
     }
+    public function changeCompanyLogo(UploadedFile $file, CouncilCompany $councilCompany)
+    {
+        if($path = $this->cloudStorage->storeFile('councils/companies/logos', $file))
+        {
+            $councilCompany->logo_image_path = Storage::url($path);
+            $councilCompany->save();
+            return $councilCompany;
+        }
+    }
+    public function changeMemberImage(UploadedFile $file, CouncilMember $councilMember)
+    {
+        if($path = $this->cloudStorage->storeFile('councils/members/profile-images', $file))
+        {
+            $councilMember->profile_image = Storage::url($path);
+            $councilMember->save();
+            return $councilMember;
+        }
+    }
 }
