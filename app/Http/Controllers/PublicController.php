@@ -44,4 +44,8 @@ class PublicController extends Controller
     {
         return $council->events;
     }
+    public function councilCompanyDetailsById(CouncilCompany $councilCompany)
+    {
+        return $councilCompany;
+    }
 }
