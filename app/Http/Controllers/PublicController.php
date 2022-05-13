@@ -7,6 +7,8 @@ use App\Http\Resources\Public\PublicCompanyResource;
 use App\Models\Company;
 use App\Models\Council;
 use App\Models\CouncilCompany;
+use App\Models\CouncilEvent;
+use App\Models\CouncilGallery;
 use App\Models\CouncilMember;
 use App\Models\Package;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -52,5 +54,12 @@ class PublicController extends Controller
     public function councilMemberDetailsById(CouncilMember $councilMember)
     {
         return $councilMember->load('country','area','city','nationality');
+    }
+    public function councilMediaDetailsById(CouncilGallery $councilGallery)
+    {
+        return $councilGallery;
+    }
+    public function councilEventDetailsById(CouncilEvent $councilEvent){
+        return $councilEvent;
     }
 }

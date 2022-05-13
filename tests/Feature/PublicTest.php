@@ -67,4 +67,14 @@ class PublicEndTest extends TestCase
         $response = $this->getJson('/api/public/council_member_details/1')
         ->assertStatus(Response::HTTP_OK);
     }
+    public function test_get_council_event_details()
+    {
+        $response = $this->getJson('/api/public/council_event_details/1')
+        ->assertStatus(Response::HTTP_OK);
+    }
+    public function test_get_council_media_details()
+    {
+        $response = $this->getJson('/api/public/council_media_details/1')
+        ->assertStatus(Response::HTTP_OK);
+    }
 }
