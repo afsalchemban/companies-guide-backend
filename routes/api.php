@@ -143,6 +143,7 @@ Route::prefix('public')->group(function () {
     Route::get('/council_company/{council}', [PublicController::class, 'councilCompanyById']);
     Route::get('/council_company_details/{councilCompany}', [PublicController::class, 'councilCompanyDetailsById']);
     Route::get('/council_member/{council}', [PublicController::class, 'councilMemberById']);
+    Route::get('/council_member_details/{councilMember}', [PublicController::class, 'councilMemberDetailsById']);
     Route::get('/council_media/{council}', [PublicController::class, 'councilMediaById']);
     Route::get('/council_event/{council}', [PublicController::class, 'councilEventById']);
 

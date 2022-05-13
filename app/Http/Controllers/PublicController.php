@@ -7,6 +7,7 @@ use App\Http\Resources\Public\PublicCompanyResource;
 use App\Models\Company;
 use App\Models\Council;
 use App\Models\CouncilCompany;
+use App\Models\CouncilMember;
 use App\Models\Package;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -46,6 +47,10 @@ class PublicController extends Controller
     }
     public function councilCompanyDetailsById(CouncilCompany $councilCompany)
     {
-        return $councilCompany->load('country','area','city');
+        return $councilCompany->load('country','area','city','companyActivity');
+    }
+    public function councilMemberDetailsById(CouncilMember $councilMember)
+    {
+        return $councilMember->load('country','area','city');
     }
 }

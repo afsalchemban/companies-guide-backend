@@ -19,4 +19,8 @@ class CouncilCompany extends Model
     public function area(){
         return $this->belongsTo(Area::class);
     }
+    public function companyActivity()
+    {
+        return $this->belongsTo(CompanyActivity::class);
+    }
 }
