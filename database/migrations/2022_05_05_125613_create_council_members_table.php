@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->date('dob');
-            $table->string('nationality');
+            $table->unsignedBigInteger('nationality');
             $table->string('email')->unique();
             $table->string('website')->nullable();
             $table->string('mobile');
@@ -30,6 +30,7 @@ return new class extends Migration
             $table->timestamps();
         });
         Schema::table('council_members', function (Blueprint $table) {
+            $table->foreign('nationality')->references('id')->on('countries')->onDelete('restrict');
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('restrict');
             $table->foreign('city_id')->references('id')->on('cities')->onDelete('restrict');
             $table->foreign('area_id')->references('id')->on('areas')->onDelete('restrict');

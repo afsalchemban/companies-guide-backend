@@ -19,4 +19,7 @@ class CouncilMember extends Model
     public function area(){
         return $this->belongsTo(Area::class);
     }
+    public function nationality(){
+        return $this->belongsTo(Country::class,'nationality');
+    }
 }
