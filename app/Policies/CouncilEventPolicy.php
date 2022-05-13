@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\CouncilEvents;
+use App\Models\CouncilEvent;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class CouncilEventsPolicy
+class CouncilEventPolicy
 {
     use HandlesAuthorization;
 
@@ -28,7 +28,7 @@ class CouncilEventsPolicy
      * @param  \App\Models\CouncilEvents  $councilEvents
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, CouncilEvents $councilEvents)
+    public function view(User $user, CouncilEvent $councilEvent)
     {
         //
     }
@@ -51,7 +51,7 @@ class CouncilEventsPolicy
      * @param  \App\Models\CouncilEvents  $councilEvents
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, CouncilEvents $councilEvents)
+    public function update(User $user, CouncilEvent $councilEvent)
     {
         //
     }
@@ -63,7 +63,7 @@ class CouncilEventsPolicy
      * @param  \App\Models\CouncilEvents  $councilEvents
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, CouncilEvents $councilEvents)
+    public function delete(User $user, CouncilEvent $councilEvent)
     {
         //
     }
@@ -75,7 +75,7 @@ class CouncilEventsPolicy
      * @param  \App\Models\CouncilEvents  $councilEvents
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, CouncilEvents $councilEvents)
+    public function restore(User $user, CouncilEvent $councilEvent)
     {
         //
     }
@@ -87,7 +87,7 @@ class CouncilEventsPolicy
      * @param  \App\Models\CouncilEvents  $councilEvents
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, CouncilEvents $councilEvents)
+    public function forceDelete(User $user, CouncilEvent $councilEvent)
     {
         //
     }

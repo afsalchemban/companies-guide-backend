@@ -29,7 +29,7 @@ class StoreCouncilEventsRequest extends FormRequest
             'location' => 'required',
             'event_date' => 'required',
             'link' => 'required',
-            'image' => 'required'
+            'image' => 'required|image'
         ];
     }
 }

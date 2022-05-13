@@ -5,6 +5,8 @@ use Illuminate\Http\UploadedFile;
 
 use App\Models\Council;
 use App\Models\CouncilCompany;
+use App\Models\CouncilEvent;
+use App\Models\CouncilGallery;
 use App\Models\CouncilMember;
 
 interface CouncilRepositoryInterface
@@ -25,4 +27,6 @@ interface CouncilRepositoryInterface
     public function updateCouncilMember(array $newDetails,CouncilMember $councilMember);
     public function changeMemberImage(UploadedFile $file, CouncilMember $councilMember);
     public function changeCompanyLogo(UploadedFile $file, CouncilCompany $councilCompany);
+    public function updateEvent(array $newDetails, CouncilEvent $councilEvent);
+    public function updateMedia(array $newDetails, CouncilGallery $councilMedia);
 }

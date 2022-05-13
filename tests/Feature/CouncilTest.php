@@ -129,4 +129,24 @@ class CouncilTest extends TestCase
         ])
         ->assertStatus(Response::HTTP_OK);
     }
+    public function test_council_can_update_event()
+    {
+        Sanctum::actingAs(User::council(4));
+        $this->json('put', 'api/council/update_event/1/1', [
+            'name' => 'update',
+            'location' => 'abudhabi',
+            'event_date' => '2022-01-04',
+            'link' => 'testlink',
+        ])
+        ->assertStatus(Response::HTTP_OK);
+    }
+    public function test_council_can_update_media()
+    {
+        Sanctum::actingAs(User::council(4));
+        $this->json('put', 'api/council/update_media/1/1', [
+            'title' => 'Test Title updates',
+            'description' => 'Test Description updated',
+        ])
+        ->assertStatus(Response::HTTP_OK);
+    }
 }

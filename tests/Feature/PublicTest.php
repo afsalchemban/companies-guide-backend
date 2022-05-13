@@ -65,6 +65,6 @@ class PublicEndTest extends TestCase
     public function test_get_council_member_details()
     {
         $response = $this->getJson('/api/public/council_member_details/1')
-        ->assertStatus(Response::HTTP_OK)->dd();
+        ->assertStatus(Response::HTTP_OK);
     }
 }

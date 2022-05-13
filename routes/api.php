@@ -70,6 +70,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::put('/change_member_image/{council}/{councilMember}', [CouncilController::class, 'changeMemberImage']);
         Route::put('/change_company_logo/{council}/{councilCompany}', [CouncilController::class, 'changeCompanyLogo']);
+
+        Route::put('/update_event/{council}/{councilEvent}', [CouncilController::class, 'updateEvent']);
+        Route::put('/update_media/{council}/{councilGallery}', [CouncilController::class, 'updateMedia']);
     });
 
     Route::apiResources([

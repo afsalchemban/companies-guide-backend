@@ -13,7 +13,8 @@ class UpdateCouncilGalleryRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        $council = $this->route('council');
+        return $council && $this->user()->can('changeImageFile', $council);
     }
 
     /**
@@ -23,8 +24,9 @@ class UpdateCouncilGalleryRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            //
+        return [          
+            'title' => 'required',           
+            'description' => 'required'          
         ];
     }
 }

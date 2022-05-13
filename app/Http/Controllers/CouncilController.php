@@ -9,11 +9,15 @@ use App\Http\Requests\StoreCouncilGalleryRequest;
 use App\Http\Requests\StoreCouncilMemberRequest;
 use App\Http\Requests\StoreCouncilRequest;
 use App\Http\Requests\UpdateCouncilCompanyRequest;
+use App\Http\Requests\UpdateCouncilEventsRequest;
+use App\Http\Requests\UpdateCouncilGalleryRequest;
 use App\Http\Requests\UpdateCouncilMemberRequest;
 use App\Http\Requests\UpdateCouncilRequest;
 use App\Interfaces\CouncilRepositoryInterface;
 use App\Models\Council;
 use App\Models\CouncilCompany;
+use App\Models\CouncilEvent;
+use App\Models\CouncilGallery;
 use App\Models\CouncilMember;
 
 class CouncilController extends Controller
@@ -118,5 +122,13 @@ class CouncilController extends Controller
     public function changeCompanyLogo(ChangeCouncilsImageFileRequest $request, Council $council, CouncilCompany $councilCompany)
     {
         return $this->councilRepository->changeCompanyLogo($request->validated()['file'], $councilCompany);
+    }
+    public function updateEvent(UpdateCouncilEventsRequest $request, Council $council, CouncilEvent $councilEvent)
+    {
+        return $this->councilRepository->updateEvent($request->validated(), $councilEvent);
+    }
+    public function updateMedia(UpdateCouncilGalleryRequest $request, Council $council, CouncilGallery $councilMedia)
+    {
+        return $this->councilRepository->updateMedia($request->validated(), $councilMedia);
     }
 }

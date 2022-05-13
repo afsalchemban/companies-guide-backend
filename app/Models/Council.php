@@ -22,7 +22,7 @@ class Council extends Model
         return $this->hasMany(CouncilGallery::class);
     }
     public function events(){
-        return $this->hasMany(CouncilEvents::class);
+        return $this->hasMany(CouncilEvent::class);
     }
     public function country(){
         return $this->belongsTo(Country::class);

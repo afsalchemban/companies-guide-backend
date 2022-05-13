@@ -26,7 +26,7 @@ class ChangeCouncilsImageFileRequest extends FormRequest
     public function rules()
     {
         return [          
-            'file' => 'nullable|image',           
+            'file' => 'required|image',           
         ];
     }
 }

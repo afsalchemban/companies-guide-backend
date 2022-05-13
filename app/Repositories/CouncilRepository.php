@@ -6,6 +6,7 @@ use App\Interfaces\CouncilRepositoryInterface;
 use App\Services\CloudStorageService;
 use App\Models\Council;
 use App\Models\CouncilCompany;
+use App\Models\CouncilEvent;
 use App\Models\CouncilGallery;
 use App\Models\CouncilMember;
 use App\Models\User;
@@ -155,5 +156,13 @@ class CouncilRepository implements CouncilRepositoryInterface
             $councilMember->save();
             return $councilMember;
         }
+    }
+    public function updateEvent(array $newDetails, CouncilEvent $councilEvent)
+    {
+        return $councilEvent->update($newDetails);
+    }
+    public function updateMedia(array $newDetails, CouncilGallery $councilMedia)
+    {
+        return $councilMedia->update($newDetails);
     }
 }
