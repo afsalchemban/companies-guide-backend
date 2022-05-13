@@ -115,7 +115,7 @@ class CouncilTest extends TestCase
     {
         Sanctum::actingAs(User::council(4));
         $file = UploadedFile::fake()->image('avatar.jpg');
-        $this->json('put', 'api/council/change_company_logo/1/1', [
+        $this->json('post', 'api/council/change_company_logo/1/1', [
             'file' => $file
         ])
         ->assertStatus(Response::HTTP_OK);
@@ -124,7 +124,7 @@ class CouncilTest extends TestCase
     {
         Sanctum::actingAs(User::council(4));
         $file = UploadedFile::fake()->image('avatar.jpg');
-        $this->json('put', 'api/council/change_member_image/1/1', [
+        $this->json('post', 'api/council/change_member_image/1/1', [
             'file' => $file
         ])
         ->assertStatus(Response::HTTP_OK);
