@@ -4,9 +4,9 @@ namespace App\Providers;
 
 use App\Events\OrderCreated;
 use App\Events\UserCreated;
-use App\Listeners\SendContractEmail;
-use App\Listeners\SendCredentialEmail;
-use App\Listeners\SendInvoiceEmail;
+use App\Listeners\SendContractEmailListener;
+use App\Listeners\SendCredentialEmailListener;
+use App\Listeners\SendInvoiceEmailListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -24,11 +24,11 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
         ],
         UserCreated::class => [
-            SendCredentialEmail::class,
+            SendCredentialEmailListener::class,
         ],
         OrderCreated::class => [
-            SendContractEmail::class,
-            SendInvoiceEmail::class
+            SendContractEmailListener::class,
+            SendInvoiceEmailListener::class
         ]
     ];
 
@@ -39,10 +39,7 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Event::listen(
-            UserCreated::class,
-            [SendCredentialEmail::class, 'handle']
-        );
+    
     }
 
     /**

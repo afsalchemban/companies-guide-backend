@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Mail;
 
-class SendInvoiceEmail
+class SendInvoiceEmailListener
 {
     /**
      * Create the event listener.
