@@ -4,6 +4,7 @@ namespace App\Listeners;
 
 use App\Events\UserCreated;
 use App\Mail\CompanyCredentialMail;
+use App\Mail\CouncilCredentialMail;
 use App\Mail\SaleCredentialMail;
 use App\Services\Mail\MailService;
 use Carbon\Carbon;
@@ -47,7 +48,7 @@ class SendCredentialEmailListener
         }
         elseif($event->user->userable_type=='council')
         {
-            Mail::to($event->user->email)->send(new SaleCredentialMail($mailData));
+            Mail::to($event->user->email)->send(new CouncilCredentialMail($mailData));
         }
     }
 }
