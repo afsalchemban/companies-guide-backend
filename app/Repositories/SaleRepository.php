@@ -2,10 +2,12 @@
 
 namespace App\Repositories;
 
+use App\Constants\DefaultImageConstants;
 use App\Events\UserCreated;
 use App\Interfaces\SaleRepositoryInterface;
 use App\Models\Sale;
 use App\Models\User;
+use App\Services\CloudStorageService;
 use App\Services\Mail\MailService;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
@@ -13,6 +15,10 @@ use Illuminate\Support\Facades\Storage;
 
 class SaleRepository implements SaleRepositoryInterface
 {
+    public function __construct(CloudStorageService $cloudStorage)
+    {
+        $this->cloudStorage = $cloudStorage;
+    }
     public function getAllSales(){
         return Sale::all();
     }
@@ -23,6 +29,9 @@ class SaleRepository implements SaleRepositoryInterface
         return $sale->delete();
     }
     public function createSale(array $saleDetails){
+        
+        $saleDetails['profile_image_path'] = Storage::url(DefaultImageConstants::SALE_PROFILE);
+
         return Sale::create($saleDetails);
     }
     public function updateSale($sale, array $newDetails){

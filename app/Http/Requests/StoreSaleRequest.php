@@ -28,7 +28,7 @@ class StoreSaleRequest extends FormRequest
             'email' => 'required|unique:sales',
             'phone_number' => 'required|unique:sales',
             'gender' => 'required',
-            'dob' => 'required',
+            'dob' => 'required'
         ];
     }
 }

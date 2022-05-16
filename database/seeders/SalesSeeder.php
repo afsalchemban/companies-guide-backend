@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Constants\DefaultImageConstants;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class SalesSeeder extends Seeder
@@ -21,7 +23,8 @@ class SalesSeeder extends Seeder
             'email' => 'sale@admin.com',
             'phone_number' => '000000',
             'gender' => 'Male',
-            'dob' => '1990-03-03'
+            'dob' => '1990-03-03',
+            'profile_image_path' => Storage::url(DefaultImageConstants::SALE_PROFILE)
         ]);
 
         DB::table('sales')->insert([
@@ -29,7 +32,8 @@ class SalesSeeder extends Seeder
             'email' => 'es@es.com',
             'phone_number' => '12345',
             'gender' => 'Male',
-            'dob' => '1980-03-03'
+            'dob' => '1980-03-03',
+            'profile_image_path' => Storage::url(DefaultImageConstants::SALE_PROFILE)
         ]);
         
 

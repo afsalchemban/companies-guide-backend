@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Constants\DefaultImageConstants;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Sale>
@@ -21,7 +23,8 @@ class SaleFactory extends Factory
             'email' => $this->faker->unique()->safeEmail(),
             'phone_number' => $this->faker->phoneNumber(),
             'gender' => $this->faker->randomElement(['male' ,'female']),
-            'dob' => $this->faker->date('Y-m-d')
+            'dob' => $this->faker->date('Y-m-d'),
+            'profile_image_path' => Storage::url(DefaultImageConstants::SALE_PROFILE)
         ];
     }
 }

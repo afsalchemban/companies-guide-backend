@@ -2,8 +2,10 @@
 
 namespace Database\Factories;
 
+use App\Constants\DefaultImageConstants;
 use App\Models\Company;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
@@ -34,7 +36,7 @@ class CompanyFactory extends Factory
             'person_in_charge_email' => $this->faker->unique()->safeEmail(),
             'person_in_charge_mobile' => $this->faker->phoneNumber(),
             'person_in_charge_country' => $this->faker->text(),
-            'logo_image_path' => 'https://storage.googleapis.com/business-council-bucket/councils/companies/logos/no-image.png'
+            'logo_image_path' =>  Storage::url(DefaultImageConstants::COMPANY_LOGO)
         ];
     }
 }

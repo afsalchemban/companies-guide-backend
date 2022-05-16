@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Constants\DefaultImageConstants;
 use App\Events\OrderCreated;
 use App\Events\UserCreated;
 use App\Http\Resources\CompanyReportResource;
@@ -51,6 +52,8 @@ class CompanyRepository implements CompanyRepositoryInterface
         return $company->delete();
     }
     public function storeCompanyInCache(array $companyDetails){
+
+        $companyDetails['logo_image_path'] = Storage::url(DefaultImageConstants::COMPANY_LOGO);
 
         Cache::put('registered-company-'.Auth::user()->id, $companyDetails);
 
