@@ -66,7 +66,8 @@ class CouncilPolicy
      */
     public function delete(User $user, Council $council)
     {
-        //
+        $userable = $user->userable;
+        return $user->isCouncil() && $council->id == $userable->id;
     }
 
     /**

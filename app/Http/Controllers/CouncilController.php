@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ChangeCouncilsImageFileRequest;
+use App\Http\Requests\DeleteCouncilEventsMedias;
 use App\Http\Requests\StoreCouncilCompanyRequest;
 use App\Http\Requests\StoreCouncilEventsRequest;
 use App\Http\Requests\StoreCouncilGalleryRequest;
@@ -130,5 +131,13 @@ class CouncilController extends Controller
     public function updateMedia(UpdateCouncilGalleryRequest $request, Council $council, CouncilGallery $councilGallery)
     {
         return $this->councilRepository->updateMedia($request->validated(), $councilGallery);
+    }
+    public function deleteEvent(DeleteCouncilEventsMedias $request, Council $council, CouncilEvent $councilEvent)
+    {
+        return $this->councilRepository->deleteEvent($councilEvent);
+    }
+    public function deleteMedia(DeleteCouncilEventsMedias $request, Council $council, CouncilGallery $councilGallery)
+    {
+        return $this->councilRepository->deleteMedia($councilGallery);
     }
 }

@@ -29,4 +29,6 @@ interface CouncilRepositoryInterface
     public function changeCompanyLogo(UploadedFile $file, CouncilCompany $councilCompany);
     public function updateEvent(array $newDetails, CouncilEvent $councilEvent);
     public function updateMedia(array $newDetails, CouncilGallery $councilMedia);
+    public function deleteEvent(CouncilEvent $councilEvent);
+    public function deleteMedia(CouncilGallery $councilMedia);
 }

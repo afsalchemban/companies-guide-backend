@@ -73,6 +73,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::put('/update_event/{council}/{councilEvent}', [CouncilController::class, 'updateEvent']);
         Route::put('/update_media/{council}/{councilGallery}', [CouncilController::class, 'updateMedia']);
+
+        Route::delete('/delete_event/{council}/{councilEvent}', [CouncilController::class, 'deleteEvent']);
+        Route::delete('/delete_media/{council}/{councilGallery}', [CouncilController::class, 'deleteMedia']);
     });
 
     Route::apiResources([

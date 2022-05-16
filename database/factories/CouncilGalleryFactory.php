@@ -17,7 +17,9 @@ class CouncilGalleryFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'title' => $this->faker->name(),
+            'description' => $this->faker->text(),
+            'file_path' => $this->faker->text()
         ];
     }
 }

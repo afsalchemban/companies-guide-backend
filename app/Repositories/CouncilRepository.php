@@ -165,4 +165,12 @@ class CouncilRepository implements CouncilRepositoryInterface
     {
         return $councilMedia->update($newDetails);
     }
+    public function deleteMedia(CouncilGallery $councilGallery)
+    {
+        return $councilGallery->delete();
+    }
+    public function deleteEvent(CouncilEvent $councilEvent)
+    {
+        return $councilEvent->delete(); 
+    }
 }

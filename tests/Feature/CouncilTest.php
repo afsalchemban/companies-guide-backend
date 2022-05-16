@@ -4,6 +4,8 @@ namespace Tests\Feature;
 
 use App\Models\Council;
 use App\Models\CouncilCompany;
+use App\Models\CouncilEvent;
+use App\Models\CouncilGallery;
 use App\Models\CouncilMember;
 use App\Models\User;
 use Database\Factories\CouncilCompanyFactory;
@@ -62,7 +64,7 @@ class CouncilTest extends TestCase
         ->assertStatus(Response::HTTP_OK);
     }
 
-    public function test_council_can_upload_gallery()
+    public function test_council_can_add_gallery()
     {
         Sanctum::actingAs(User::council(4));
         $file = UploadedFile::fake()->image('avatar.jpg');
@@ -147,6 +149,27 @@ class CouncilTest extends TestCase
             'title' => 'Test Title afsal',
             'description' => 'Test Description afsal',
         ])
+        ->assertStatus(Response::HTTP_OK);
+    }
+    
+    public function test_council_can_delete_media()
+    {
+        $user = Sanctum::actingAs(User::council(4));
+        $council = $user->userable;
+        $councilMedia = CouncilGallery::factory()->create([
+            'council_id' => $council->id
+        ]);
+        $this->json('delete', 'api/council/delete_media/1/'.$councilMedia->id)
+        ->assertStatus(Response::HTTP_OK);
+    }
+    public function test_council_can_delete_event()
+    {
+        $user = Sanctum::actingAs(User::council(4));
+        $council = $user->userable;
+        $councilEvent = CouncilEvent::factory()->create([
+            'council_id' => $council->id
+        ]);
+        $this->json('delete', 'api/council/delete_event/1/'.$councilEvent->id)
         ->assertStatus(Response::HTTP_OK);
     }
 }

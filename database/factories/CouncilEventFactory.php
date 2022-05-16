@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\CouncilEvents>
  */
-class CouncilEventsFactory extends Factory
+class CouncilEventFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,11 @@ class CouncilEventsFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->name(),
+            'location' => $this->faker->text(),
+            'event_date' => $this->faker->date('Y-m-d'),
+            'link' => $this->faker->text(),
+            'image_path' => $this->faker->text()
         ];
     }
 }
