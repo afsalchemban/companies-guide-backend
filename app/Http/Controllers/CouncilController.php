@@ -127,8 +127,8 @@ class CouncilController extends Controller
     {
         return $this->councilRepository->updateEvent($request->validated(), $councilEvent);
     }
-    public function updateMedia(UpdateCouncilGalleryRequest $request, Council $council, CouncilGallery $councilMedia)
+    public function updateMedia(UpdateCouncilGalleryRequest $request, Council $council, CouncilGallery $councilGallery)
     {
-        return $this->councilRepository->updateMedia($request->validated(), $councilMedia);
+        return $this->councilRepository->updateMedia($request->validated(), $councilGallery);
     }
 }

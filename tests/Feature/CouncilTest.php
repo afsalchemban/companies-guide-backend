@@ -144,8 +144,8 @@ class CouncilTest extends TestCase
     {
         Sanctum::actingAs(User::council(4));
         $this->json('put', 'api/council/update_media/1/1', [
-            'title' => 'Test Title updates',
-            'description' => 'Test Description updated',
+            'title' => 'Test Title afsal',
+            'description' => 'Test Description afsal',
         ])
         ->assertStatus(Response::HTTP_OK);
     }
