@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Mail\ContractMail;
+use App\Mail\SaleCredentialMail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -9,6 +11,7 @@ use App\Models\Company;
 use Illuminate\Http\Response;
 use Laravel\Sanctum\Sanctum;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 
 use Illuminate\Http\UploadedFile;
 
@@ -70,6 +73,7 @@ class SaleTest extends TestCase
 
     public function test_pay_by_cash()
     {
+        
         $user = User::sale(2);
         Sanctum::actingAs($user);
 
@@ -80,6 +84,7 @@ class SaleTest extends TestCase
         ];
         $this->json('post', 'api/company/pay/cash', $payload)
         ->assertStatus(Response::HTTP_OK);
+        
     }
 
     public function test_company_registration_and_pay_by_cheque()
@@ -161,6 +166,7 @@ class SaleTest extends TestCase
 
     public function test_pay_by_bank()
     {
+        Mail::fake();
         $user = User::sale(2);
         Sanctum::actingAs($user);
         
@@ -172,6 +178,7 @@ class SaleTest extends TestCase
             'bank_name' => 'DIB',
         ];
         $this->json('post', 'api/company/pay/bank', $payload)->assertStatus(Response::HTTP_OK);
+        Mail::assertSent(ContractMail::class);
     }
 
     public function test_order_page_data(){

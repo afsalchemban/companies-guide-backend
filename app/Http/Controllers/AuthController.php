@@ -15,7 +15,14 @@ class AuthController extends Controller
             $auth = Auth::user(); 
             $success['token'] =  $auth->createToken('LaravelSanctumAuth')->plainTextToken; 
             $success['name'] =  $auth->name;
-            $success['user_id'] =  $auth->id;
+            if($auth->user_type=='council')
+            {
+                $success['council_id'] =  $auth->userable->id;
+            }
+            elseif($auth->user_type=='sale')
+            {
+                $success['sale_id'] =  $auth->userable->id;
+            }
             $success['user_type'] =  $auth->user_type;
             $success['status'] =  'Success';
    
