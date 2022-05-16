@@ -37,11 +37,15 @@ class SendCredentialEmailListener
             'email' => $event->user->email,
             'password' => $event->password
         ];
-        if($event->user->user_type=='company')
+        if($event->user->userable_type=='company')
         {
             Mail::to($event->user->email)->send(new CompanyCredentialMail($mailData));
         }
-        elseif($event->user->user_type=='sale')
+        elseif($event->user->userable_type=='sale')
+        {
+            Mail::to($event->user->email)->send(new SaleCredentialMail($mailData));
+        }
+        elseif($event->user->userable_type=='council')
         {
             Mail::to($event->user->email)->send(new SaleCredentialMail($mailData));
         }

@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Events\UserCreated;
 use App\Interfaces\CouncilRepositoryInterface;
 use App\Services\CloudStorageService;
 use App\Models\Council;
@@ -61,6 +62,7 @@ class CouncilRepository implements CouncilRepositoryInterface
         $user->remember_token = Str::random(10);
         $user->userable()->associate($council);
         $user->save();
+        UserCreated::dispatch($user,'dummypassword');
         //MailService::sendSaleCredentialMail($sale,'dummypassword');
         return $user;
     }
