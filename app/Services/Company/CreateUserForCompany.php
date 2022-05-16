@@ -23,7 +23,6 @@ class CreateUserForCompany
             $user->email = $company->email;
             $user->password = bcrypt('dummypassword');
             $user->remember_token = Str::random(10);
-            $user->user_type = 'sale';
             $user->userable()->associate($company);
             $user->save();
             UserCreated::dispatch($user,'dummypassword');

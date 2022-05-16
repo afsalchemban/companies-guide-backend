@@ -59,7 +59,6 @@ class CouncilRepository implements CouncilRepositoryInterface
         $user->email = $council->email;
         $user->password = bcrypt('dummypassword');
         $user->remember_token = Str::random(10);
-        $user->user_type = 'council';
         $user->userable()->associate($council);
         $user->save();
         //MailService::sendSaleCredentialMail($sale,'dummypassword');

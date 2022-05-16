@@ -50,7 +50,7 @@ class User extends Authenticatable
      */
     public static function admin():self
     {
-        return self::where('user_type','admin')->firstOrFail();
+        return self::where('userable_type','admin')->firstOrFail();
     }
     /**
      * Return random sale user if any
@@ -63,7 +63,7 @@ class User extends Authenticatable
         {
             return self::find($id); 
         }
-        return self::where('user_type','sale')->inRandomOrder()
+        return self::where('userable_type','sale')->inRandomOrder()
                 ->first();
     }
     /**
@@ -77,7 +77,7 @@ class User extends Authenticatable
         {
             return self::find($id); 
         }
-        return self::where('user_type','council')->inRandomOrder()
+        return self::where('userable_type','council')->inRandomOrder()
                 ->first();
     }
 
@@ -85,25 +85,25 @@ class User extends Authenticatable
     Return current user is admin or not 
     */
     public function isAdmin() {
-        return $this->user_type == 'admin';
+        return $this->userable_type == 'admin';
     }
     /* 
     Return current user is sale or not 
     */
     public function isSale() {
-        return $this->user_type == 'sale';
+        return $this->userable_type == 'sale';
     }
     /* 
     Return current user is council or not 
     */
     public function isCouncil() {
-        return $this->user_type == 'council';
+        return $this->userable_type == 'council';
     }
     /* 
     Return current user is company or not 
     */
     public function isCompany() {
-        return $this->user_type == 'company';
+        return $this->userable_type == 'company';
     }
 
     public function userable()

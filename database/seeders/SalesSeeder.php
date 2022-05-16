@@ -39,7 +39,6 @@ class SalesSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => bcrypt('dummypassword'), // password
             'remember_token' => Str::random(10),
-            'user_type' => 'sale',
             'userable_id' => 1,
             'userable_type' => 'sale'
         ]);
@@ -50,7 +49,6 @@ class SalesSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => bcrypt('dummypassword'), // password
             'remember_token' => Str::random(10),
-            'user_type' => 'sale',
             'userable_id' => 2,
             'userable_type' => 'sale'
         ]);

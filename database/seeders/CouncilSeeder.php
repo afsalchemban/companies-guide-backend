@@ -25,7 +25,6 @@ class CouncilSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => bcrypt('dummypassword'), // password
             'remember_token' => Str::random(10),
-            'user_type' => 'council',
             'userable_id' => 1,
             'userable_type' => 'council'
         ]);

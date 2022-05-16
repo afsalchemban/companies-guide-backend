@@ -17,11 +17,6 @@ class UserTest extends TestCase
      *
      * @return void
      */
-    public function test_user_registration_success()
-    {
-        $user = User::factory()->create();
-        $this->assertDatabaseHas('users', $user->toArray());
-    }
 
     public function test_user_login_with_wrong_credentials(){
         $payload = [
@@ -39,14 +34,6 @@ class UserTest extends TestCase
         ->assertStatus(Response::HTTP_UNAUTHORIZED);
     }
 
-    public function test_get_user_after_login(){
-        Sanctum::actingAs(
-            User::factory()->create());
-        $response = $this->get('/api/user');
- 
-        $response->assertStatus(Response::HTTP_OK);
-
-    }
     public function test_logout_successfully(){
         Sanctum::actingAs(
             User::admin());
