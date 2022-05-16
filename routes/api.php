@@ -109,6 +109,7 @@ Route::prefix('data')->group(function () {
 
 
 Route::post('login', [AuthController::class, 'login']);
+Route::post('login-dashboard', [AuthController::class, 'loginDashboard']);
 
 /* 
 api for migrate from server when developing . in future will remove it
