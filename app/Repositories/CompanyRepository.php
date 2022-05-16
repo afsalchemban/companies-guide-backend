@@ -108,6 +108,7 @@ class CompanyRepository implements CompanyRepositoryInterface
             ],Response::HTTP_OK);
         } catch (\Exception $e) {
             DB::rollback();
+            throw new Exception($e);
         }
     
     }
