@@ -19,6 +19,7 @@ class PublicCompanyResource extends JsonResource
             'name' => $this->business_name,
             'email' => $this->email,
             'phone_number' => $this->phone_number,
+            'logo' => $this->logo_image_path,
             'activity' => $this->whenLoaded('companyActivity'),
             'added_by' => $this->whenLoaded('sale'),
         ];
