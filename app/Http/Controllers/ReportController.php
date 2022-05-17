@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CompanyFollowUpRequest;
 use App\Http\Requests\CompanyReportRequest;
 use App\Http\Requests\SaleReportRequest;
 use App\Models\Company;
@@ -61,4 +62,6 @@ class ReportController extends Controller
 
         return $this->reportService->summaryReport(App::make(CompanySummaryReport::class),$request->validated(),$company);
     }
+
+    
 }

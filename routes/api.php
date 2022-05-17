@@ -6,6 +6,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CouncilController;
+use App\Http\Controllers\FollowUpController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SaleController;
@@ -37,6 +38,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/company/{company}', [ReportController::class, 'summaryCompany']);
 
     });
+
+    Route::get('followup/company', [FollowUpController::class, 'followUpCompany']);
 
     Route::prefix('sale')->group(function () {
 

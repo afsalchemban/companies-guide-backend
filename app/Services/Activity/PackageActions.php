@@ -9,9 +9,9 @@ use Throwable;
 class PackageActions
 {
     public function getPackageActions(Company $company){
-        return $this->getPackages($company)->getActions();
+        return $this->_getPackages($company)->getActions();
     }
-    public function getPackages($company)
+    private function _getPackages($company)
     {
         try
         {

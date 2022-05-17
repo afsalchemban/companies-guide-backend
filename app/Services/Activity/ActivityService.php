@@ -16,5 +16,14 @@ class ActivityService
     {
         return $this->logs->getLatestCompanyLogs($company,$this->actions->getPackageActions($company));
     }
+    public function followUp()
+    {
+        $companies = Company::all();
+        foreach($companies as $company)
+        {
+            $company['status'] =  $this->logs->getLatestCompanyLogs($company,$this->actions->getPackageActions($company));
+        }
+        return $companies;
+    }
     
 }
