@@ -39,7 +39,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     });
 
-    Route::get('followup/company', [FollowUpController::class, 'followUpCompany']);
+    Route::get('followup/{package}', [FollowUpController::class, 'followUpCompanyByPackage']);
 
     Route::prefix('sale')->group(function () {
 

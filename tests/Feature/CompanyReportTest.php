@@ -59,7 +59,7 @@ class CompanyReportTest extends TestCase
     }
     public function test_follow_up_company_for_admin(){
         Sanctum::actingAs(User::admin());
-        $response = $this->get('/api/followup/company')
-        ->assertStatus(Response::HTTP_OK)->dd();
+        $response = $this->get('/api/followup/2')
+        ->assertStatus(Response::HTTP_OK);
     }
 }
