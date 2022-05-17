@@ -38,7 +38,7 @@ return new class extends Migration
             $table->timestamps();
         });
         Schema::table('council_companies', function (Blueprint $table) {
-            $table->foreign('council_id')->references('id')->on('councils')->onDelete('restrict');
+            $table->foreign('council_id')->references('id')->on('councils')->onDelete('cascade');
             $table->foreign('council_member_id')->references('id')->on('council_members')->onDelete('restrict');
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('restrict');
             $table->foreign('city_id')->references('id')->on('cities')->onDelete('restrict');

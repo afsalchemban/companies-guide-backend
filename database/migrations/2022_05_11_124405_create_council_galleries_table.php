@@ -22,7 +22,7 @@ return new class extends Migration
             $table->timestamps();
         });
         Schema::table('council_galleries', function (Blueprint $table) {
-            $table->foreign('council_id')->references('id')->on('councils')->onDelete('restrict');
+            $table->foreign('council_id')->references('id')->on('councils')->onDelete('cascade');
         });
     }
 

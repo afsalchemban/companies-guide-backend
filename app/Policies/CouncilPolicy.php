@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Council;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Throwable;
 
 class CouncilPolicy
 {
@@ -53,7 +54,13 @@ class CouncilPolicy
      */
     public function update(User $user, Council $council)
     {
-        $userable = $user->userable;
+        try
+        {
+            $userable = $user->userable;
+        }
+        catch(Throwable $e){
+            return $user->isAdmin();
+        }
         return $user->isCouncil() && $council->id == $userable->id;
     }
 

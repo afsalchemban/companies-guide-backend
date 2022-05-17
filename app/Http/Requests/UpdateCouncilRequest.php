@@ -13,8 +13,7 @@ class UpdateCouncilRequest extends FormRequest
      */
     public function authorize()
     {
-        $council = $this->route('council');
-        return $council && $this->user()->can('update', $council);
+        return $this->council && $this->user()->can('update', $this->council);
     }
 
     /**

@@ -32,7 +32,7 @@ class CouncilRepository implements CouncilRepositoryInterface
     }
     public function deleteCouncil(Council $council)
     {
-        
+        return $council->delete();
     }
     public function createCouncil(array $councilDetails)
     {

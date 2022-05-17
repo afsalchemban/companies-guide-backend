@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ChangeCouncilsImageFileRequest;
 use App\Http\Requests\DeleteCouncilEventsMedias;
+use App\Http\Requests\DeleteCouncilRequest;
 use App\Http\Requests\StoreCouncilCompanyRequest;
 use App\Http\Requests\StoreCouncilEventsRequest;
 use App\Http\Requests\StoreCouncilGalleryRequest;
@@ -77,9 +78,9 @@ class CouncilController extends Controller
      * @param  \App\Models\Council  $council
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Council $council)
+    public function destroy(DeleteCouncilRequest $request, Council $council)
     {
-        //
+        return $this->councilRepository->deleteCouncil($council);
     }
 
     public function changeCouncilLogo(ChangeCouncilsImageFileRequest $request, Council $council){
