@@ -26,7 +26,7 @@ class CompanyReportTest extends TestCase
             'duration' => '{"type":"custom","from":"2022-04-01","to":"2022-05-29"}'
         ];
         $response = $this->post('/api/report/company',$payload)
-        ->assertStatus(Response::HTTP_OK)->dd();
+        ->assertStatus(Response::HTTP_OK);
     }
 
     public function test_company_report_for_sale()

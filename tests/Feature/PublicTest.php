@@ -33,7 +33,7 @@ class PublicEndTest extends TestCase
     public function test_get_council_by_id()
     {
         $response = $this->getJson('/api/public/council/1')
-        ->assertStatus(Response::HTTP_OK);
+        ->assertStatus(Response::HTTP_OK)->dd();
     }
 
     public function test_get_all_council_companies()

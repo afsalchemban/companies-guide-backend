@@ -26,7 +26,10 @@ class CouncilPublicResource extends JsonResource
             })),
             'cover' => new ImageResource($this->whenLoaded('images',function(){
                 return $this->images->where('type','cover')->first();
-            }))
+            })),
+            'country' => $this->whenLoaded('country'),
+            'city' => $this->whenLoaded('city'),
+            'area' => $this->whenLoaded('area'),
         ];
     }
 }

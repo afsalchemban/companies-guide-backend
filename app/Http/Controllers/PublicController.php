@@ -30,7 +30,7 @@ class PublicController extends Controller
     }
     public function councilById(Council $council)
     {
-        return $council->load('country','city','area');
+        return new CouncilPublicResource($council->load('country','city','area','images'));
     }
     public function councilCompanyById(Council $council)
     {
