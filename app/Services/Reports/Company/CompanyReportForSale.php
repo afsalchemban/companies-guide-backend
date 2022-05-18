@@ -48,7 +48,7 @@ class CompanyReportForSale implements  ReportInterface
 
             $query->where('package_id',$this->package);
 
-        })->with(['activePackage','expiredPackages','companyActivity','sale'])->where(function (Builder $query) {
+        })->with(['activePackage','expiredPackages','companyActivity','sale','images'])->where(function (Builder $query) {
             
             $query->where('sale_id',$this->sale->id);  
             if($this->duration!=null&&is_string($this->duration)) { $query->where('created_at', '>=',$this->duration); }
@@ -60,7 +60,7 @@ class CompanyReportForSale implements  ReportInterface
     }
     private function _loadWithoutPackage()
     {
-        return Company::with(['activePackage','expiredPackages','companyActivity','sale'])->where(function (Builder $query) {
+        return Company::with(['activePackage','expiredPackages','companyActivity','sale','images'])->where(function (Builder $query) {
 
             $query->where('sale_id',$this->sale->id);    
             if($this->duration!=null&&is_string($this->duration)) { $query->where('created_at', '>=',$this->duration); }
