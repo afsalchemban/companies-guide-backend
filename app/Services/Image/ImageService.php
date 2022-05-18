@@ -5,8 +5,10 @@ namespace App\Services\Image;
 use App\Constants\DefaultImageConstants;
 use App\Models\Company;
 use App\Models\Council;
+use App\Models\CouncilCompany;
 use App\Models\CouncilEvent;
 use App\Models\CouncilMedia;
+use App\Models\CouncilMember;
 use App\Models\Image;
 use App\Models\Sale;
 use App\Services\CloudStorageService;
@@ -131,6 +133,48 @@ class ImageService
         $image->thumbnail_path = Storage::url($this->cloudStorage->storeFile("councils/council_$council->id/media/media_$councilMedia->id/thumbnail", $file));
         $image->type = 'media';
         $image->imageble()->associate($councilMedia);
+        $image->save();
+    }
+    public function updateCouncilMemberProfileImage(Council $council, CouncilMember $councilMember, UploadedFile $file)
+    {
+        $councilMember->images()->where('type','profile')->delete();
+        $image = new Image;
+        $image->desktop_path = Storage::url($this->cloudStorage->storeFile("councils/council_$council->id/members/member_$councilMember->id/desktop", $file));
+        $image->mobile_path = Storage::url($this->cloudStorage->storeFile("councils/council_$council->id/members/member_$councilMember->id/mobile", $file));
+        $image->thumbnail_path = Storage::url($this->cloudStorage->storeFile("councils/council_$council->id/members/member_$councilMember->id/thumbnail", $file));
+        $image->type = 'profile';
+        $image->imageble()->associate($councilMember);
+        $image->save();
+    }
+    public function addDefaultCouncilMemmberProfileImage(CouncilMember $councilMember)
+    {
+        $image = new Image;
+        $image->desktop_path = Storage::url(DefaultImageConstants::COUNCIL_MEMBER_PROFILE_DESKTOP);
+        $image->mobile_path = Storage::url(DefaultImageConstants::COUNCIL_MEMBER_PROFILE_MOBILE);
+        $image->thumbnail_path = Storage::url(DefaultImageConstants::COUNCIL_MEMBER_PROFILE_THUMBNAIL);
+        $image->type = 'profile';
+        $image->imageble()->associate($councilMember);
+        $image->save();
+    }
+    public function addDefaultCouncilCompanyLogo(CouncilCompany $councilCompany)
+    {
+        $image = new Image;
+        $image->desktop_path = Storage::url(DefaultImageConstants::COMPANY_LOGO_DESKTOP);
+        $image->mobile_path = Storage::url(DefaultImageConstants::COMPANY_LOGO_MOBILE);
+        $image->thumbnail_path = Storage::url(DefaultImageConstants::COMPANY_LOGO_THUMBNAIL);
+        $image->type = 'logo';
+        $image->imageble()->associate($councilCompany);
+        $image->save();
+    }
+    public function updateCouncilCompanyLogo(Council $council, CouncilCompany $councilCompany, UploadedFile $file)
+    {
+        $councilCompany->images()->where('type','logo')->delete();
+        $image = new Image;
+        $image->desktop_path = Storage::url($this->cloudStorage->storeFile("councils/council_$council->id/companies/company_$councilCompany->id/desktop", $file));
+        $image->mobile_path = Storage::url($this->cloudStorage->storeFile("councils/council_$council->id/companies/company_$councilCompany->id/mobile", $file));
+        $image->thumbnail_path = Storage::url($this->cloudStorage->storeFile("councils/council_$council->id/companies/company_$councilCompany->id/thumbnail", $file));
+        $image->type = 'logo';
+        $image->imageble()->associate($councilCompany);
         $image->save();
     }
 }

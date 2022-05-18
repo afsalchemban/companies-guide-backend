@@ -25,8 +25,8 @@ interface CouncilRepositoryInterface
     public function createCouncilCompany(array $councilCompanyDetails);
     public function updateCouncilCompany(array $newDetails,CouncilCompany $councilCompany);
     public function updateCouncilMember(array $newDetails,CouncilMember $councilMember);
-    public function changeMemberImage(UploadedFile $file, CouncilMember $councilMember);
-    public function changeCompanyLogo(UploadedFile $file, CouncilCompany $councilCompany);
+    public function changeMemberImage(UploadedFile $file,Council $council, CouncilMember $councilMember);
+    public function changeCompanyLogo(UploadedFile $file,Council $council, CouncilCompany $councilCompany);
     public function updateEvent(array $newDetails, CouncilEvent $councilEvent);
     public function updateMedia(array $newDetails, CouncilMedia $councilMedia);
     public function deleteEvent(CouncilEvent $councilEvent);

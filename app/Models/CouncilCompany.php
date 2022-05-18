@@ -23,4 +23,8 @@ class CouncilCompany extends Model
     {
         return $this->belongsTo(CompanyActivity::class);
     }
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'imageble');
+    }
 }

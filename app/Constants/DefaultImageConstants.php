@@ -19,7 +19,9 @@ class DefaultImageConstants
     public const COUNCIL_COVER_DESKTOP = 'defaults/council/cover/desktop/no-image.png';
     public const COUNCIL_COVER_MOBILE = 'defaults/council/cover/mobile/no-image.png';
 
-    public const COUNCIL_MEMBER_PROFILE = 'defaults/council/member/profile/no-image.png';
+    public const COUNCIL_MEMBER_PROFILE_DESKTOP = 'defaults/council/member/profile/desktop/no-image.png';
+    public const COUNCIL_MEMBER_PROFILE_MOBILE = 'defaults/council/member/profile/mobile/no-image.png';
+    public const COUNCIL_MEMBER_PROFILE_THUMBNAIL = 'defaults/council/member/profile/thumbnail/no-image.png';
     
     public const SALE_PROFILE_DESKTOP = 'defaults/sale/profile/desktop/no-image.png';
     public const SALE_PROFILE_MOBILE = 'defaults/sale/profile/mobile/no-image.png';

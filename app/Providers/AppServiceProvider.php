@@ -65,7 +65,9 @@ class AppServiceProvider extends ServiceProvider
             'order' => 'App\Models\Order',
             'council' => 'App\Models\Council',
             'councilEvent' => 'App\Models\CouncilEvent',
-            'councilMedia' => 'App\Models\CouncilMedia'
+            'councilMedia' => 'App\Models\CouncilMedia',
+            'councilMember' => 'App\Models\CouncilMember',
+            'councilCompany' => 'App\Models\CouncilCompany',
         ]);
     }
 }

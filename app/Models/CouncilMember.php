@@ -22,4 +22,8 @@ class CouncilMember extends Model
     public function nationality(){
         return $this->belongsTo(Country::class,'nationality');
     }
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'imageble');
+    }
 }

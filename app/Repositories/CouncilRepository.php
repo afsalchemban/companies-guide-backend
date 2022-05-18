@@ -123,11 +123,18 @@ class CouncilRepository implements CouncilRepositoryInterface
     public function createCouncilMember(array $councilMemberDetails)
     {
         $council = Auth::user()->userable;
-        $councilMemberDetails['profile_image'] = isset($councilMemberDetails['profile_image_file'])?
-            Storage::url($this->_uploadProfileImage($councilMemberDetails['profile_image_file'])):
-            Storage::url('councils/members/profile-images/no-image.png');
-        unset($councilMemberDetails['logo_file']);
-        $member = $council->members()->create($councilMemberDetails);
+        $member = $council->members()->create(array_filter($councilMemberDetails,function($k){
+            return $k != 'profile_image_file';
+        }, ARRAY_FILTER_USE_KEY));
+
+        if(isset($councilMemberDetails['profile_image_file']))
+        {
+            $this->imageService->updateCouncilMemberProfileImage($council,$member,$councilMemberDetails['profile_image_file']);
+        }
+        else
+        {
+            $this->imageService->addDefaultCouncilMemmberProfileImage($member);
+        }
         return $member;
     }
     private function _uploadLogoImage($file)
@@ -136,12 +143,19 @@ class CouncilRepository implements CouncilRepositoryInterface
     }
     public function createCouncilCompany(array $councilCompanyDetails)
     {
-        $councilCompanyDetails['logo_image_path'] = isset($councilCompanyDetails['logo_file'])?
-            Storage::url($this->_uploadLogoImage($councilCompanyDetails['logo_file'])):
-            Storage::url('councils/companies/logos/no-image.png');
-        unset($councilCompanyDetails['logo_file']);
         $council = Auth::user()->userable;
-        $company = $council->companies()->create($councilCompanyDetails);
+        $company = $council->companies()->create(array_filter($councilCompanyDetails,function($k){
+            return $k != 'logo_file';
+        }, ARRAY_FILTER_USE_KEY));
+        
+        if(isset($councilCompanyDetails['logo_file']))
+        {
+            $this->imageService->updateCouncilCompanyLogo($council,$company,$councilCompanyDetails['logo_file']);
+        }
+        else
+        {
+            $this->imageService->addDefaultCouncilCompanyLogo($company);
+        }
         return $company;
     }
     public function updateCouncilCompany(array $newDetails, CouncilCompany $councilCompany)
@@ -152,23 +166,13 @@ class CouncilRepository implements CouncilRepositoryInterface
     {
         return $councilMember->update($newDetails);
     }
-    public function changeCompanyLogo(UploadedFile $file, CouncilCompany $councilCompany)
+    public function changeCompanyLogo(UploadedFile $file,Council $council, CouncilCompany $councilCompany)
     {
-        if($path = $this->cloudStorage->storeFile('councils/companies/logos', $file))
-        {
-            $councilCompany->logo_image_path = Storage::url($path);
-            $councilCompany->save();
-            return $councilCompany;
-        }
+        $this->imageService->updateCouncilCompanyLogo($council,$councilCompany,$file);
     }
-    public function changeMemberImage(UploadedFile $file, CouncilMember $councilMember)
+    public function changeMemberImage(UploadedFile $file,Council $council, CouncilMember $councilMember)
     {
-        if($path = $this->cloudStorage->storeFile('councils/members/profile-images', $file))
-        {
-            $councilMember->profile_image = Storage::url($path);
-            $councilMember->save();
-            return $councilMember;
-        }
+        $this->imageService->updateCouncilMemberProfileImage($council,$councilMember,$file);
     }
     public function updateEvent(array $newDetails, CouncilEvent $councilEvent)
     {
