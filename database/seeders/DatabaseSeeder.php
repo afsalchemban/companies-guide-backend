@@ -32,7 +32,8 @@ class DatabaseSeeder extends Seeder
             ChequeSeeder::class,
             CouncilSeeder::class,
             CouncilCompanySeeder::class,
-            CouncilMemberSeeder::class
+            CouncilMemberSeeder::class,
+            CouncilEventsSeeder::class
         ]);     
     }
 }

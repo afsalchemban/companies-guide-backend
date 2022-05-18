@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use App\Models\Council;
 use App\Models\CouncilCompany;
 use App\Models\CouncilEvent;
-use App\Models\CouncilGallery;
+use App\Models\CouncilMedia;
 use App\Models\CouncilMember;
 use App\Models\User;
 use Database\Factories\CouncilCompanyFactory;
@@ -64,7 +64,7 @@ class CouncilTest extends TestCase
         ->assertStatus(Response::HTTP_OK);
     }
 
-    public function test_council_can_add_gallery()
+    public function test_council_can_add_media()
     {
         Sanctum::actingAs(User::council(5));
         $file = UploadedFile::fake()->image('avatar.jpg');
@@ -156,7 +156,7 @@ class CouncilTest extends TestCase
     {
         $user = Sanctum::actingAs(User::council(5));
         $council = $user->userable;
-        $councilMedia = CouncilGallery::factory()->create([
+        $councilMedia = CouncilMedia::factory()->create([
             'council_id' => $council->id
         ]);
         $this->json('delete', 'api/council/delete_media/1/'.$councilMedia->id)

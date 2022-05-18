@@ -19,7 +19,7 @@ class Council extends Model
         return $this->hasMany(CouncilCompany::class);
     }
     public function medias(){
-        return $this->hasMany(CouncilGallery::class);
+        return $this->hasMany(CouncilMedia::class);
     }
     public function events(){
         return $this->hasMany(CouncilEvent::class);
@@ -32,5 +32,9 @@ class Council extends Model
     }
     public function area(){
         return $this->belongsTo(Area::class);
+    }
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'imageble');
     }
 }

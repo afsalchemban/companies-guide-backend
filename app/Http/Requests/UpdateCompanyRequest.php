@@ -40,7 +40,8 @@ class UpdateCompanyRequest extends FormRequest
             'person_in_charge_designation' => 'required',
             'person_in_charge_email' => 'required',
             'person_in_charge_mobile' => 'required',
-            'person_in_charge_country' => 'required',            
+            'person_in_charge_country' => 'required',
+            'logo_image' => 'nullable|image'            
         ];
     }
 }

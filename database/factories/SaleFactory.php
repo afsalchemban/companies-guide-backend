@@ -23,8 +23,7 @@ class SaleFactory extends Factory
             'email' => $this->faker->unique()->safeEmail(),
             'phone_number' => $this->faker->phoneNumber(),
             'gender' => $this->faker->randomElement(['male' ,'female']),
-            'dob' => $this->faker->date('Y-m-d'),
-            'profile_image_path' => Storage::url(DefaultImageConstants::SALE_PROFILE)
+            'dob' => $this->faker->date('Y-m-d')
         ];
     }
 }

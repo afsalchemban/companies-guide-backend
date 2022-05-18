@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Council\Public\CouncilPublicResource;
 use App\Http\Resources\Public\PublicActiveCompanyResource;
 use App\Http\Resources\Public\PublicCompanyResource;
 use App\Models\Company;
 use App\Models\Council;
 use App\Models\CouncilCompany;
 use App\Models\CouncilEvent;
-use App\Models\CouncilGallery;
+use App\Models\CouncilMedia;
 use App\Models\CouncilMember;
 use App\Models\Package;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -25,7 +26,7 @@ class PublicController extends Controller
         return PublicActiveCompanyResource::collection(Company::whereHas('activePackage')->with(['sale','companyActivity','activePackage'])->get());
     }
     public function allCouncils(){
-        return Council::all();
+        return CouncilPublicResource::collection(Council::with('images')->get());
     }
     public function councilById(Council $council)
     {
@@ -55,9 +56,9 @@ class PublicController extends Controller
     {
         return $councilMember->load('country','area','city','nationality');
     }
-    public function councilMediaDetailsById(CouncilGallery $councilGallery)
+    public function councilMediaDetailsById(CouncilMedia $councilMedia)
     {
-        return $councilGallery;
+        return $councilMedia;
     }
     public function councilEventDetailsById(CouncilEvent $councilEvent){
         return $councilEvent;

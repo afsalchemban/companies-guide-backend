@@ -20,8 +20,7 @@ class CouncilEventFactory extends Factory
             'name' => $this->faker->name(),
             'location' => $this->faker->text(),
             'event_date' => $this->faker->date('Y-m-d'),
-            'link' => $this->faker->text(),
-            'image_path' => $this->faker->text()
+            'link' => $this->faker->text()
         ];
     }
 }

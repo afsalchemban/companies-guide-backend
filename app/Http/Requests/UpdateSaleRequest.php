@@ -30,6 +30,7 @@ class UpdateSaleRequest extends FormRequest
             'phone_number' => 'required|unique:sales',
             'gender' => 'required',
             'dob' => 'required',
+            'profile_image' => 'nullable|image',
         ];
     }
 }

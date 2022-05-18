@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\CouncilGallery;
+use App\Models\CouncilMedia;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class CouncilGalleryPolicy
+class CouncilMediaPolicy
 {
     use HandlesAuthorization;
 
@@ -28,7 +28,7 @@ class CouncilGalleryPolicy
      * @param  \App\Models\CouncilGallery  $councilGallery
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, CouncilGallery $councilGallery)
+    public function view(User $user, CouncilMedia $councilMedia)
     {
         //
     }
@@ -51,7 +51,7 @@ class CouncilGalleryPolicy
      * @param  \App\Models\CouncilGallery  $councilGallery
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, CouncilGallery $councilGallery)
+    public function update(User $user, CouncilMedia $councilMedia)
     {
         //
     }
@@ -63,7 +63,7 @@ class CouncilGalleryPolicy
      * @param  \App\Models\CouncilGallery  $councilGallery
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, CouncilGallery $councilGallery)
+    public function delete(User $user, CouncilMedia $councilMedia)
     {
         //
     }
@@ -75,7 +75,7 @@ class CouncilGalleryPolicy
      * @param  \App\Models\CouncilGallery  $councilGallery
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, CouncilGallery $councilGallery)
+    public function restore(User $user, CouncilMedia $councilMedia)
     {
         //
     }
@@ -87,7 +87,7 @@ class CouncilGalleryPolicy
      * @param  \App\Models\CouncilGallery  $councilGallery
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, CouncilGallery $councilGallery)
+    public function forceDelete(User $user, CouncilMedia $councilMedia)
     {
         //
     }

@@ -14,6 +14,7 @@ use App\Models\Package;
 use App\Services\Company\CompanyRegistrationFromCache;
 use App\Services\Company\CreateUserForCompany;
 use App\Services\Company\SubscriptionRegistrationFromCache;
+use App\Services\Image\ImageService;
 use App\Services\Invoice\InvoiceService;
 use App\Services\Mail\MailService;
 use App\Services\Payments\BankPayment;
@@ -35,14 +36,15 @@ class CompanyRepository implements CompanyRepositoryInterface
 {
     private $orderPaymentService;
 
-    public function __construct(UserSwitchingService $userSwitch) 
+    public function __construct(UserSwitchingService $userSwitch, ImageService $imageService) 
     {
         $this->userSwitch = $userSwitch;
+        $this->imageService = $imageService;
     }
 
     public function getAllCompanies()
     {
-        return CompanyReportResource::collection(Company::with('activePackage','expiredPackages','companyActivity','sale')->get());
+        return CompanyReportResource::collection(Company::with('activePackage','expiredPackages','companyActivity','sale','images')->get());
     }
     public function getCompany($company){
         return new CompanyResource($company);
@@ -53,8 +55,6 @@ class CompanyRepository implements CompanyRepositoryInterface
     }
     public function storeCompanyInCache(array $companyDetails){
 
-        $companyDetails['logo_image_path'] = Storage::url(DefaultImageConstants::COMPANY_LOGO);
-
         Cache::put('registered-company-'.Auth::user()->id, $companyDetails);
 
         return response()->json([
@@ -64,6 +64,11 @@ class CompanyRepository implements CompanyRepositoryInterface
     }
     public function updateCompany(Company $company, array $newDetails)
     {
+        if(isset($newDetails['logo_image']))
+        {
+            $this->imageService->updateCompanyLogoImage($company,$newDetails['logo_image']);
+            unset($newDetails['logo_image']);
+        }
         return $company->update($newDetails);
     }
     public function createUserForCompany(Company $company)
@@ -102,6 +107,7 @@ class CompanyRepository implements CompanyRepositoryInterface
             $this->_clearRegistrationCache();
             DB::commit();
 
+            $this->imageService->addDefaultCompanyLogoImage($company_registered);
             //sending all necessary emails
             OrderCreated::dispatch($order);
 

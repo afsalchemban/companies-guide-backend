@@ -15,7 +15,7 @@ class Company extends Model
     
     public function user()
     {
-        return $this->morphOne(User::class, 'imageable');
+        return $this->morphOne(User::class, 'userable');
     }
 
     public function sale()
@@ -66,5 +66,9 @@ class Company extends Model
     public function activityLog()
     {
         return $this->morphMany(ActivityLog::class, 'logable');
+    }
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'imageble');
     }
 }

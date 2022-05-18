@@ -63,7 +63,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('council')->group(function(){
         Route::post('/change_council_logo/{council}', [CouncilController::class, 'changeCouncilLogo']);
         Route::post('/change_cover_image/{council}', [CouncilController::class, 'changeCoverImage']);
-        Route::post('/add_media_image/{council}', [CouncilController::class, 'addMediaImage']);
+        Route::post('/add_media_image/{council}', [CouncilController::class, 'addMedia']);
         Route::post('/add_event/{council}', [CouncilController::class, 'addEvent']);
         Route::post('/council_member/{council}', [CouncilController::class, 'addMember']);
         Route::post('/council_company/{council}', [CouncilController::class, 'addCompany']);

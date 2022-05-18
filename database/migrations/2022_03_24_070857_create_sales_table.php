@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('phone_number')->unique();
             $table->string('gender');
             $table->date('dob');
-            $table->string('profile_image_path');
             $table->timestamps();
         });
     }

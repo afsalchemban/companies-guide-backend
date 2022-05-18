@@ -8,6 +8,7 @@ use App\Interfaces\SaleRepositoryInterface;
 use App\Models\Sale;
 use App\Models\User;
 use App\Services\CloudStorageService;
+use App\Services\Image\ImageService;
 use App\Services\Mail\MailService;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
@@ -15,12 +16,14 @@ use Illuminate\Support\Facades\Storage;
 
 class SaleRepository implements SaleRepositoryInterface
 {
-    public function __construct(CloudStorageService $cloudStorage)
+    public function __construct(ImageService $imageService)
     {
-        $this->cloudStorage = $cloudStorage;
+        $this->imageService = $imageService;
     }
     public function getAllSales(){
-        return Sale::all();
+        return Sale::with(['images'=>function($query){
+            $query->where('type','profile');
+        }])->get();
     }
     public function getSaleById($saleId){
         return Sale::findOrFail($saleId);
@@ -30,11 +33,16 @@ class SaleRepository implements SaleRepositoryInterface
     }
     public function createSale(array $saleDetails){
         
-        $saleDetails['profile_image_path'] = Storage::url(DefaultImageConstants::SALE_PROFILE);
-
-        return Sale::create($saleDetails);
+        $sale = Sale::create($saleDetails);
+        $this->imageService->addDefaultSaleProfileImage($sale);
+        return $sale;
     }
     public function updateSale($sale, array $newDetails){
+        if(isset($newDetails['profile_image']))
+        {
+            $this->imageService->updateSaleProfileImage($sale,$newDetails['profile_image']);
+            unset($newDetails['profile_image']);
+        }
         return $sale->update($newDetails);
     }
     public function createUserForSale(Sale $sale){

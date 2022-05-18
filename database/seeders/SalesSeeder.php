@@ -23,8 +23,16 @@ class SalesSeeder extends Seeder
             'email' => 'sale@admin.com',
             'phone_number' => '000000',
             'gender' => 'Male',
-            'dob' => '1990-03-03',
-            'profile_image_path' => Storage::url(DefaultImageConstants::SALE_PROFILE)
+            'dob' => '1990-03-03'
+        ]);
+
+        DB::table('images')->insert([
+            'type' => 'profile',
+            'desktop_path' => Storage::url(DefaultImageConstants::SALE_PROFILE_DESKTOP),
+            'mobile_path' => Storage::url(DefaultImageConstants::SALE_PROFILE_MOBILE),
+            'thumbnail_path' => Storage::url(DefaultImageConstants::SALE_PROFILE_THUMBNAIL),
+            'imageble_id' => '1',
+            'imageble_type' => 'sale',
         ]);
 
         DB::table('sales')->insert([
@@ -32,8 +40,16 @@ class SalesSeeder extends Seeder
             'email' => 'es@es.com',
             'phone_number' => '12345',
             'gender' => 'Male',
-            'dob' => '1980-03-03',
-            'profile_image_path' => Storage::url(DefaultImageConstants::SALE_PROFILE)
+            'dob' => '1980-03-03'
+        ]);
+
+        DB::table('images')->insert([
+            'type' => 'profile',
+            'desktop_path' => Storage::url(DefaultImageConstants::SALE_PROFILE_DESKTOP),
+            'mobile_path' => Storage::url(DefaultImageConstants::SALE_PROFILE_MOBILE),
+            'thumbnail_path' => Storage::url(DefaultImageConstants::SALE_PROFILE_THUMBNAIL),
+            'imageble_id' => '2',
+            'imageble_type' => 'sale',
         ]);
         
 

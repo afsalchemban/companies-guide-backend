@@ -31,7 +31,6 @@ return new class extends Migration
             $table->string('person_in_charge_email');
             $table->string('person_in_charge_mobile');
             $table->string('person_in_charge_country');
-            $table->string('logo_image_path');
             $table->unsignedBigInteger('sale_id');
             $table->timestamps();
         });

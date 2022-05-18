@@ -25,6 +25,9 @@ class CompanyReportResource extends JsonResource
             'expired_package' => new PackageResource($this->whenLoaded('expiredPackages', function () {
                 return $this->expiredPackages->sortByDesc('subscriptions.end_date')->first();
             })),
+            'logo' => new ImageResource($this->whenLoaded('images',function(){
+                return $this->images->where('type','logo')->first();
+            })),
             'activity' => $this->whenLoaded('companyActivity'),
             'added_by' => $this->whenLoaded('sale'),
             'created_at' => $this->created_at->format('Y-m-d'),

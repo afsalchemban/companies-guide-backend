@@ -19,7 +19,7 @@ use App\Interfaces\CouncilRepositoryInterface;
 use App\Models\Council;
 use App\Models\CouncilCompany;
 use App\Models\CouncilEvent;
-use App\Models\CouncilGallery;
+use App\Models\CouncilMedia;
 use App\Models\CouncilMember;
 
 class CouncilController extends Controller
@@ -57,7 +57,7 @@ class CouncilController extends Controller
      */
     public function show(Council $council)
     {
-        //
+        return $council;
     }
 
     /**
@@ -91,9 +91,9 @@ class CouncilController extends Controller
         return $this->councilRepository->changeCover($request->validated()['file'], $council);
     }
 
-    public function addMediaImage(StoreCouncilGalleryRequest $request, Council $council)
+    public function addMedia(StoreCouncilGalleryRequest $request, Council $council)
     {
-        return $this->councilRepository->addGalleryImage($request->validated(), $council);
+        return $this->councilRepository->addMedia($request->validated(), $council);
     }
 
     public function addEvent(StoreCouncilEventsRequest $request, Council $council)
@@ -129,16 +129,16 @@ class CouncilController extends Controller
     {
         return $this->councilRepository->updateEvent($request->validated(), $councilEvent);
     }
-    public function updateMedia(UpdateCouncilGalleryRequest $request, Council $council, CouncilGallery $councilGallery)
+    public function updateMedia(UpdateCouncilGalleryRequest $request, Council $council, CouncilMedia $councilMedia)
     {
-        return $this->councilRepository->updateMedia($request->validated(), $councilGallery);
+        return $this->councilRepository->updateMedia($request->validated(), $councilMedia);
     }
     public function deleteEvent(DeleteCouncilEventsMedias $request, Council $council, CouncilEvent $councilEvent)
     {
         return $this->councilRepository->deleteEvent($councilEvent);
     }
-    public function deleteMedia(DeleteCouncilEventsMedias $request, Council $council, CouncilGallery $councilGallery)
+    public function deleteMedia(DeleteCouncilEventsMedias $request, Council $council, CouncilMedia $councilMedia)
     {
-        return $this->councilRepository->deleteMedia($councilGallery);
+        return $this->councilRepository->deleteMedia($councilMedia);
     }
 }

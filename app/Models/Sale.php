@@ -14,7 +14,7 @@ class Sale extends Model
 
     public function user()
     {
-        return $this->morphOne(User::class, 'imageable');
+        return $this->morphOne(User::class, 'userable');
     }
 
     public function companies()
@@ -34,5 +34,9 @@ class Sale extends Model
     public function orders()
     {
         return $this->hasManyThrough(Order::class, Company::class,'sale_id','company_id','id','id');
+    }
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'imageble');
     }
 }

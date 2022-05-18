@@ -24,7 +24,7 @@ class PublicEndTest extends TestCase
         $response = $this->getJson('/api/public/companies/active')
         ->assertStatus(Response::HTTP_OK);
     }
-    public function test_get_company_all_councils()
+    public function test_get_all_councils()
     {
         $response = $this->getJson('/api/public/councils')
         ->assertStatus(Response::HTTP_OK);
@@ -47,7 +47,7 @@ class PublicEndTest extends TestCase
         $response = $this->getJson('/api/public/council_member/1')
         ->assertStatus(Response::HTTP_OK);
     }
-    public function test_get_council_gallery()
+    public function test_get_council_media()
     {
         $response = $this->getJson('/api/public/council_media/1')
         ->assertStatus(Response::HTTP_OK);

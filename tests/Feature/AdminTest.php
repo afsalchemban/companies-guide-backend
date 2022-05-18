@@ -61,11 +61,21 @@ class AdminTest extends TestCase
 
     }
 
+    public function test_admin_can_view_all_sales(){
+
+        Sanctum::actingAs(User::admin());
+        $this->json('get', 'api/sale')
+         ->assertStatus(Response::HTTP_OK);
+
+    }
+
     public function test_admin_can_update_sale(){
 
         Sanctum::actingAs(User::admin());
+        $file = UploadedFile::fake()->image('avatar.jpg');
         $sale = Sale::factory()->make([
             'email' => Sale::find(1)->email,
+            'profile_image' => $file
         ]);
         $this->json('put', 'api/sale/1', $sale->toArray())
          ->assertStatus(Response::HTTP_OK);
@@ -93,8 +103,10 @@ class AdminTest extends TestCase
     public function test_admin_can_update_company(){
 
         Sanctum::actingAs(User::admin());
+        $file = UploadedFile::fake()->image('avatar.jpg');
         $company = Company::factory()->make([
             'email' => Company::find(1)->email,
+            'logo_image' => $file
         ]);
         $this->json('put', 'api/company/1', $company->toArray())
          ->assertStatus(Response::HTTP_OK);
@@ -173,6 +185,31 @@ class AdminTest extends TestCase
 
         Sanctum::actingAs(User::admin());
         $this->json('get', 'api/council')
+         ->assertStatus(Response::HTTP_OK);
+
+    }
+
+    public function test_admin_can_view_council_by_id(){
+
+        Sanctum::actingAs(User::admin());
+        $this->json('get', 'api/council/1')
+         ->assertStatus(Response::HTTP_OK);
+
+    }
+
+    public function test_admin_can_update_council(){
+
+        Sanctum::actingAs(User::admin());
+        $council = Council::factory()->make();
+        $this->json('put', 'api/council/1',$council->toArray())
+         ->assertStatus(Response::HTTP_OK);
+
+    }
+    public function test_admin_can_delete_council(){
+
+        Sanctum::actingAs(User::admin());
+        $council = Council::factory()->create();
+        $this->json('delete', 'api/council/'.$council->id)
          ->assertStatus(Response::HTTP_OK);
 
     }

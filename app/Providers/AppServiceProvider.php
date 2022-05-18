@@ -15,6 +15,7 @@ use App\Repositories\CompanyRepository;
 use App\Repositories\CouncilCompanyRepository;
 use App\Repositories\CouncilMemberRepository;
 use App\Repositories\CouncilRepository;
+use App\Services\Image\ImageService;
 use Illuminate\Support\ServiceProvider;
 use App\Services\UserSwitchingService;
 use Illuminate\Database\Eloquent\Relations\Relation;
@@ -41,7 +42,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(CouncilCompanyRepositoryInterface::class, CouncilCompanyRepository::class);
 
         $this->app->bind(CompanyRepositoryInterface::class, function ($app) {
-            return new CompanyRepository($app->make(UserSwitchingService::class));
+            return new CompanyRepository($app->make(UserSwitchingService::class),$app->make(ImageService::class));
         });
 
         $this->app->bind(DataRepositoryInterface::class, DataRepository::class);
@@ -63,6 +64,8 @@ class AppServiceProvider extends ServiceProvider
             'user' => 'App\Models\User',
             'order' => 'App\Models\Order',
             'council' => 'App\Models\Council',
+            'councilEvent' => 'App\Models\CouncilEvent',
+            'councilMedia' => 'App\Models\CouncilMedia'
         ]);
     }
 }

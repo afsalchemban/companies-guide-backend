@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('location');
             $table->string('link');
-            $table->string('image_path')->nullable();
             $table->unsignedBigInteger('council_id');
             $table->date('event_date');
             $table->timestamps();

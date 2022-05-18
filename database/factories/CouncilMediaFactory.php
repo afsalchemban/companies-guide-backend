@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\CouncilGallery>
  */
-class CouncilGalleryFactory extends Factory
+class CouncilMediaFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,7 +19,6 @@ class CouncilGalleryFactory extends Factory
         return [
             'title' => $this->faker->name(),
             'description' => $this->faker->text(),
-            'file_path' => $this->faker->text()
         ];
     }
 }

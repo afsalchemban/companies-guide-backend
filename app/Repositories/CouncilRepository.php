@@ -3,14 +3,17 @@
 namespace App\Repositories;
 
 use App\Events\UserCreated;
+use App\Http\Resources\Council\Public\CouncilPublicResource;
 use App\Interfaces\CouncilRepositoryInterface;
 use App\Services\CloudStorageService;
 use App\Models\Council;
 use App\Models\CouncilCompany;
 use App\Models\CouncilEvent;
-use App\Models\CouncilGallery;
+use App\Models\CouncilMedia;
 use App\Models\CouncilMember;
+use App\Models\Image;
 use App\Models\User;
+use App\Services\Image\ImageService;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
@@ -18,9 +21,10 @@ use Illuminate\Support\Facades\Storage;
 
 class CouncilRepository implements CouncilRepositoryInterface
 {
-    public function __construct(CloudStorageService $cloudStorage)
+    public function __construct(CloudStorageService $cloudStorage,ImageService $imageService)
     {
         $this->cloudStorage = $cloudStorage;
+        $this->imageService = $imageService;
     }
     public function getAllCouncils()
     {
@@ -36,22 +40,34 @@ class CouncilRepository implements CouncilRepositoryInterface
     }
     public function createCouncil(array $councilDetails)
     {
-        $councilDetails['cover_image_path'] = isset($councilDetails['cover_image_file'])?
-            Storage::url($this->cloudStorage->storeFile('councils/cover-images', $councilDetails['cover_image_file'])):
-            Storage::url('councils/cover-images/no-image.png');
-        unset($councilDetails['cover_image_file']);   
-
-        $councilDetails['logo_image_path'] = isset($councilDetails['logo_file'])?
-            Storage::url($this->cloudStorage->storeFile('councils/logos', $councilDetails['logo_file'])):
-            Storage::url('councils/logos/no-image.png');
-        unset($councilDetails['logo_file']);
+        $council = Council::create($councilDetails);
+        //adding cover image
+        if(isset($councilDetails['cover_image_file']))
+        {
+            $this->imageService->updateCouncilCoverImage($council,$councilDetails['cover_image_file']);
+            unset($councilDetails['cover_image_file']);
+        }
+        else
+        {
+            $this->imageService->addDefaultCouncilCoverImage($council);
+        }
+        //adding logo image
+        if(isset($councilDetails['logo_file']))
+        {
+            $this->imageService->updateCouncilLogoImage($council,$councilDetails['logo_file']);
+            unset($councilDetails['logo_file']);
+        }
+        else
+        {
+            $this->imageService->addDefaultCouncilLogoImage($council);
+        }
         
-
-        return Council::create($councilDetails);
+        return $council;
     }
     public function updateCouncil(Council $council, array $newDetails)
     {
-        return $council->update($newDetails);
+        $council->update($newDetails);
+        return new CouncilPublicResource($council->load('images'));
     }
     public function createUserForCouncil(Council $council)
     {
@@ -63,46 +79,42 @@ class CouncilRepository implements CouncilRepositoryInterface
         $user->userable()->associate($council);
         $user->save();
         UserCreated::dispatch($user,'dummypassword');
-        //MailService::sendSaleCredentialMail($sale,'dummypassword');
         return $user;
     }
     public function changeLogo(UploadedFile $file, Council $council)
     {
-        if($path = $this->cloudStorage->storeFile('councils/logos', $file))
-        {
-            $council->logo_image_path = Storage::url($path);
-            $council->save();
-            return $council;
-        }
+        $this->imageService->updateCouncilLogoImage($council,$file);
+        return new CouncilPublicResource($council->load('images'));
     }
     public function changeCover(UploadedFile $file, Council $council)
     {
-        if($path = $this->cloudStorage->storeFile('councils/cover-images', $file))
-        {
-            $council->cover_image_path = Storage::url($path);
-            $council->save();
-            return $council;
-        }
+        $this->imageService->updateCouncilCoverImage($council,$file);
+        return new CouncilPublicResource($council->load('images'));
     }
-    public function addGalleryImage(array $galleryDetails, Council $council)
+    public function addMedia(array $mediaDetails, Council $council)
     {
-        if($path = $this->cloudStorage->storeFile('councils/gallery', $galleryDetails['file']))
-        {   
-            $galleryDetails['file_path']= Storage::url($path);
-            unset($galleryDetails['file']);
-            $gallery = $council->medias()->create($galleryDetails);
-            return $gallery;
-        }
+        $media = $council->medias()->create(array_filter($mediaDetails,function($k){
+                return $k != 'file';
+            }, ARRAY_FILTER_USE_KEY));
+        $this->imageService->updateCouncilMediaImage($council,$media,$mediaDetails['file']);
+        return $media;
+        
     }
     public function addEvent(array $eventDetails, Council $council)
     {
-        if($path = $this->cloudStorage->storeFile('councils/events', $eventDetails['image']))   
+        $event = $council->events()->create(array_filter($eventDetails,function($k){
+            return $k != 'image';
+        }, ARRAY_FILTER_USE_KEY));
+        
+        if(isset($eventDetails['image']))
         {
-            $eventDetails['image_path']= Storage::url($path);
-            unset($eventDetails['image']);
-            $event = $council->events()->create($eventDetails);
-            return $event;
+            $this->imageService->updateCouncilEventImage($council,$event,$eventDetails['image']);
         }
+        else
+        {
+            $this->imageService->addDefaultCouncilEventImage($event);
+        }
+        return $event;
     }
     private function _uploadProfileImage($file)
     {
@@ -162,13 +174,13 @@ class CouncilRepository implements CouncilRepositoryInterface
     {
         return $councilEvent->update($newDetails);
     }
-    public function updateMedia(array $newDetails, CouncilGallery $councilMedia)
+    public function updateMedia(array $newDetails, CouncilMedia $councilMedia)
     {
         return $councilMedia->update($newDetails);
     }
-    public function deleteMedia(CouncilGallery $councilGallery)
+    public function deleteMedia(CouncilMedia $councilMedia)
     {
-        return $councilGallery->delete();
+        return $councilMedia->delete();
     }
     public function deleteEvent(CouncilEvent $councilEvent)
     {

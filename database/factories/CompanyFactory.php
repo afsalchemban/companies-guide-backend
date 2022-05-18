@@ -35,8 +35,7 @@ class CompanyFactory extends Factory
             'person_in_charge_designation' => $this->faker->text(),
             'person_in_charge_email' => $this->faker->unique()->safeEmail(),
             'person_in_charge_mobile' => $this->faker->phoneNumber(),
-            'person_in_charge_country' => $this->faker->text(),
-            'logo_image_path' =>  Storage::url(DefaultImageConstants::COMPANY_LOGO)
+            'person_in_charge_country' => $this->faker->text()
         ];
     }
 }
