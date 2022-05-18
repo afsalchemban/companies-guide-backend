@@ -43,4 +43,8 @@ class DefaultImageConstants
     public const SALE_PROFILE_MOBILE_SIZE = ['width' => 230,'height' => 147];
     public const SALE_PROFILE_THUMBNAIL = 'defaults/sale/profile/thumbnail/no-image.png';
     public const SALE_PROFILE_THUMBNAIL_SIZE = ['width' => 74,'height' => 47];
+
+    public const COUNCIL_MEDIA_DESKTOP_SIZE = ['width' => 386,'height' => 247];
+    public const COUNCIL_MEDIA_MOBILE_SIZE = ['width' => 230,'height' => 147];
+    public const COUNCIL_MEDIA_THUMBNAIL_SIZE = ['width' => 230,'height' => 147];
 }

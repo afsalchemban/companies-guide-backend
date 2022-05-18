@@ -22,10 +22,10 @@ class ImageService
     {
         $this->cloudStorage = $cloudStorage;
     }
-    private function _resizeImage($width,$height,UploadedFile $file,$path)
+    private function _resizeImage($dimension,UploadedFile $file,$path)
     {
         $img = ImageIntervention::make($file->path());
-        $resized = $img->resize($width, $height)->stream($file->extension());
+        $resized = $img->resize($dimension['width'], $dimension['height'])->stream($file->extension());
         $fileName = $path.'/'.time().'.'.$file->extension();
         Storage::put($fileName, $resized);
         return Storage::url($fileName);
@@ -53,9 +53,9 @@ class ImageService
         
         $sale->images()->where('type','profile')->delete();
         $image = new Image;
-        $image->desktop_path = $this->_resizeImage(DefaultImageConstants::SALE_PROFILE_DESKTOP_SIZE['width'],DefaultImageConstants::SALE_PROFILE_DESKTOP_SIZE['height'],$file,"sales/sale_$sale->id/profile/desktop");
-        $image->mobile_path = $this->_resizeImage(DefaultImageConstants::SALE_PROFILE_MOBILE_SIZE['width'],DefaultImageConstants::SALE_PROFILE_MOBILE_SIZE['height'],$file,"sales/sale_$sale->id/profile/mobile");
-        $image->thumbnail_path = $this->_resizeImage(DefaultImageConstants::SALE_PROFILE_THUMBNAIL_SIZE['width'],DefaultImageConstants::SALE_PROFILE_THUMBNAIL_SIZE['height'],$file,"sales/sale_$sale->id/profile/thumbnail");
+        $image->desktop_path = $this->_resizeImage(DefaultImageConstants::SALE_PROFILE_DESKTOP_SIZE,$file,"sales/sale_$sale->id/profile/desktop");
+        $image->mobile_path = $this->_resizeImage(DefaultImageConstants::SALE_PROFILE_MOBILE_SIZE,$file,"sales/sale_$sale->id/profile/mobile");
+        $image->thumbnail_path = $this->_resizeImage(DefaultImageConstants::SALE_PROFILE_THUMBNAIL_SIZE,$file,"sales/sale_$sale->id/profile/thumbnail");
         $image->type = 'profile';
         $image->imageble()->associate($sale);
         $image->save();
@@ -64,9 +64,9 @@ class ImageService
     {
         $company->images()->where('type','logo')->delete();
         $image = new Image;
-        $image->desktop_path = Storage::url($this->cloudStorage->storeFile("companies/company_$company->id/logo/desktop", $file));
-        $image->mobile_path = Storage::url($this->cloudStorage->storeFile("companies/company_$company->id/logo/mobile", $file));
-        $image->thumbnail_path = Storage::url($this->cloudStorage->storeFile("companies/company_$company->id/logo/thumbnail", $file));
+        $image->desktop_path = $this->_resizeImage(DefaultImageConstants::COMPANY_LOGO_DESKTOP_SIZE,$file,"companies/company_$company->id/logo/desktop");
+        $image->mobile_path = $this->_resizeImage(DefaultImageConstants::COMPANY_LOGO_MOBILE_SIZE,$file,"companies/company_$company->id/logo/mobile");
+        $image->thumbnail_path = $this->_resizeImage(DefaultImageConstants::COMPANY_LOGO_THUMBNAIL_SIZE,$file,"companies/company_$company->id/logo/thumbnail");
         $image->type = 'logo';
         $image->imageble()->associate($company);
         $image->save();
@@ -95,8 +95,8 @@ class ImageService
     {
         $council->images()->where('type','cover')->delete();
         $image = new Image;
-        $image->desktop_path = Storage::url($this->cloudStorage->storeFile("councils/council_$council->id/cover/desktop", $file));
-        $image->mobile_path = Storage::url($this->cloudStorage->storeFile("councils/council_$council->id/cover/mobile", $file));
+        $image->desktop_path = $this->_resizeImage(DefaultImageConstants::COUNCIL_COVER_DESKTOP_SIZE,$file,"councils/council_$council->id/cover/desktop");
+        $image->mobile_path = $this->_resizeImage(DefaultImageConstants::COUNCIL_COVER_MOBILE_SIZE,$file,"councils/council_$council->id/cover/mobile");
         $image->type = 'cover';
         $image->imageble()->associate($council);
         $image->save();
@@ -105,9 +105,9 @@ class ImageService
     {
         $council->images()->where('type','logo')->delete();
         $image = new Image;
-        $image->desktop_path = $this->_resizeImage(DefaultImageConstants::COUNCIL_LOGO_DESKTOP_SIZE['width'],DefaultImageConstants::COUNCIL_LOGO_DESKTOP_SIZE['height'],$file,"councils/council_$council->id/logo/desktop");
-        $image->mobile_path = $this->_resizeImage(DefaultImageConstants::COUNCIL_LOGO_MOBILE_SIZE['width'],DefaultImageConstants::COUNCIL_LOGO_MOBILE_SIZE['height'],$file,"councils/council_$council->id/logo/mobile");
-        $image->thumbnail_path = $this->_resizeImage(DefaultImageConstants::COUNCIL_LOGO_THUMBNAIL_SIZE['width'],DefaultImageConstants::COUNCIL_LOGO_THUMBNAIL_SIZE['height'],$file,"councils/council_$council->id/logo/thumbnail");
+        $image->desktop_path = $this->_resizeImage(DefaultImageConstants::COUNCIL_LOGO_DESKTOP_SIZE,$file,"councils/council_$council->id/logo/desktop");
+        $image->mobile_path = $this->_resizeImage(DefaultImageConstants::COUNCIL_LOGO_MOBILE_SIZE,$file,"councils/council_$council->id/logo/mobile");
+        $image->thumbnail_path = $this->_resizeImage(DefaultImageConstants::COUNCIL_LOGO_THUMBNAIL_SIZE,$file,"councils/council_$council->id/logo/thumbnail");
         $image->type = 'logo';
         $image->imageble()->associate($council);
         $image->save();
@@ -116,9 +116,9 @@ class ImageService
     {
         $councilEvent->images()->where('type','event')->delete();
         $image = new Image;
-        $image->desktop_path = Storage::url($this->cloudStorage->storeFile("councils/council_$council->id/events/event_$councilEvent->id/desktop", $file));
-        $image->mobile_path = Storage::url($this->cloudStorage->storeFile("councils/council_$council->id/events/event_$councilEvent->id/mobile", $file));
-        $image->thumbnail_path = Storage::url($this->cloudStorage->storeFile("councils/council_$council->id/events/event_$councilEvent->id/thumbnail", $file));
+        $image->desktop_path = $this->_resizeImage(DefaultImageConstants::COUNCIL_EVENT_DESKTOP_SIZE,$file,"councils/council_$council->id/events/event_$councilEvent->id/desktop");
+        $image->mobile_path = $this->_resizeImage(DefaultImageConstants::COUNCIL_EVENT_MOBILE_SIZE,$file,"councils/council_$council->id/events/event_$councilEvent->id/mobile");
+        $image->thumbnail_path = $this->_resizeImage(DefaultImageConstants::COUNCIL_EVENT_THUMBNAIL_SIZE,$file,"councils/council_$council->id/events/event_$councilEvent->id/thumbnail");
         $image->type = 'event';
         $image->imageble()->associate($councilEvent);
         $image->save();
@@ -138,9 +138,9 @@ class ImageService
     {
         $councilMedia->images()->where('type','media')->delete();
         $image = new Image;
-        $image->desktop_path = Storage::url($this->cloudStorage->storeFile("councils/council_$council->id/media/media_$councilMedia->id/desktop", $file));
-        $image->mobile_path = Storage::url($this->cloudStorage->storeFile("councils/council_$council->id/media/media_$councilMedia->id/mobile", $file));
-        $image->thumbnail_path = Storage::url($this->cloudStorage->storeFile("councils/council_$council->id/media/media_$councilMedia->id/thumbnail", $file));
+        $image->desktop_path = $this->_resizeImage(DefaultImageConstants::COUNCIL_MEDIA_DESKTOP_SIZE,$file,"councils/council_$council->id/media/media_$councilMedia->id/desktop");
+        $image->mobile_path = $this->_resizeImage(DefaultImageConstants::COUNCIL_MEDIA_MOBILE_SIZE,$file,"councils/council_$council->id/media/media_$councilMedia->id/mobile");
+        $image->thumbnail_path = $this->_resizeImage(DefaultImageConstants::COUNCIL_MEDIA_THUMBNAIL_SIZE,$file,"councils/council_$council->id/media/media_$councilMedia->id/thumbnail");
         $image->type = 'media';
         $image->imageble()->associate($councilMedia);
         $image->save();
@@ -149,9 +149,9 @@ class ImageService
     {
         $councilMember->images()->where('type','profile')->delete();
         $image = new Image;
-        $image->desktop_path = Storage::url($this->cloudStorage->storeFile("councils/council_$council->id/members/member_$councilMember->id/desktop", $file));
-        $image->mobile_path = Storage::url($this->cloudStorage->storeFile("councils/council_$council->id/members/member_$councilMember->id/mobile", $file));
-        $image->thumbnail_path = Storage::url($this->cloudStorage->storeFile("councils/council_$council->id/members/member_$councilMember->id/thumbnail", $file));
+        $image->desktop_path = $this->_resizeImage(DefaultImageConstants::COUNCIL_MEMBER_PROFILE_DESKTOP_SIZE,$file,"councils/council_$council->id/members/member_$councilMember->id/desktop");
+        $image->mobile_path = $this->_resizeImage(DefaultImageConstants::COUNCIL_MEMBER_PROFILE_MOBILE_SIZE,$file,"councils/council_$council->id/members/member_$councilMember->id/mobile");
+        $image->thumbnail_path = $this->_resizeImage(DefaultImageConstants::COUNCIL_MEMBER_PROFILE_THUMBNAIL_SIZE,$file,"councils/council_$council->id/members/member_$councilMember->id/thumbnail");
         $image->type = 'profile';
         $image->imageble()->associate($councilMember);
         $image->save();
@@ -180,9 +180,9 @@ class ImageService
     {
         $councilCompany->images()->where('type','logo')->delete();
         $image = new Image;
-        $image->desktop_path = Storage::url($this->cloudStorage->storeFile("councils/council_$council->id/companies/company_$councilCompany->id/desktop", $file));
-        $image->mobile_path = Storage::url($this->cloudStorage->storeFile("councils/council_$council->id/companies/company_$councilCompany->id/mobile", $file));
-        $image->thumbnail_path = Storage::url($this->cloudStorage->storeFile("councils/council_$council->id/companies/company_$councilCompany->id/thumbnail", $file));
+        $image->desktop_path = $this->_resizeImage(DefaultImageConstants::COMPANY_LOGO_DESKTOP_SIZE,$file,"councils/council_$council->id/companies/company_$councilCompany->id/desktop");
+        $image->mobile_path = $this->_resizeImage(DefaultImageConstants::COMPANY_LOGO_MOBILE_SIZE,$file,"councils/council_$council->id/companies/company_$councilCompany->id/mobile");
+        $image->thumbnail_path = $this->_resizeImage(DefaultImageConstants::COMPANY_LOGO_THUMBNAIL_SIZE,$file,"councils/council_$council->id/companies/company_$councilCompany->id/thumbnail");
         $image->type = 'logo';
         $image->imageble()->associate($councilCompany);
         $image->save();
