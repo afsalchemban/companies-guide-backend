@@ -15,9 +15,9 @@ class ImageResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'desktop_path' => $this->desktop_path,
-            'mobile_path' => $this->mobile_path,
-            'thumbnail_path' => $this->thumbnail_path,
+            'desktop_image' => $this->desktop_path,
+            'mobile_image' => $this->mobile_path,
+            'thumbnail_image' => $this->thumbnail_path,
         ];
     }
 }
