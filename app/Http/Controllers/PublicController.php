@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\Council\Public\CouncilCompanyPublicResource;
+use App\Http\Resources\Council\Public\CouncilEventPublicResource;
+use App\Http\Resources\Council\Public\CouncilMediaPublicResource;
+use App\Http\Resources\Council\Public\CouncilMemberPublicResource;
 use App\Http\Resources\Council\Public\CouncilPublicResource;
 use App\Http\Resources\Public\PublicActiveCompanyResource;
 use App\Http\Resources\Public\PublicCompanyResource;
@@ -34,19 +38,19 @@ class PublicController extends Controller
     }
     public function councilCompanyById(Council $council)
     {
-        return $council->companies;
+        return CouncilCompanyPublicResource::collection($council->companies->load('images'));
     }
     public function councilMemberById(Council $council)
     {
-        return $council->members;
+        return CouncilMemberPublicResource::collection($council->members->load('images'));
     }
     public function councilMediaById(Council $council)
     {
-        return $council->medias;
+        return CouncilMediaPublicResource::collection($council->medias->load('images'));
     }
     public function councilEventById(Council $council)
     {
-        return $council->events;
+        return CouncilEventPublicResource::collection($council->events->load('images'));
     }
     public function councilCompanyDetailsById(CouncilCompany $councilCompany)
     {
