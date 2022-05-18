@@ -14,12 +14,21 @@ use App\Models\Sale;
 use App\Services\CloudStorageService;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image as ImageIntervention;
 
 class ImageService
 {
     public function __construct(CloudStorageService $cloudStorage)
     {
         $this->cloudStorage = $cloudStorage;
+    }
+    private function _resizeImage($width,$height,UploadedFile $file,$path)
+    {
+        $img = ImageIntervention::make($file->path());
+        $resized = $img->resize($width, $height)->stream($file->extension());
+        $fileName = $path.'/'.time().'.'.$file->extension();
+        Storage::put($fileName, $resized);
+        return Storage::url($fileName);
     }
     public function addDefaultSaleProfileImage(Sale $sale){
         $image = new Image;
@@ -41,11 +50,12 @@ class ImageService
     }
     public function updateSaleProfileImage(Sale $sale , UploadedFile $file)
     {
+        
         $sale->images()->where('type','profile')->delete();
         $image = new Image;
-        $image->desktop_path = Storage::url($this->cloudStorage->storeFile("sales/sale_$sale->id/profile/desktop", $file));
-        $image->mobile_path = Storage::url($this->cloudStorage->storeFile("sales/sale_$sale->id/profile/mobile", $file));
-        $image->thumbnail_path = Storage::url($this->cloudStorage->storeFile("sales/sale_$sale->id/profile/thumbnail", $file));
+        $image->desktop_path = $this->_resizeImage(DefaultImageConstants::SALE_PROFILE_DESKTOP_SIZE['width'],DefaultImageConstants::SALE_PROFILE_DESKTOP_SIZE['height'],$file,"sales/sale_$sale->id/profile/desktop");
+        $image->mobile_path = $this->_resizeImage(DefaultImageConstants::SALE_PROFILE_MOBILE_SIZE['width'],DefaultImageConstants::SALE_PROFILE_MOBILE_SIZE['height'],$file,"sales/sale_$sale->id/profile/mobile");
+        $image->thumbnail_path = $this->_resizeImage(DefaultImageConstants::SALE_PROFILE_THUMBNAIL_SIZE['width'],DefaultImageConstants::SALE_PROFILE_THUMBNAIL_SIZE['height'],$file,"sales/sale_$sale->id/profile/thumbnail");
         $image->type = 'profile';
         $image->imageble()->associate($sale);
         $image->save();
@@ -95,9 +105,9 @@ class ImageService
     {
         $council->images()->where('type','logo')->delete();
         $image = new Image;
-        $image->desktop_path = Storage::url($this->cloudStorage->storeFile("councils/council_$council->id/logo/desktop", $file));
-        $image->mobile_path = Storage::url($this->cloudStorage->storeFile("councils/council_$council->id/logo/mobile", $file));
-        $image->thumbnail_path = Storage::url($this->cloudStorage->storeFile("councils/council_$council->id/logo/thumbnail", $file));
+        $image->desktop_path = $this->_resizeImage(DefaultImageConstants::COUNCIL_LOGO_DESKTOP_SIZE['width'],DefaultImageConstants::COUNCIL_LOGO_DESKTOP_SIZE['height'],$file,"councils/council_$council->id/logo/desktop");
+        $image->mobile_path = $this->_resizeImage(DefaultImageConstants::COUNCIL_LOGO_MOBILE_SIZE['width'],DefaultImageConstants::COUNCIL_LOGO_MOBILE_SIZE['height'],$file,"councils/council_$council->id/logo/mobile");
+        $image->thumbnail_path = $this->_resizeImage(DefaultImageConstants::COUNCIL_LOGO_THUMBNAIL_SIZE['width'],DefaultImageConstants::COUNCIL_LOGO_THUMBNAIL_SIZE['height'],$file,"councils/council_$council->id/logo/thumbnail");
         $image->type = 'logo';
         $image->imageble()->associate($council);
         $image->save();
