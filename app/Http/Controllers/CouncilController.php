@@ -57,7 +57,7 @@ class CouncilController extends Controller
      */
     public function show(Council $council)
     {
-        return $council;
+        return $council->load('country','city','area');
     }
 
     /**
