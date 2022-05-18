@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Constants\DefaultImageConstants;
 use App\Events\UserCreated;
+use App\Http\Resources\Sale\Dashboard\SaleDashboardResource;
 use App\Interfaces\SaleRepositoryInterface;
 use App\Models\Sale;
 use App\Models\User;
@@ -21,9 +22,7 @@ class SaleRepository implements SaleRepositoryInterface
         $this->imageService = $imageService;
     }
     public function getAllSales(){
-        return Sale::with(['images'=>function($query){
-            $query->where('type','profile');
-        }])->get();
+        return SaleDashboardResource::collection(Sale::with('images')->get());
     }
     public function getSaleById($saleId){
         return Sale::findOrFail($saleId);
