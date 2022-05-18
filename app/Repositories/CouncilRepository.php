@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Events\UserCreated;
+use App\Http\Resources\Council\Dashboard\CouncilDashboardResource;
 use App\Http\Resources\Council\Public\CouncilPublicResource;
 use App\Interfaces\CouncilRepositoryInterface;
 use App\Services\CloudStorageService;
@@ -28,7 +29,7 @@ class CouncilRepository implements CouncilRepositoryInterface
     }
     public function getAllCouncils()
     {
-        return Council::withCount(['companies','members'])->get();
+        return CouncilDashboardResource::collection(Council::withCount(['companies','members'])->with('images')->get());
     }
     public function getCouncilById($councilId)
     {
