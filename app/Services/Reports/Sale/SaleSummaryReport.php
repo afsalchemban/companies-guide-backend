@@ -24,7 +24,7 @@ class SaleSummaryReport implements SummaryReportInterface
     }
     private function _execute()
     {           
-        return new SingleSaleReportResource($this->sale->loadSum('orders','net_total')->load('companies.activePackage','companies.expiredPackages'));      
+        return new SingleSaleReportResource($this->sale->loadSum('orders','net_total')->load('companies.activePackage','companies.expiredPackages','images'));      
         
     }
     public function generate()

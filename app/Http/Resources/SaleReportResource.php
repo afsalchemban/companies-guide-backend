@@ -23,6 +23,9 @@ class SaleReportResource extends JsonResource
             'companies_added' => [
                 "total" => $this->companies_count
             ],
+            'profile' => new ImageResource($this->whenLoaded('images',function(){
+                return $this->images->where('type','profile')->first();
+            }))
         ];
     }
 }

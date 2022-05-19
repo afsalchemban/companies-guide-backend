@@ -140,4 +140,14 @@ class DataController extends Controller
         
         Mail::to('afsalcodes@gmail.com')->send(new InvoiceMail($mailData));
     }
+    public function test_queue()
+    {
+        $mailData = [
+            'date' => Carbon::now()->format('d/m/Y'),
+            'name' => 'START ENTERPRISES',
+            'email' => 'afsalcodes@gmail.com',
+            'password' => 'dummypassword'
+        ];
+        Mail::to('afsalcodes@gmail.com')->queue(new SaleCredentialMail($mailData));
+    }
 }

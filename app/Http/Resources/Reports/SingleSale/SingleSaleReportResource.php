@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Reports\SingleSale;
 
+use App\Http\Resources\ImageResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class SingleSaleReportResource extends JsonResource
@@ -20,7 +21,10 @@ class SingleSaleReportResource extends JsonResource
             'email' => $this->email,
             'phone_number' => $this->phone_number,
             'total_income' => $this->orders_sum_net_total,
-            'companies' => CompanyResource::collection($this->whenLoaded('companies'))
+            'companies' => CompanyResource::collection($this->whenLoaded('companies')),
+            'profile' => new ImageResource($this->whenLoaded('images',function(){
+                return $this->images->where('type','profile')->first();
+            }))
         ];
     }
 }
