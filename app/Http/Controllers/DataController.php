@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Storage;
 use LaravelDaily\Invoices\Invoice;
 use LaravelDaily\Invoices\Classes\Buyer;
 use LaravelDaily\Invoices\Classes\InvoiceItem;
+use Intervention\Image\Facades\Image as ImageIntervention;
 
 class DataController extends Controller
 {
@@ -149,5 +150,26 @@ class DataController extends Controller
             'password' => 'dummypassword'
         ];
         Mail::to('afsalcodes@gmail.com')->queue(new SaleCredentialMail($mailData));
+    }
+    public function test_resize(){
+        $file = Storage::get('raw/raw.jpeg');
+        $img = ImageIntervention::make($file);
+        $width = 386;
+        $height = 247;
+        // we need to resize image, otherwise it will be cropped 
+        if ($img->width() > $width) { 
+            $img->resize($width, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+        }
+
+        if ($img->height() > $height) {
+            $img->resize(null, $height, function ($constraint) {
+                $constraint->aspectRatio();
+            }); 
+        }
+
+        $resized = $img->resizeCanvas($width, $height, 'center', false, '#ffffff')->stream('jpeg');
+        Storage::put('resized/resized.jpeg', $resized);
     }
 }

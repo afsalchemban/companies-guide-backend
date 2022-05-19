@@ -137,6 +137,7 @@ Route::get('mail', [DataController::class, 'test_mail']);
 Route::get('queue', [DataController::class, 'test_queue']);
 Route::get('invoice', [DataController::class, 'test_invoice']);
 Route::post('image', [DataController::class, 'image']);
+Route::get('resize', [DataController::class, 'test_resize']);
 
 
 
