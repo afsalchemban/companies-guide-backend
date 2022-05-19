@@ -22,6 +22,14 @@ class ImageService
     {
         $this->cloudStorage = $cloudStorage;
     }
+    private function _resizeImageWithStretching($dimension,UploadedFile $file,$path)
+    {
+        $img = ImageIntervention::make($file->path());
+        $resized = $img->resize($dimension['width'], $dimension['height'])->stream($file->extension());
+        $fileName = $path.'/'.time().'.'.$file->extension();
+        Storage::put($fileName, $resized);
+        return Storage::url($fileName);
+    }
     private function _resizeImage($dimension,UploadedFile $file,$path)
     {
         $img = ImageIntervention::make($file->path());
@@ -106,8 +114,8 @@ class ImageService
     {
         $council->images()->where('type','cover')->delete();
         $image = new Image;
-        $image->desktop_path = $this->_resizeImage(DefaultImageConstants::COUNCIL_COVER_DESKTOP_SIZE,$file,"councils/council_$council->id/cover/desktop");
-        $image->mobile_path = $this->_resizeImage(DefaultImageConstants::COUNCIL_COVER_MOBILE_SIZE,$file,"councils/council_$council->id/cover/mobile");
+        $image->desktop_path = $this->_resizeImageWithStretching(DefaultImageConstants::COUNCIL_COVER_DESKTOP_SIZE,$file,"councils/council_$council->id/cover/desktop");
+        $image->mobile_path = $this->_resizeImageWithStretching(DefaultImageConstants::COUNCIL_COVER_MOBILE_SIZE,$file,"councils/council_$council->id/cover/mobile");
         $image->type = 'cover';
         $image->imageble()->associate($council);
         $image->save();
