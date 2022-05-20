@@ -23,7 +23,7 @@ class PublicController extends Controller
 {
     public function companiesByPackage(Package $package)
     {
-        return PublicCompanyResource::collection($package->activeCompanies()->with(['sale','companyActivity'])->get());
+        return PublicCompanyResource::collection($package->activeCompanies()->with(['sale','companyActivity','images'])->get());
     }
     public function allActiveCompanies()
     {
