@@ -7,6 +7,7 @@ RUN apk add icu-dev
 RUN docker-php-ext-install pdo pdo_mysql mysqli
 
 RUN apk add --no-cache \
+        supervisor \
         libjpeg-turbo-dev \
         libpng-dev \
         libwebp-dev \
