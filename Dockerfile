@@ -34,6 +34,4 @@ RUN cd /app && \
 
 RUN chown -R www-data: /app
 
-ENTRYPOINT ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisord.conf"]
-
 CMD sh /app/docker/startup.sh
