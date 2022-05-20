@@ -23,6 +23,8 @@ RUN mkdir -p /run/nginx
 
 COPY docker/nginx.conf /etc/nginx/nginx.conf
 
+COPY supervisor/laravel-worker.conf /etc/supervisord.conf
+
 RUN mkdir -p /app
 COPY . /app
 
@@ -31,5 +33,7 @@ RUN cd /app && \
     /usr/local/bin/composer install --no-dev
 
 RUN chown -R www-data: /app
+
+ENTRYPOINT ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisord.conf"]
 
 CMD sh /app/docker/startup.sh
