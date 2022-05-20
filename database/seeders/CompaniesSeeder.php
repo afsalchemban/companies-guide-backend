@@ -258,51 +258,6 @@ class CompaniesSeeder extends Seeder
             'userable_type' => 'company'
         ]);
 
-        DB::table('images')->insert([
-            'type' => 'logo',
-            'desktop_path' => Storage::url(DefaultImageConstants::COMPANY_LOGO_DESKTOP),
-            'mobile_path' => Storage::url(DefaultImageConstants::COMPANY_LOGO_MOBILE),
-            'thumbnail_path' => Storage::url(DefaultImageConstants::COMPANY_LOGO_THUMBNAIL),
-            'imageble_id' => '1',
-            'imageble_type' => 'company',
-        ]);
-
-        DB::table('images')->insert([
-            'type' => 'logo',
-            'desktop_path' => Storage::url(DefaultImageConstants::COMPANY_LOGO_DESKTOP),
-            'mobile_path' => Storage::url(DefaultImageConstants::COMPANY_LOGO_MOBILE),
-            'thumbnail_path' => Storage::url(DefaultImageConstants::COMPANY_LOGO_THUMBNAIL),
-            'imageble_id' => '2',
-            'imageble_type' => 'company',
-        ]);
-
-        DB::table('images')->insert([
-            'type' => 'logo',
-            'desktop_path' => Storage::url(DefaultImageConstants::COMPANY_LOGO_DESKTOP),
-            'mobile_path' => Storage::url(DefaultImageConstants::COMPANY_LOGO_MOBILE),
-            'thumbnail_path' => Storage::url(DefaultImageConstants::COMPANY_LOGO_THUMBNAIL),
-            'imageble_id' => '3',
-            'imageble_type' => 'company',
-        ]);
-
-        DB::table('images')->insert([
-            'type' => 'logo',
-            'desktop_path' => Storage::url(DefaultImageConstants::COMPANY_LOGO_DESKTOP),
-            'mobile_path' => Storage::url(DefaultImageConstants::COMPANY_LOGO_MOBILE),
-            'thumbnail_path' => Storage::url(DefaultImageConstants::COMPANY_LOGO_THUMBNAIL),
-            'imageble_id' => '4',
-            'imageble_type' => 'company',
-        ]);
-
-        DB::table('images')->insert([
-            'type' => 'logo',
-            'desktop_path' => Storage::url(DefaultImageConstants::COMPANY_LOGO_DESKTOP),
-            'mobile_path' => Storage::url(DefaultImageConstants::COMPANY_LOGO_MOBILE),
-            'thumbnail_path' => Storage::url(DefaultImageConstants::COMPANY_LOGO_THUMBNAIL),
-            'imageble_id' => '5',
-            'imageble_type' => 'company',
-        ]);
-
         //insert into companies(business_name,email,phone_number,landline_number,trade_license_number,company_activity_id,legal_status,issued_by,country_id,city_id,area_id,person_in_charge_name,person_in_charge_designation,person_in_charge_email,person_in_charge_mobile,person_in_charge_country,sale_id) select name,email,phone,phone,'1231435' as trade_license_number,1 as company_activity_id,'Freezone' as legal_status,'LLC' as issued_by,1 as country_id,emirate_id,1 as area_id,'Person' as person_in_charge_name,'Designation' as person_in_charge_designation,'person@email.com' as person_in_charge_email,'1233' as person_in_charge_mobile,'UAE' as person_in_charge_country, 1 as sale_id from products;
     }
 }
