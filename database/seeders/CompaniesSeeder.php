@@ -20,11 +20,6 @@ class CompaniesSeeder extends Seeder
     {
 
         DB::unprepared("INSERT INTO `companies` (`business_name`, `email`, `phone_number`, `landline_number`, `trade_license_number`, `company_activity_id`, `legal_status`, `issued_by`, `country_id`, `city_id`, `area_id`, `person_in_charge_name`, `person_in_charge_designation`, `person_in_charge_email`, `person_in_charge_mobile`, `person_in_charge_country`, `sale_id`, `created_at`, `updated_at`) VALUES
-        ('MIDWEST MEDICAL CLINIC', 'midwest@company.com', '864-289-9486', '248-372-0013', '22230133356181', 1, 'Freezone', 'LLC', 1, 1, 1, 'Aaron Mitchell', 'Manager', 'abshire.manuela@example.org', '208.347.7432', 'Incidunt iusto sunt nobis sit quo laudantium. Nulala magnam est vero quibusdam. Quod ea iure praesentium in occaecati sed est. Ut sed pariatur magni modi ab.', 1, '2022-03-21 03:24:24', '2022-04-21 03:24:24'),
-        ('B & A INTERNATIONAL FZCO', 'lamont58@example.net', '(724) 890-2723', '+1-475-456-2955', '3454013332434', 1, 'Freezone', 'LLC', 1, 1, 1, 'Amelia Hackett', 'IT Admin', 'shanna.stokes@example.net', '1-938-297-1637', 'Et sed quia enim id iure rem et natus. Et odit amet occaecati consequatur maiores quis sint ad.', 2, '2022-03-21 03:24:24', '2022-04-21 03:24:24'),
-        ('D & D DIGITAL STUDIO', 'sschuster@example.org', '1-757-830-4441', '539.583.2000', '3874632483', 1, 'Freezone', 'LLC', 1, 1, 1, 'Verda Ledner', 'Market Head', 'nschultz@example.net', '(712) 545-7341', 'Sint ipsa ea ratione eaque omnis sit. Dolores praesentium saepe voluptatem voluptates velit ut molestiae a. Omnis voluptate et enim est alias incidunt quia laudantium.', 2, '2022-03-21 03:24:24', '2022-04-21 03:24:24'),
-        ('R & B ELITE FITNESS', 'uheidenreich@example.net', '(513) 255-4993', '863.731.9705', '4395789435', 1, 'Freezone', 'LLC', 1, 1, 1, 'Gino Prosacco', 'Owner', 'cathrine.greenfelder@example.net', '1-213-348-3253', 'Sit earum delectus consequatur consectetur eum non. Vel consequatur consequatur officia.', 2, '2022-04-21 03:24:24', '2022-04-21 03:24:24'),
-        ('PACIFIC INTERNATIONAL TRADING (L.L.C)', 'bondricka@example.com', '931.588.0183', '+1.520.205.9388', '83745748', 1, 'Freezone', 'LLC', 1, 1, 1, 'Gregory Bode', 'CEO', 'ulices.paucek@example.net', '352.897.1928', 'Aut iusto quo velit accusamus. Ducimus magnam sint aut. Consequuntur modi aut velit quo et impedit sunt illum.', 1, '2022-04-21 03:24:24', '2022-04-21 03:24:24'),
         ('Marinas Performance LLC', 'info@marinasperformance.ae', '+971 2 674 04024', '+971 2 674 04024', '1231435', 1, 'Freezone', 'LLC', 1, 1, 1, 'Person', 'Designation', 'person@email.com', '1233', 'UAE', 1, '2022-03-21 03:24:24', '2022-03-21 03:24:24'),
         ('Energy Hub Supply DMCC', 'admin@energyhubgroup.com', '+971 52 260 5144', '+971 52 260 5144', '1231435', 1, 'Freezone', 'LLC', 1, 2, 1, 'Person', 'Designation', 'person@email.com', '1233', 'UAE', 1, '2022-03-21 03:24:24', '2022-03-21 03:24:24'),
         ('BIO Trading DMCE', 'info@biotrading.me', '+971 56 411 2832', '+971 56 411 2832', '1231435', 1, 'Freezone', 'LLC', 1, 2, 1, 'Person', 'Designation', 'person@email.com', '1233', 'UAE', 1, '2022-03-21 03:24:24', '2022-03-21 03:24:24'),
@@ -247,16 +242,6 @@ class CompaniesSeeder extends Seeder
         ('Cleaning Company', 'info@cleaningcompany.ae', '+971 56 466 0472', '+971 56 466 0472', '1231435', 1, 'Freezone', 'LLC', 1, 2, 1, 'Person', 'Designation', 'person@email.com', '1233', 'UAE', 1, '2022-03-21 03:24:24', '2022-03-21 03:24:24'),
         ('Esteem Communications DMCC', 'info@esteem.me', '+971 4 558 5993', '+971 4 558 5993', '1231435', 1, 'Freezone', 'LLC', 1, 2, 1, 'Person', 'Designation', 'person@email.com', '1233', 'UAE', 1, '2022-03-21 03:24:24', '2022-03-21 03:24:24'),
         ('Blue Bay Consultancy DMCC', 'as@bbay.ae', '+971 54 446 4528', '+971 54 446 4528', '1231435', 1, 'Freezone', 'LLC', 1, 2, 1, 'Person', 'Designation', 'person@email.com', '1233', 'UAE', 1, '2022-03-21 03:24:24', '2022-03-21 03:24:24');");
-
-        DB::table('users')->insert([
-            'name' => 'MIDWEST MEDICAL CLINIC',
-            'email' => 'midwest@company.com',
-            'email_verified_at' => now(),
-            'password' => bcrypt('dummypassword'), // password
-            'remember_token' => Str::random(10),
-            'userable_id' => 1,
-            'userable_type' => 'company'
-        ]);
 
         //insert into companies(business_name,email,phone_number,landline_number,trade_license_number,company_activity_id,legal_status,issued_by,country_id,city_id,area_id,person_in_charge_name,person_in_charge_designation,person_in_charge_email,person_in_charge_mobile,person_in_charge_country,sale_id) select name,email,phone,phone,'1231435' as trade_license_number,1 as company_activity_id,'Freezone' as legal_status,'LLC' as issued_by,1 as country_id,emirate_id,1 as area_id,'Person' as person_in_charge_name,'Designation' as person_in_charge_designation,'person@email.com' as person_in_charge_email,'1233' as person_in_charge_mobile,'UAE' as person_in_charge_country, 1 as sale_id from products;
     }

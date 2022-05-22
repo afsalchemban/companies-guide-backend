@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Interfaces\DataRepositoryInterface;
+use App\Jobs\ImageResize;
 use App\Mail\CompanyCredentialMail;
 use App\Mail\ContractMail;
 use App\Models\City;
@@ -14,6 +15,7 @@ use Carbon\Carbon;
 use App\Mail\DemoMail;
 use App\Mail\InvoiceMail;
 use App\Mail\SaleCredentialMail;
+use App\Services\Image\ImageService;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use LaravelDaily\Invoices\Invoice;
@@ -24,9 +26,10 @@ use Intervention\Image\Facades\Image as ImageIntervention;
 class DataController extends Controller
 {
 
-    public function __construct(DataRepositoryInterface $dataRepository)
+    public function __construct(DataRepositoryInterface $dataRepository, ImageService $imageService)
     {
         $this->dataRepository=$dataRepository;
+        $this->imageService=$imageService;
     }
     /* 
     Select the package when company registration
@@ -86,8 +89,18 @@ class DataController extends Controller
     
     public function test_get(){
 
-        return Carbon::now()->subDays(30)->toDateTimeString().' - '.Carbon::now()->firstOfMonth()->toDateTimeString().' - '.Carbon::now()->startOfMonth()->subMonth()->toDateString().' - '.Carbon::now()->subMonth()->toDateTimeString().' - '.Carbon::now()->subMonths(6)->toDateTimeString();
-        
+        return Carbon::now()->subDays(30)->toDateTimeString().' - '.Carbon::now()->firstOfMonth()->toDateTimeString().' - '.Carbon::now()->startOfMonth()->subMonth()->toDateString().' - '.Carbon::now()->subMonth()->toDateTimeString().' - '.Carbon::now()->subMonths(6)->toDateTimeString();    
+    }
+
+    public function test_resize_job(){
+
+        $logos = DB::table('companies_clone')
+            ->select('id','photo')->whereNotNull('photo')
+            ->get();
+        $logos->each(function ($item, $key) {
+            $file = storage_path().'/app/companies-logo/'.$item->photo; 
+            ImageResize::dispatch($file,$item->id);
+        });       
     }
 
     public function test_post(Request $request){

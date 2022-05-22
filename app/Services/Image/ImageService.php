@@ -49,6 +49,26 @@ class ImageService
         Storage::put($fileName, $resized);
         return Storage::url($fileName);
     }
+    private function _resizeImageJob($dimension,$file,$path)
+    {
+        $extension = pathinfo($file, PATHINFO_EXTENSION);
+        $img = ImageIntervention::make($file);
+        // we need to resize image, otherwise it will be cropped 
+        if ($img->width() > $dimension['width']) { 
+            $img->resize($dimension['width'], null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+        }
+        if ($img->height() > $dimension['height']) {
+            $img->resize(null, $dimension['height'], function ($constraint) {
+                $constraint->aspectRatio();
+            }); 
+        }
+        $resized = $img->resizeCanvas($dimension['width'], $dimension['height'], 'center', false, '#ffffff')->stream($extension);
+        $fileName = $path.'/'.time().'.'.$extension;
+        Storage::put($fileName, $resized);
+        return Storage::url($fileName);
+    }
     public function addDefaultSaleProfileImage(Sale $sale){
         $image = new Image;
         $image->desktop_path = Storage::url(DefaultImageConstants::SALE_PROFILE_DESKTOP);
@@ -86,6 +106,19 @@ class ImageService
         $image->desktop_path = $this->_resizeImage(DefaultImageConstants::COMPANY_LOGO_DESKTOP_SIZE,$file,"companies/company_$company->id/logo/desktop");
         $image->mobile_path = $this->_resizeImage(DefaultImageConstants::COMPANY_LOGO_MOBILE_SIZE,$file,"companies/company_$company->id/logo/mobile");
         $image->thumbnail_path = $this->_resizeImage(DefaultImageConstants::COMPANY_LOGO_THUMBNAIL_SIZE,$file,"companies/company_$company->id/logo/thumbnail");
+        $image->type = 'logo';
+        $image->imageble()->associate($company);
+        $image->save();
+    }
+
+    public function updateCompanyLogoImageForJob($company, $file)
+    {
+        $company = Company::find($company);
+        $company->images()->where('type','logo')->delete();
+        $image = new Image;
+        $image->desktop_path = $this->_resizeImageJob(DefaultImageConstants::COMPANY_LOGO_DESKTOP_SIZE,$file,"companies/company_$company->id/logo/desktop");
+        $image->mobile_path = $this->_resizeImageJob(DefaultImageConstants::COMPANY_LOGO_MOBILE_SIZE,$file,"companies/company_$company->id/logo/mobile");
+        $image->thumbnail_path = $this->_resizeImageJob(DefaultImageConstants::COMPANY_LOGO_THUMBNAIL_SIZE,$file,"companies/company_$company->id/logo/thumbnail");
         $image->type = 'logo';
         $image->imageble()->associate($company);
         $image->save();
