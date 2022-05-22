@@ -57,7 +57,7 @@ return [
         ],
         'gcs' => [
             'driver' => 'gcs',
-            //'key_file_path' => resource_path(env('GOOGLE_CLOUD_KEY_FILE', 'uaect-280011-d478177854b2.json')), // only needed in local 
+            //'key_file_path' => storage_path('app/uaect-280011-a8cde690097c.json'), // only needed in local 
             'bucket' => env('GOOGLE_CLOUD_STORAGE_BUCKET', 'business-council-bucket'),
             'path_prefix' => env('GOOGLE_CLOUD_STORAGE_PATH_PREFIX', ''), // optional: /default/path/to/apply/in/bucket
             'apiEndpoint' => env('GOOGLE_CLOUD_STORAGE_API_URI', null), // see: Public URLs below
