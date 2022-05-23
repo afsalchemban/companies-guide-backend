@@ -67,4 +67,8 @@ class PublicController extends Controller
     public function councilEventDetailsById(CouncilEvent $councilEvent){
         return $councilEvent;
     }
+    public function companiesForDirectoryPage()
+    {
+        return PublicCompanyResource::collection(Company::whereHas('activePackage')->with(['companyActivity','activePackage','city','area'])->get());
+    }
 }

@@ -27,6 +27,8 @@ class PublicCompanyResource extends JsonResource
             })),
             'activity' => ActivityPublicResource::collection($this->whenLoaded('companyActivity')),
             'added_by' => $this->whenLoaded('sale'),
+            'city' => $this->whenLoaded('city'),
+            'area' => $this->whenLoaded('area')
         ];
     }
 }

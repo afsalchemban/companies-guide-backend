@@ -19,6 +19,11 @@ class PublicTest extends TestCase
         $response = $this->getJson('/api/public/companies/1')
         ->assertStatus(Response::HTTP_OK);
     }
+    public function test_get_company_for_directory_page()
+    {
+        $response = $this->getJson('/api/public/companies/directory_page')
+        ->assertStatus(Response::HTTP_OK)->dd();
+    }
     public function test_get_company_all_active()
     {
         $response = $this->getJson('/api/public/companies/active')
