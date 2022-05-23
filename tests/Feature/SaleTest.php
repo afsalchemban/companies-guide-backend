@@ -46,7 +46,9 @@ class SaleTest extends TestCase
     {
         $user = User::sale(2);
         Sanctum::actingAs($user);
-        $company = Company::factory()->make();
+        $company = Company::factory()->make([
+            'company_activity_id' => '[1,2]'
+        ]);
         $this->json('post', 'api/company', $company->toArray())->assertExactJson(
             [
                 'company_added' => true
@@ -91,7 +93,9 @@ class SaleTest extends TestCase
     {
         $user = User::sale(2);
         Sanctum::actingAs($user);
-        $company = Company::factory()->make();
+        $company = Company::factory()->make([
+            'company_activity_id' => '[1,2]'
+        ]);
         $this->json('post', 'api/company', $company->toArray())->assertExactJson(
             [
                 'company_added' => true
@@ -133,11 +137,13 @@ class SaleTest extends TestCase
         $this->json('post', 'api/company/pay/cheque', $payload)->assertStatus(Response::HTTP_OK);
     }    
 
-    public function test_company_registration_and_pay_by_bank()
+    public function test_company_registration_for_pay_by_bank()
     {
         $user = User::sale(2);
         Sanctum::actingAs($user);
-        $company = Company::factory()->make();
+        $company = Company::factory()->make([
+            'company_activity_id' => '[1,2]'
+        ]);
         $this->json('post', 'api/company', $company->toArray())->assertExactJson(
             [
                 'company_added' => true

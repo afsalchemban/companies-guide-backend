@@ -20,12 +20,19 @@ class CompanyRegistrationFromCache
         }
         $this->companyData = Cache::get('registered-company-'.Auth::user()->id);
     }
+    private function _addCompanyActivity($activities,$company){
+        json_decode($activities);
+    }
 
     public function registerFromCache()
     {
         $sale = Auth::user()->userable;
 
-        $this->company = $sale->companies()->create($this->companyData);
+        $this->company = $sale->companies()->create(array_filter($this->companyData,function($k){
+            return $k != 'company_activity_id';
+        }, ARRAY_FILTER_USE_KEY));
+
+        $this->_addCompanyActivity($this->companyData['company_activity_id'],$this->company);
 
         return $this->company;
     }

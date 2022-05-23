@@ -62,6 +62,9 @@ class CompanyRepository implements CompanyRepositoryInterface
         ],Response::HTTP_OK);
         
     }
+    private function _updateCompanyActivity($activities){
+        json_decode($activities);
+    }
     public function updateCompany(Company $company, array $newDetails)
     {
         if(isset($newDetails['logo_image']))
@@ -69,6 +72,8 @@ class CompanyRepository implements CompanyRepositoryInterface
             $this->imageService->updateCompanyLogoImage($company,$newDetails['logo_image']);
             unset($newDetails['logo_image']);
         }
+        $this->_updateCompanyActivity($newDetails['company_activity_id']);
+        unset($newDetails['company_activity_id']);
         return $company->update($newDetails);
     }
     public function createUserForCompany(Company $company)

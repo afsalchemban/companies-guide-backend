@@ -38,6 +38,7 @@ class StoreCompanyRequest extends FormRequest
             'company_activity_id' => 'required',
             'legal_status' => 'required',
             'issued_by' => 'required',
+            'website' => 'required',
             'country_id' => 'required|integer',
             'city_id' => 'required|integer',
             'area_id' => 'required|integer',

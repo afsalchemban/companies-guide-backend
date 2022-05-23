@@ -17,7 +17,7 @@ class PublicEndTest extends TestCase
     public function test_get_company_by_package()
     {
         $response = $this->getJson('/api/public/companies/1')
-        ->assertStatus(Response::HTTP_OK)->dd();
+        ->assertStatus(Response::HTTP_OK);
     }
     public function test_get_company_all_active()
     {

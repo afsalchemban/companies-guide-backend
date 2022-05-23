@@ -66,7 +66,7 @@ class CompanyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateCompanyRequest $request, Company $company)
-    {
+    {   
         return $this->companyRepository->updateCompany($company, $request->validated());
     }
 

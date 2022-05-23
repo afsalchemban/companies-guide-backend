@@ -55,7 +55,7 @@ class Company extends Model
 
     public function companyActivity()
     {
-        return $this->belongsTo(CompanyActivity::class);
+        return $this->belongsToMany(CompanyActivity::class);
     }
 
     public function orders()

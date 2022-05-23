@@ -88,8 +88,19 @@ class DataController extends Controller
 
     
     public function test_get(){
-
-        return Carbon::now()->subDays(30)->toDateTimeString().' - '.Carbon::now()->firstOfMonth()->toDateTimeString().' - '.Carbon::now()->startOfMonth()->subMonth()->toDateString().' - '.Carbon::now()->subMonth()->toDateTimeString().' - '.Carbon::now()->subMonths(6)->toDateTimeString();    
+        $feed = array();
+        $products = DB::table('companies_clone')->get()->toArray();
+        foreach($products as $product)
+        {
+            $categories = json_decode($product->act);
+            foreach ($categories as $value) {
+                array_push($feed,[
+                    "company_id" => $product->id,
+                    "company_activity_id" => $value
+                ]);
+            }
+        }
+        DB::table('company_company_activity')->insert($feed);
     }
 
     public function test_resize_job(){
