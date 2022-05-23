@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Public;
 
+use App\Http\Resources\Company\Public\ActivityPublicResource;
 use App\Http\Resources\ImageResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -19,11 +20,12 @@ class PublicCompanyResource extends JsonResource
             'id' => $this->id,
             'name' => $this->business_name,
             'email' => $this->email,
+            'website' => $this->website,
             'phone_number' => $this->phone_number,
             'logo' => new ImageResource($this->whenLoaded('images',function(){
                 return $this->images->where('type','logo')->first();
             })),
-            'activity' => $this->whenLoaded('companyActivity'),
+            'activity' => ActivityPublicResource::collection($this->whenLoaded('companyActivity')),
             'added_by' => $this->whenLoaded('sale'),
         ];
     }

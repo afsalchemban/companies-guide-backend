@@ -32,4 +32,19 @@ class StoreCouncilEventsRequest extends FormRequest
             'image' => 'nullable|image'
         ];
     }
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'name.required' => 'Name is required',
+            'location.required' => 'Location is required',
+            'event_date.required' => 'Event date is required',
+            'link.required' => 'Link  is required',
+            'image.image' => 'File should be an image',
+        ];
+    }
 }

@@ -29,4 +29,16 @@ class ChangeCouncilsImageFileRequest extends FormRequest
             'file' => 'required|image',           
         ];
     }
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'file.required' => 'Image file is required',
+            'file.image' => 'File should be an image',
+        ];
+    }
 }

@@ -29,4 +29,16 @@ class UpdateCouncilGalleryRequest extends FormRequest
             'description' => 'required'          
         ];
     }
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'title.required' => 'Title is required',
+            'description.required' => 'Description is required'
+        ];
+    }
 }

@@ -31,4 +31,21 @@ class StoreSaleRequest extends FormRequest
             'dob' => 'required'
         ];
     }
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'name.required' => 'Name is required',
+            'email.required' => 'Email is required',
+            'email.unique' => 'Email is already used',
+            'phone_number.required' => 'Phone no is required',
+            'phone_number.unique' => 'Phone no is already taken',
+            'gender.required' => 'Gender is required',
+            'dob.required' => 'Date of Birth is required',
+        ];
+    }
 }

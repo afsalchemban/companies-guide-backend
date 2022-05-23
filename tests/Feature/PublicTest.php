@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Illuminate\Http\Response;
 
-class PublicEndTest extends TestCase
+class PublicTest extends TestCase
 {
     /**
      * A basic feature test example.
