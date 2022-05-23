@@ -27,4 +27,15 @@ class UploadProfileImageSaleRequest extends FormRequest
             'file' => 'required|image'
         ];
     }
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'file.image' => 'File should be an image',
+        ];
+    }
 }

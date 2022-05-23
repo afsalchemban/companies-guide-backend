@@ -38,4 +38,25 @@ class UpdateCouncilRequest extends FormRequest
             'person_in_charge_country' => 'required',
         ];
     }
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'council_name.required' => 'Council name is required',
+            'email.required' => 'Email is required',
+            'email.unique' => 'Email is already used',
+            'mobile_number.required' => 'Mobile no is required',
+            'mobile_number.unique' => 'Mobile no is already taken',
+            'landline_number.required' => 'Landline no is required',
+            'person_in_charge_name.required' => 'Person in charge name is required',
+            'person_in_charge_designation.required' => 'Person in charge designation is required',
+            'person_in_charge_email.required' => 'Person in charge email is required',
+            'person_in_charge_mobile.required' => 'Person in charge mobile is required',
+            'person_in_charge_country.required' => 'Person in charge country is required'
+        ];
+    }
 }

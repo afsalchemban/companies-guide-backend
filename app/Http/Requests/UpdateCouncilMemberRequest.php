@@ -36,4 +36,24 @@ class UpdateCouncilMemberRequest extends FormRequest
             'area_id' => 'required|integer',         
         ];
     }
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'name.required' => 'Name is required',
+            'dob.required' => 'Date of Birth is required',
+            'email.required' => 'Email is required',
+            'email.unique' => 'Email is already used',
+            'nationality.required' => 'Nationality is required',
+            'mobile.required' => 'Mobile no is required',
+            'designation.required' => 'Designation is required',
+            'country_id.required' => 'Country should select',
+            'city_id.required' => 'City should select',
+            'area_id.required' => 'Area should required',
+        ];
+    }
 }

@@ -33,4 +33,21 @@ class UpdateSaleRequest extends FormRequest
             'profile_image' => 'nullable|image',
         ];
     }
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'name.required' => 'Name is required',
+            'email.required' => 'Email is required',
+            'email.exists' => 'Email is already existing',
+            'phone_number.required' => 'Phone no is required',
+            'phone_number.unique' => 'Phone no is already taken',
+            'gender.required' => 'Gender is required',
+            'dob.required' => 'Date of Birth is required',
+        ];
+    }
 }
