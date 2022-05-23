@@ -107,7 +107,7 @@ class AdminTest extends TestCase
         $company = Company::factory()->make([
             'email' => Company::find(1)->email,
             'logo_image' => $file,
-            'company_activity_id' => '[1,2]'
+            'company_activity_id' => '[3,4]'
         ]);
         $this->json('put', 'api/company/1', $company->toArray())
          ->assertStatus(Response::HTTP_OK);

@@ -21,7 +21,8 @@ class CompanyRegistrationFromCache
         $this->companyData = Cache::get('registered-company-'.Auth::user()->id);
     }
     private function _addCompanyActivity($activities,$company){
-        json_decode($activities);
+        $activities = json_decode($activities);
+        $company->companyActivity()->sync($activities);
     }
 
     public function registerFromCache()

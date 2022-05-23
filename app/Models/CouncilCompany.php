@@ -21,7 +21,7 @@ class CouncilCompany extends Model
     }
     public function companyActivity()
     {
-        return $this->belongsTo(CompanyActivity::class);
+        return $this->morphToMany(CompanyActivity::class, 'activitable');
     }
     public function images()
     {

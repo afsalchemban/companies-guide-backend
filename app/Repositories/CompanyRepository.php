@@ -62,19 +62,21 @@ class CompanyRepository implements CompanyRepositoryInterface
         ],Response::HTTP_OK);
         
     }
-    private function _updateCompanyActivity($activities){
-        json_decode($activities);
+    private function _updateCompanyActivity($activities,$company){
+        $activities = json_decode($activities);
+        $company->companyActivity()->sync($activities);
     }
     public function updateCompany(Company $company, array $newDetails)
     {
-        if(isset($newDetails['logo_image']))
-        {
+        if(isset($newDetails['logo_image'])){
             $this->imageService->updateCompanyLogoImage($company,$newDetails['logo_image']);
-            unset($newDetails['logo_image']);
         }
-        $this->_updateCompanyActivity($newDetails['company_activity_id']);
-        unset($newDetails['company_activity_id']);
-        return $company->update($newDetails);
+
+        $this->_updateCompanyActivity($newDetails['company_activity_id'],$company);
+        
+        return $company->update(array_filter($newDetails,function($k){
+            return $k != 'company_activity_id' && $k != 'logo_image';
+        }, ARRAY_FILTER_USE_KEY));
     }
     public function createUserForCompany(Company $company)
     {

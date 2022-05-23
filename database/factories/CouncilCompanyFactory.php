@@ -22,7 +22,6 @@ class CouncilCompanyFactory extends Factory
             'phone_number' => $this->faker->phoneNumber(),
             'landline_number' => $this->faker->phoneNumber(),
             'trade_license_number' => $this->faker->text(),
-            'company_activity_id' => 1,
             'legal_status' => 'Freezone',
             'issued_by' => 'LLC',
             'country_id' => 1,

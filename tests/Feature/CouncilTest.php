@@ -49,6 +49,7 @@ class CouncilTest extends TestCase
         $file = UploadedFile::fake()->image('avatar.jpg');
         $councilCompany = CouncilCompany::factory()->make([
             'logo_file' => $file,
+            'company_activity_id' => '[1,2]'
         ]);
         $this->json('post', 'api/council/council_company/1', $councilCompany->toArray())
          ->assertStatus(Response::HTTP_CREATED);
@@ -109,7 +110,9 @@ class CouncilTest extends TestCase
     public function test_council_can_update_company()
     {
         Sanctum::actingAs(User::council(4));
-        $councilCompany = CouncilCompany::factory()->make();
+        $councilCompany = CouncilCompany::factory()->make([
+            'company_activity_id' => '[3,4]',
+        ]);
         $this->json('put', 'api/council/council_company/1/1', $councilCompany->toArray())
         ->assertStatus(Response::HTTP_OK);
     }

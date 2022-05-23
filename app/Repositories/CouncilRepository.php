@@ -142,13 +142,17 @@ class CouncilRepository implements CouncilRepositoryInterface
     {
         return $file->store('councils/companies/logos');
     }
+    private function _updateCompanyActivity($activities,$councilCompany){
+        $activities = json_decode($activities);
+        $councilCompany->companyActivity()->sync($activities);
+    }
     public function createCouncilCompany(array $councilCompanyDetails)
     {
         $council = Auth::user()->userable;
         $company = $council->companies()->create(array_filter($councilCompanyDetails,function($k){
-            return $k != 'logo_file';
+            return $k != 'logo_file' && $k != 'company_activity_id';
         }, ARRAY_FILTER_USE_KEY));
-        
+        $this->_updateCompanyActivity($councilCompanyDetails['company_activity_id'],$company);
         if(isset($councilCompanyDetails['logo_file']))
         {
             $this->imageService->updateCouncilCompanyLogo($council,$company,$councilCompanyDetails['logo_file']);
@@ -161,7 +165,10 @@ class CouncilRepository implements CouncilRepositoryInterface
     }
     public function updateCouncilCompany(array $newDetails, CouncilCompany $councilCompany)
     {
-        return $councilCompany->update($newDetails);
+        $this->_updateCompanyActivity($newDetails['company_activity_id'],$councilCompany);
+        return $councilCompany->update(array_filter($newDetails,function($k){
+            return $k != 'company_activity_id';
+        }, ARRAY_FILTER_USE_KEY));
     }
     public function updateCouncilMember(array $newDetails, CouncilMember $councilMember)
     {
