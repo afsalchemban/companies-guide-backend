@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Response;
@@ -9,9 +10,14 @@ use Illuminate\Http\Response;
 class AuthController extends Controller
 {
     //
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){ 
+
+        $validated = $request->safe();
+        $email = $validated['email'];
+        $password = $validated['password'];
+        
+        if(Auth::attempt(['email' => $email, 'password' => $password])){ 
             $auth = Auth::user(); 
             $success['token'] =  $auth->createToken('LaravelSanctumAuth')->plainTextToken; 
             $success['name'] =  $auth->name;
