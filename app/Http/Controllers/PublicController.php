@@ -69,6 +69,6 @@ class PublicController extends Controller
     }
     public function companiesForDirectoryPage()
     {
-        return PublicCompanyResource::collection(Company::whereHas('activePackage')->with(['companyActivity','activePackage','city','area'])->get());
+        return PublicCompanyResource::collection(Company::whereHas('activePackage')->with(['companyActivity','activePackage','city','area','images'])->get());
     }
 }
