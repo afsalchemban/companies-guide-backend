@@ -48,25 +48,31 @@ class CompanyReportForSale implements  ReportInterface
 
             $query->where('package_id',$this->package);
 
+        })->whereHas('companyActivity', function (Builder $query) {
+
+            if($this->activity!=null) { $query->where('company_activity_id',$this->activity);}
+
         })->with(['activePackage','expiredPackages','companyActivity','sale','images'])->where(function (Builder $query) {
             
             $query->where('sale_id',$this->sale->id);  
             if($this->duration!=null&&is_string($this->duration)) { $query->where('created_at', '>=',$this->duration); }
             if($this->duration!=null&&!is_string($this->duration)) { $query->whereBetween('created_at', [$this->duration->from,$this->duration->to]); }
             if($this->company!=null) { $query->where('id',$this->company); }
-            if($this->activity!=null) { $query->where('company_activity_id',$this->activity); }
 
         })->get();
     }
     private function _loadWithoutPackage()
     {
-        return Company::with(['activePackage','expiredPackages','companyActivity','sale','images'])->where(function (Builder $query) {
+        return Company::whereHas('companyActivity', function (Builder $query) {
+
+            if($this->activity!=null) { $query->where('company_activity_id',$this->activity);}
+
+        })->with(['activePackage','expiredPackages','companyActivity','sale','images'])->where(function (Builder $query) {
 
             $query->where('sale_id',$this->sale->id);    
             if($this->duration!=null&&is_string($this->duration)) { $query->where('created_at', '>=',$this->duration); }
             if($this->duration!=null&&!is_string($this->duration)) { $query->whereBetween('created_at', [$this->duration->from,$this->duration->to]); }
             if($this->company!=null) { $query->where('id',$this->company); }
-            if($this->activity!=null) { $query->where('company_activity_id',$this->activity); }
 
         })->get();
     }

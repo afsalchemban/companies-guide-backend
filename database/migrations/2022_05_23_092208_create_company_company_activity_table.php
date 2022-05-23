@@ -13,13 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('company_company_activity', function (Blueprint $table) {
-            $table->unsignedBigInteger('company_id');
+        Schema::create('activitables', function (Blueprint $table) {
             $table->unsignedBigInteger('company_activity_id');
-        });
-        Schema::table('company_company_activity', function (Blueprint $table) {
-            $table->foreign('company_id')->references('id')->on('companies')->onDelete('restrict');
-            $table->foreign('company_activity_id')->references('id')->on('company_activities')->onDelete('restrict');
+            $table->integer('activitable_id');
+            $table->string('activitable_type');
         });
     }
 
@@ -30,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('company_company_activity');
+        Schema::dropIfExists('activitables');
     }
 };

@@ -55,7 +55,7 @@ class Company extends Model
 
     public function companyActivity()
     {
-        return $this->belongsToMany(CompanyActivity::class);
+        return $this->morphToMany(CompanyActivity::class, 'activitable');
     }
 
     public function orders()

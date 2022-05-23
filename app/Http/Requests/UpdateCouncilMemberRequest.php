@@ -53,7 +53,7 @@ class UpdateCouncilMemberRequest extends FormRequest
             'designation.required' => 'Designation is required',
             'country_id.required' => 'Country should select',
             'city_id.required' => 'City should select',
-            'area_id.required' => 'Area should required',
+            'area_id.required' => 'Area should select',
         ];
     }
 }

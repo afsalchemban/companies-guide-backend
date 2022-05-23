@@ -23,7 +23,7 @@ class CompanyReportTest extends TestCase
             'company_id' => null,
             'package_id' => null,
             'company_activity_id' => null,
-            'duration' => '{"type":"custom","from":"2022-04-01","to":"2022-05-29"}'
+            'duration' => null
         ];
         $response = $this->post('/api/report/company',$payload)
         ->assertStatus(Response::HTTP_OK);
