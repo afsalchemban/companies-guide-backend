@@ -69,6 +69,10 @@ class PublicController extends Controller
     }
     public function companiesForDirectoryPage()
     {
-        return PublicCompanyResource::collection(Company::whereHas('activePackage')->with(['companyActivity','activePackage','city','area','images'])->get());
+        $companies = Company::whereHas('activePackage')->with(['companyActivity','activePackage','city','area','images'])->get();
+        $companies = $companies->sortBy(function ($item) {
+            return $item->activePackage[0]->id;
+        })->values();
+        return PublicCompanyResource::collection($companies);
     }
 }
