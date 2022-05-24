@@ -11,6 +11,6 @@ class CompanyActivity extends Model
 
     public function companies()
     {
-        return $this->hasMany(Company::class);
+        return $this->morphedByMany(Company::class, 'activitable');
     }
 }

@@ -221,5 +221,12 @@ class DataTest extends TestCase
         ];
         $this->json('post', 'api/image', $payload)->assertStatus(Response::HTTP_OK);
     }
+
+    public function test_get_all_activities_with_active_companies()
+    {
+        $response = $this->getJson('/api/data/active_activities')
+        ->assertStatus(Response::HTTP_OK);
+
+    }
     
 }

@@ -109,6 +109,7 @@ Route::prefix('data')->group(function () {
     Route::get('/issued_by', [DataController::class, 'issuedBy']);
     Route::get('/reports', [DataController::class, 'reports']);
     Route::get('/packages', [DataController::class, 'packages']);
+    Route::get('/active_activities', [DataController::class, 'activeActivities']);
 
 });
 

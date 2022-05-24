@@ -86,6 +86,11 @@ class DataController extends Controller
         return $this->dataRepository->getPackages();
     }
 
+    public function activeActivities()
+    {
+        return $this->dataRepository->getActiveActivities();
+    }
+
     
     public function test_get(){
         $feed = array();
