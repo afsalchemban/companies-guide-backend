@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
             CountryCityAreaSeeder::class,
             CompanyActivitySeeder::class,
             CompaniesSeeder::class,
-            CompaniesActivityIntermediateSeeder::class,
+            ActivitablesSeeder::class,
             CompanyLogoSeeder::class,
             SubscriptionSeeder::class,
             OrdersSeeder::class,

@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class CompaniesActivityIntermediateSeeder extends Seeder
+class ActivitablesSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -256,6 +256,8 @@ class CompaniesActivityIntermediateSeeder extends Seeder
         ('company',219, 1165),
         ('company',220, 1689),
         ('company',221, 1782),
-        ('company',222, 1564);");
+        ('company',222, 1564),
+        ('company',223, 764);
+        ");
     }
 }
