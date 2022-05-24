@@ -86,9 +86,9 @@ class DataController extends Controller
         return $this->dataRepository->getPackages();
     }
 
-    public function activeActivities()
+    public function activeActivities($param)
     {
-        return $this->dataRepository->getActiveActivities();
+        return $this->dataRepository->getActiveActivities($param);
     }
 
     

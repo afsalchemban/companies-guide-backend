@@ -62,10 +62,11 @@ class DataRepository implements DataRepositoryInterface
             'packages' => DB::select('select id ,name, price, description from packages')
         ]);
     }
-    public function getActiveActivities()
+    public function getActiveActivities($param)
     {
         return response()->json([
-            'activities' => CompanyActivity::whereHas('companies')->orderBy('title')->get()
+            'activities' => CompanyActivity::whereHas('companies')->where('title', 'like', $param.'%')->orderBy('title')
+            ->take(10)->get()
         ]);
     }
     public function searchSales($param)
