@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DirectoryPageRequest;
 use App\Http\Resources\Council\Public\CouncilCompanyPublicResource;
 use App\Http\Resources\Council\Public\CouncilEventPublicResource;
 use App\Http\Resources\Council\Public\CouncilMediaPublicResource;
@@ -67,9 +68,15 @@ class PublicController extends Controller
     public function councilEventDetailsById(CouncilEvent $councilEvent){
         return $councilEvent;
     }
-    public function companiesForDirectoryPage()
+    public function companiesForDirectoryPage(DirectoryPageRequest $request)
     {
-        $companies = Company::whereHas('activePackage')->with(['companyActivity','activePackage','city','area','images'])->get();
+        $validated = $request->validated();
+        $companies = Company::where(function (Builder $query) use ($validated) {
+            if(!empty($validated['company_id'])) { $query->where('id',$validated['company_id']); }
+            if(!empty($validated['city_id'])) { $query->where('city_id',$validated['city_id']); }
+        })->whereHas('activePackage')->whereHas('companyActivity',function (Builder $query) use ($validated) {
+            if(!empty($validated['company_activity_id'])) { $query->where('company_activity_id',$validated['company_activity_id']); }
+        })->with(['companyActivity','activePackage','city','area','images'])->get();
         $companies = $companies->sortBy(function ($item) {
             return $item->activePackage[0]->id;
         })->values();

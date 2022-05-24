@@ -152,7 +152,7 @@ Route::get('resize', [DataController::class, 'test_resize_job']);
 Route::prefix('public')->group(function () {
 
     Route::get('/companies/active', [PublicController::class, 'allActiveCompanies']);
-    Route::get('/companies/directory_page', [PublicController::class, 'companiesForDirectoryPage']);
+    Route::post('/companies/directory_page', [PublicController::class, 'companiesForDirectoryPage']);
     Route::get('/companies/{package}', [PublicController::class, 'companiesByPackage']);
     Route::get('/councils', [PublicController::class, 'allCouncils']);
     Route::get('/council/{council}', [PublicController::class, 'councilById']);
