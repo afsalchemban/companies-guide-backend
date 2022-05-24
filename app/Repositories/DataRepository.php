@@ -65,7 +65,7 @@ class DataRepository implements DataRepositoryInterface
     public function getActiveActivities()
     {
         return response()->json([
-            'activities' => CompanyActivity::whereHas('companies')->get()
+            'activities' => CompanyActivity::whereHas('companies')->orderBy('title')->get()
         ]);
     }
     public function searchSales($param)
