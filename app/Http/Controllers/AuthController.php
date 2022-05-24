@@ -30,7 +30,7 @@ class AuthController extends Controller
             elseif($auth->userable_type=='sale')
             {
                 $success['sale_id'] =  $auth->userable->id;
-                $success['profile'] = new ImageResource($auth->userable->images()->where('type','logo')->first());
+                $success['profile'] = new ImageResource($auth->userable->images()->where('type','profile')->first());
             }
             elseif($auth->userable_type=='company')
             {

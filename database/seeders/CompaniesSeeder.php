@@ -241,7 +241,19 @@ class CompaniesSeeder extends Seeder
         ('SARA GROUP', 'info@sara-intl.com', '+971 4c 223 2046', '+971 4c 223 2046', '1231435', 'Freezone', 'LLC', 'https://www.saragroup.co.in', 1, 2, 1, 'Person', 'Designation', 'person@email.com', '1233', 'UAE', 1, '2022-03-21 03:24:24', '2022-03-21 03:24:24'),
         ('Cleaning Company', 'info@cleaningcompany.ae', '+971 56 466 0472', '+971 56 466 0472', '1231435', 'Freezone', 'LLC', 'https://www.cleaningcompany.ae', 1, 2, 1, 'Person', 'Designation', 'person@email.com', '1233', 'UAE', 1, '2022-03-21 03:24:24', '2022-03-21 03:24:24'),
         ('Esteem Communications DMCC', 'info@esteem.me', '+971 4 558 5993', '+971 4 558 5993', '1231435', 'Freezone', 'LLC', 'https://esteem.me', 1, 2, 1, 'Person', 'Designation', 'person@email.com', '1233', 'UAE', 1, '2022-03-21 03:24:24', '2022-03-21 03:24:24'),
-        ('Blue Bay Consultancy DMCC', 'as@bbay.ae', '+971 54 446 4528', '+971 54 446 4528', '1231435', 'Freezone', 'LLC', 'http://bbay.ae', 1, 2, 1, 'Person', 'Designation', 'person@email.com', '1233', 'UAE', 1, '2022-03-21 03:24:24', '2022-03-21 03:24:24');");
+        ('Blue Bay Consultancy DMCC', 'as@bbay.ae', '+971 54 446 4528', '+971 54 446 4528', '1231435', 'Freezone', 'LLC', 'http://bbay.ae', 1, 2, 1, 'Person', 'Designation', 'person@email.com', '1233', 'UAE', 1, '2022-03-21 03:24:24', '2022-03-21 03:24:24'),
+        ('Full Package Company', 'full@company.com', '+971 54 446 1111', '+971 54 446 1111', '1231435', 'Freezone', 'LLC', 'http://full.ae', 1, 2, 1, 'Person', 'Designation', 'person@email.com', '1233', 'UAE', 1, '2022-03-21 03:24:24', '2022-03-21 03:24:24');
+        ");
+
+        DB::table('users')->insert([
+            'name' => 'Full Package Company',
+            'email' => 'full@company.com',
+            'email_verified_at' => now(),
+            'password' => bcrypt('dummypassword'), // password
+            'remember_token' => Str::random(10),
+            'userable_id' => 223,
+            'userable_type' => 'company'
+        ]);
 
         //insert into companies(business_name,email,phone_number,landline_number,trade_license_number,company_activity_id,legal_status,issued_by,country_id,city_id,area_id,person_in_charge_name,person_in_charge_designation,person_in_charge_email,person_in_charge_mobile,person_in_charge_country,sale_id) select name,email,phone,phone,'1231435' as trade_license_number,1 as company_activity_id,'Freezone' as legal_status,'LLC' as issued_by,1 as country_id,emirate_id,1 as area_id,'Person' as person_in_charge_name,'Designation' as person_in_charge_designation,'person@email.com' as person_in_charge_email,'1233' as person_in_charge_mobile,'UAE' as person_in_charge_country, 1 as sale_id from products;
     }
