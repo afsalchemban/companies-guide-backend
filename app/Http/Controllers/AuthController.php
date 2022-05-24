@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use App\Http\Resources\ImageResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Response;
@@ -24,14 +25,17 @@ class AuthController extends Controller
             if($auth->userable_type=='council')
             {
                 $success['council_id'] =  $auth->userable->id;
+                $success['profile'] = new ImageResource($auth->userable->images()->where('type','logo')->first());
             }
             elseif($auth->userable_type=='sale')
             {
                 $success['sale_id'] =  $auth->userable->id;
+                $success['profile'] = new ImageResource($auth->userable->images()->where('type','logo')->first());
             }
             elseif($auth->userable_type=='company')
             {
                 $success['company_id'] =  $auth->userable->id;
+                $success['profile'] = new ImageResource($auth->userable->images()->where('type','logo')->first());
             }
             $success['user_type'] =  $auth->userable_type;
             $success['status'] =  'Success';
