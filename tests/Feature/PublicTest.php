@@ -21,13 +21,8 @@ class PublicTest extends TestCase
     }
     public function test_get_company_for_directory_page()
     {
-        $payload = [
-            'city_id' => null,
-            'company_activity_id' => 1,
-            'company_id' => null
-        ];
-        $response = $this->post('/api/public/companies/directory_page',$payload)
-        ->assertStatus(Response::HTTP_OK);
+        $response = $this->post('/api/public/companies/directory_page')
+        ->assertStatus(Response::HTTP_OK)->dd();
     }
     public function test_get_company_all_active()
     {
