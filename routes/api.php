@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CouncilController;
 use App\Http\Controllers\FollowUpController;
 use App\Http\Controllers\PublicController;
@@ -85,6 +86,7 @@ Route::middleware('auth:sanctum')->group(function () {
         'company'=>CompanyController::class,
         'sale'=>SaleController::class,
         'council'=>CouncilController::class,
+        'banner'=>BannerController::class,
     ]);
 
     Route::get('logout', [AuthController::class, 'logout']);
@@ -137,7 +139,7 @@ Route::get('mail', [DataController::class, 'test_mail']);
 Route::get('queue', [DataController::class, 'test_queue']);
 Route::get('invoice', [DataController::class, 'test_invoice']);
 Route::post('image', [DataController::class, 'image']);
-Route::get('resize', [DataController::class, 'test_resize']);
+Route::get('resize', [DataController::class, 'test_resize_job']);
 
 
 

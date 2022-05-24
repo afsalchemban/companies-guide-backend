@@ -26,7 +26,7 @@ class CouncilTest extends TestCase
      */
     public function test_add_council_members()
     {
-        Sanctum::actingAs(User::council(4));
+        Sanctum::actingAs(User::council(5));
         $councilMember = CouncilMember::factory()->make();
         $this->json('post', 'api/council/council_member/1', $councilMember->toArray())
          ->assertStatus(Response::HTTP_CREATED);
@@ -35,7 +35,7 @@ class CouncilTest extends TestCase
 
     public function test_change_council_logo()
     {
-        Sanctum::actingAs(User::council(4));
+        Sanctum::actingAs(User::council(5));
         $file = UploadedFile::fake()->image('avatar.jpg');
         $this->json('post', 'api/council/change_council_logo/1',[
             'file' => $file,
@@ -45,7 +45,7 @@ class CouncilTest extends TestCase
 
     public function test_add_council_companies()
     {
-        Sanctum::actingAs(User::council(4));
+        Sanctum::actingAs(User::council(5));
         $file = UploadedFile::fake()->image('avatar.jpg');
         $councilCompany = CouncilCompany::factory()->make([
             'logo_file' => $file,
@@ -57,7 +57,7 @@ class CouncilTest extends TestCase
 
     public function test_change_council_cover_image()
     {
-        Sanctum::actingAs(User::council(4));
+        Sanctum::actingAs(User::council(5));
         $file = UploadedFile::fake()->image('avatar.jpg');
         $this->json('post', 'api/council/change_cover_image/1',[
             'file' => $file,
@@ -67,7 +67,7 @@ class CouncilTest extends TestCase
 
     public function test_council_can_add_media()
     {
-        Sanctum::actingAs(User::council(4));
+        Sanctum::actingAs(User::council(5));
         $file = UploadedFile::fake()->image('avatar.jpg');
         $this->json('post', 'api/council/add_media_image/1',[
             'file' => $file,
@@ -79,7 +79,7 @@ class CouncilTest extends TestCase
 
     public function test_council_can_add_event()
     {
-        Sanctum::actingAs(User::council(4));
+        Sanctum::actingAs(User::council(5));
         $file = UploadedFile::fake()->image('avatar.jpg');
         $this->json('post', 'api/council/add_event/1',[
             'name' => 'afsal',
@@ -93,7 +93,7 @@ class CouncilTest extends TestCase
 
     public function test_council_can_update_council()
     {
-        Sanctum::actingAs(User::council(4));
+        Sanctum::actingAs(User::council(5));
         $council = Council::factory()->make();
         $this->json('put', 'api/council/1', $council->toArray())
         ->assertStatus(Response::HTTP_OK);
@@ -101,7 +101,7 @@ class CouncilTest extends TestCase
 
     public function test_council_can_update_member()
     {
-        Sanctum::actingAs(User::council(4));
+        Sanctum::actingAs(User::council(5));
         $councilMember = CouncilMember::factory()->make();
         $this->json('put', 'api/council/council_member/1/1', $councilMember->toArray())
         ->assertStatus(Response::HTTP_OK);
@@ -109,7 +109,7 @@ class CouncilTest extends TestCase
 
     public function test_council_can_update_company()
     {
-        Sanctum::actingAs(User::council(4));
+        Sanctum::actingAs(User::council(5));
         $councilCompany = CouncilCompany::factory()->make([
             'company_activity_id' => '[3,4]',
         ]);
@@ -118,7 +118,7 @@ class CouncilTest extends TestCase
     }
     public function test_council_can_change_company_logo()
     {
-        Sanctum::actingAs(User::council(4));
+        Sanctum::actingAs(User::council(5));
         $file = UploadedFile::fake()->image('avatar.jpg');
         $this->json('post', 'api/council/change_company_logo/1/1', [
             'file' => $file
@@ -127,7 +127,7 @@ class CouncilTest extends TestCase
     }
     public function test_council_can_change_member_image()
     {
-        Sanctum::actingAs(User::council(4));
+        Sanctum::actingAs(User::council(5));
         $file = UploadedFile::fake()->image('avatar.jpg');
         $this->json('post', 'api/council/change_member_image/1/1', [
             'file' => $file
@@ -136,7 +136,7 @@ class CouncilTest extends TestCase
     }
     public function test_council_can_update_event()
     {
-        Sanctum::actingAs(User::council(4));
+        Sanctum::actingAs(User::council(5));
         $this->json('put', 'api/council/update_event/1/1', [
             'name' => 'update',
             'location' => 'abudhabi',
@@ -147,7 +147,7 @@ class CouncilTest extends TestCase
     }
     public function test_council_can_update_media()
     {
-        Sanctum::actingAs(User::council(4));
+        Sanctum::actingAs(User::council(5));
         $this->json('put', 'api/council/update_media/1/1', [
             'title' => 'Test Title afsal',
             'description' => 'Test Description afsal',
@@ -157,7 +157,7 @@ class CouncilTest extends TestCase
     
     public function test_council_can_delete_media()
     {
-        $user = Sanctum::actingAs(User::council(4));
+        $user = Sanctum::actingAs(User::council(5));
         $council = $user->userable;
         $councilMedia = CouncilMedia::factory()->create([
             'council_id' => $council->id
@@ -167,7 +167,7 @@ class CouncilTest extends TestCase
     }
     public function test_council_can_delete_event()
     {
-        $user = Sanctum::actingAs(User::council(4));
+        $user = Sanctum::actingAs(User::council(5));
         $council = $user->userable;
         $councilEvent = CouncilEvent::factory()->create([
             'council_id' => $council->id

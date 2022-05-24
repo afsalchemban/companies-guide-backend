@@ -37,6 +37,10 @@ class AuthController extends Controller
                 $success['company_id'] =  $auth->userable->id;
                 $success['profile'] = new ImageResource($auth->userable->images()->where('type','logo')->first());
             }
+            elseif($auth->userable_type=='admin')
+            {
+                $success['profile'] = new ImageResource($auth->images()->where('type','profile')->first());
+            }
             $success['user_type'] =  $auth->userable_type;
             $success['status'] =  'Success';
    

@@ -47,4 +47,8 @@ class DefaultImageConstants
     public const COUNCIL_MEDIA_DESKTOP_SIZE = ['width' => 386,'height' => 247];
     public const COUNCIL_MEDIA_MOBILE_SIZE = ['width' => 230,'height' => 147];
     public const COUNCIL_MEDIA_THUMBNAIL_SIZE = ['width' => 230,'height' => 147];
+
+    public const ADMIN_PROFILE_DESKTOP = 'defaults/admin/desktop/admin.png';
+    public const ADMIN_PROFILE_MOBILE = 'defaults/admin/mobile/admin.png';
+    public const ADMIN_PROFILE_THUMBNAIL = 'defaults/admin/thumbnail/admin.png';
 }

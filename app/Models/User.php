@@ -114,5 +114,13 @@ class User extends Authenticatable
         }
         return $this->morphTo();
     }
+    public function images()
+    {
+        if(!$this->isAdmin())
+        {
+            throw new Exception("This is only allowed fro admin");
+        }
+        return $this->morphMany(Image::class, 'imageble');
+    }
 
 }
