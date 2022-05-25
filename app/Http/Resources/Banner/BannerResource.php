@@ -19,6 +19,7 @@ class BannerResource extends JsonResource
         return [
             'start_date' => $this->start_date,
             'end_date' => $this->end_date,
+            'status' => $this->status,
             'company' => new CompanyNameResource($this->whenLoaded('company')),
             'image' => new ImageResource($this->whenLoaded('images',function(){
                 return $this->images->where('type','banner')->first();
