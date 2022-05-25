@@ -4,10 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreBannerRequest;
 use App\Http\Requests\UpdateBannerRequest;
+use App\Interfaces\BannerRepositoryInterface;
 use App\Models\Banner;
 
 class BannerController extends Controller
 {
+
+    public function __construct(BannerRepositoryInterface $bannerRepository) 
+    {
+        $this->bannerRepository = $bannerRepository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -26,7 +32,7 @@ class BannerController extends Controller
      */
     public function store(StoreBannerRequest $request)
     {
-        //
+        
     }
 
     /**
