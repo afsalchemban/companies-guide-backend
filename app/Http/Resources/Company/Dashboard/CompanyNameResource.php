@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Company\Dashboard;
 
+use App\Http\Resources\ImageResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CompanyNameResource extends JsonResource
@@ -16,7 +17,11 @@ class CompanyNameResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'business_name' => $this->business_name
+            'business_name' => $this->business_name,
+            'email' => $this->email,
+            'logo' => new ImageResource($this->whenLoaded('images',function(){
+                return $this->images->where('type','logo')->first();
+            }))
         ];
     }
 }
