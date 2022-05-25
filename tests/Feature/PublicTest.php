@@ -85,6 +85,6 @@ class PublicTest extends TestCase
     public function test_get_banner()
     {
         $response = $this->getJson('/api/public/banners')
-        ->assertStatus(Response::HTTP_OK)->dd();
+        ->assertStatus(Response::HTTP_OK);
     }
 }

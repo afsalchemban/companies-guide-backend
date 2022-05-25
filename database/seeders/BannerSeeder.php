@@ -59,9 +59,9 @@ class BannerSeeder extends Seeder
 
         DB::table('images')->insert([
             'type' => 'banner',
-            'desktop_path' => 'https://storage.googleapis.com/business-council-bucket/banners/banner_3/desktop/1653483329.jpg',
-            'mobile_path' => 'https://storage.googleapis.com/business-council-bucket/banners/banner_3/mobile/1653483329.jpg',
-            'thumbnail_path' => 'https://storage.googleapis.com/business-council-bucket/banners/banner_3/thumbnail/1653483329.jpg', // password
+            'desktop_path' => 'https://storage.googleapis.com/business-council-bucket/banners/banner_3/desktop/1653483055.jpg',
+            'mobile_path' => 'https://storage.googleapis.com/business-council-bucket/banners/banner_3/mobile/1653483055.jpg',
+            'thumbnail_path' => 'https://storage.googleapis.com/business-council-bucket/banners/banner_3/thumbnail/1653483055.jpg', // password
             'imageble_id' => 3,
             'imageble_type' => 'banner',
             'created_at' => '2022-05-22 13:49:56',
