@@ -71,4 +71,8 @@ class Company extends Model
     {
         return $this->morphMany(Image::class, 'imageble');
     }
+    public function banners()
+    {
+        return $this->hasMany(Banner::class);
+    }
 }

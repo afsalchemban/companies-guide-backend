@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Constants\DefaultImageConstants;
 use App\Events\OrderCreated;
 use App\Events\UserCreated;
+use App\Http\Resources\Company\Dashboard\CompanyNameResource;
 use App\Http\Resources\CompanyReportResource;
 use App\Http\Resources\CompanyResource;
 use App\Interfaces\CompanyRepositoryInterface;
@@ -141,5 +142,8 @@ class CompanyRepository implements CompanyRepositoryInterface
             return $path;
         }
         return false;
+    }
+    public function getAllBanners(){
+        return CompanyNameResource::collection(Company::whereHas('banners')->with('banners.images','images')->get());
     }
 }

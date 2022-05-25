@@ -120,4 +120,8 @@ class CompanyController extends Controller
     {
         $this->companyRepository->uploadBanner($request->validated()['file']);
     }
+    public function getAllBanners()
+    {
+        return $this->companyRepository->getAllBanners();
+    }
 }

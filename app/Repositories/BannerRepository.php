@@ -16,7 +16,7 @@ class BannerRepository implements BannerRepositoryInterface
     }
     public function getAllBanners()
     {
-        return BannerResource::collection(Banner::with(['images','company.images'])->get());
+        return Banner::with(['images','company.images'])->get();
     }
     public function getBanner(Banner $banner)
     {
