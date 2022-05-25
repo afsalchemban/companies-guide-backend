@@ -21,7 +21,7 @@ class BannerController extends Controller
      */
     public function index()
     {
-        //
+        return $this->bannerRepository->getAllBanners();
     }
 
     /**
@@ -32,7 +32,7 @@ class BannerController extends Controller
      */
     public function store(StoreBannerRequest $request)
     {
-        
+        return $this->bannerRepository->addBanner($request->validated());
     }
 
     /**

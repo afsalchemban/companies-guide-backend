@@ -2,11 +2,13 @@
 
 namespace App\Providers;
 
+use App\Interfaces\BannerRepositoryInterface;
 use App\Interfaces\CompanyRepositoryInterface;
 use App\Interfaces\CouncilRepositoryInterface;
 use App\Interfaces\DataRepositoryInterface;
 use App\Interfaces\SaleReportInterface;
 use App\Interfaces\SaleRepositoryInterface;
+use App\Repositories\BannerRepository;
 use App\Repositories\SaleRepository;
 use App\Repositories\DataRepository;
 use App\Repositories\CompanyRepository;
@@ -32,6 +34,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(SaleRepositoryInterface::class, SaleRepository::class);
 
         $this->app->bind(CouncilRepositoryInterface::class, CouncilRepository::class);
+
+        $this->app->bind(BannerRepositoryInterface::class, BannerRepository::class);
 
         $this->app->bind(CompanyRepositoryInterface::class, function ($app) {
             return new CompanyRepository($app->make(UserSwitchingService::class),$app->make(ImageService::class));
@@ -60,6 +64,7 @@ class AppServiceProvider extends ServiceProvider
             'councilMedia' => 'App\Models\CouncilMedia',
             'councilMember' => 'App\Models\CouncilMember',
             'councilCompany' => 'App\Models\CouncilCompany',
+            'banner' => 'App\Models\Banner',
         ]);
     }
 }

@@ -110,4 +110,9 @@ class CompanyPolicy
     {
         return $user->isSale();
     }
+
+    public function addBanner(User $user, Company $company)
+    {
+        return $user->isAdmin() && $company->activePackage()->where('package_id',1)->orWhere('package_id',2)->exists();
+    }
 }

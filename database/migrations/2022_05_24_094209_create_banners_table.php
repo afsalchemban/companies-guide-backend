@@ -18,7 +18,11 @@ return new class extends Migration
             $table->date('start_date');
             $table->date('end_date');
             $table->string('status');
+            $table->unsignedBigInteger('company_id');
             $table->timestamps();
+        });
+        Schema::table('banners', function (Blueprint $table) {
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('restrict');
         });
     }
 

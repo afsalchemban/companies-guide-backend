@@ -3,6 +3,7 @@
 namespace App\Services\Image;
 
 use App\Constants\DefaultImageConstants;
+use App\Models\Banner;
 use App\Models\Company;
 use App\Models\Council;
 use App\Models\CouncilCompany;
@@ -237,6 +238,15 @@ class ImageService
         $image->thumbnail_path = $this->_resizeImage(DefaultImageConstants::COMPANY_LOGO_THUMBNAIL_SIZE,$file,"councils/council_$council->id/companies/company_$councilCompany->id/thumbnail");
         $image->type = 'logo';
         $image->imageble()->associate($councilCompany);
+        $image->save();
+    }
+    public function addBanner(Banner $banner,UploadedFile $file)
+    {
+        $image = new Image;
+        $image->desktop_path = $this->_resizeImage(DefaultImageConstants::BANNER_DESKTOP_SIZE,$file,"banners/banner_$banner->id/desktop");
+        $image->mobile_path = $this->_resizeImage(DefaultImageConstants::BANNER_MOBILE_SIZE,$file,"banners/banner_$banner->id/mobile");
+        $image->type = 'banner';
+        $image->imageble()->associate($banner);
         $image->save();
     }
 }

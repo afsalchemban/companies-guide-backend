@@ -51,4 +51,7 @@ class DefaultImageConstants
     public const ADMIN_PROFILE_DESKTOP = 'defaults/admin/logo/desktop/admin.jpeg';
     public const ADMIN_PROFILE_MOBILE = 'defaults/admin/logo/mobile/admin.jpeg';
     public const ADMIN_PROFILE_THUMBNAIL = 'defaults/admin/logo/thumbnail/admin.jpeg';
+
+    public const BANNER_DESKTOP_SIZE = ['width' => 1440,'height' => 467];
+    public const BANNER_MOBILE_SIZE = ['width' => 345,'height' => 230];
 }

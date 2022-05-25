@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources\Banner;
 
+use App\Http\Resources\Company\Dashboard\CompanyNameResource;
+use App\Http\Resources\ImageResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class BannerResource extends JsonResource
@@ -14,6 +16,13 @@ class BannerResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'start_date' => $this->start_date,
+            'end_date' => $this->end_date,
+            'company' => new CompanyNameResource($this->whenLoaded('company')),
+            'image' => new ImageResource($this->whenLoaded('images',function(){
+                return $this->images->where('type','banner')->first();
+            }))
+        ];
     }
 }

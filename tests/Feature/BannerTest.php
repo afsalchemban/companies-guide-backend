@@ -24,8 +24,17 @@ class BannerTest extends TestCase
         $file = UploadedFile::fake()->image('avatar.jpg');
         $this->json('post', 'api/banner', [
             'banner' => $file,
+            'company_id' => 223
         ])
          ->assertStatus(Response::HTTP_CREATED);
+
+    }
+
+    public function test_admin_get_all_banner(){
+
+        Sanctum::actingAs(User::admin());
+        $this->json('get', 'api/banner')
+         ->assertStatus(Response::HTTP_OK)->dd();
 
     }
 }
