@@ -245,6 +245,7 @@ class ImageService
         $image = new Image;
         $image->desktop_path = $this->_resizeImage(DefaultImageConstants::BANNER_DESKTOP_SIZE,$file,"banners/banner_$banner->id/desktop");
         $image->mobile_path = $this->_resizeImage(DefaultImageConstants::BANNER_MOBILE_SIZE,$file,"banners/banner_$banner->id/mobile");
+        $image->thumbnail_path = $this->_resizeImage(DefaultImageConstants::BANNER_MOBILE_SIZE,$file,"banners/banner_$banner->id/thumbnail");
         $image->type = 'banner';
         $image->imageble()->associate($banner);
         $image->save();

@@ -46,7 +46,7 @@ class DefaultImageConstants
 
     public const COUNCIL_MEDIA_DESKTOP_SIZE = ['width' => 386,'height' => 247];
     public const COUNCIL_MEDIA_MOBILE_SIZE = ['width' => 230,'height' => 147];
-    public const COUNCIL_MEDIA_THUMBNAIL_SIZE = ['width' => 230,'height' => 147];
+    public const COUNCIL_MEDIA_THUMBNAIL_SIZE = ['width' => 74,'height' => 47];
 
     public const ADMIN_PROFILE_DESKTOP = 'defaults/admin/logo/desktop/admin.jpeg';
     public const ADMIN_PROFILE_MOBILE = 'defaults/admin/logo/mobile/admin.jpeg';
@@ -54,4 +54,5 @@ class DefaultImageConstants
 
     public const BANNER_DESKTOP_SIZE = ['width' => 1440,'height' => 467];
     public const BANNER_MOBILE_SIZE = ['width' => 345,'height' => 230];
+    public const BANNER_THUMBNAIL_SIZE = ['width' => 74,'height' => 47];
 }

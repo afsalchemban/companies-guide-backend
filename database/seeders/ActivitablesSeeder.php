@@ -257,7 +257,8 @@ class ActivitablesSeeder extends Seeder
         ('company',220, 1689),
         ('company',221, 1782),
         ('company',222, 1564),
-        ('company',223, 764);
+        ('company',223, 764),
+        ('company',224, 1689);
         ");
     }
 }

@@ -242,7 +242,8 @@ class CompaniesSeeder extends Seeder
         ('Cleaning Company', 'info@cleaningcompany.ae', '+971 56 466 0472', '+971 56 466 0472', '1231435', 'Freezone', 'LLC', 'https://www.cleaningcompany.ae', 1, 2, 1, 'Person', 'Designation', 'person@email.com', '1233', 'UAE', 1, '2022-03-21 03:24:24', '2022-03-21 03:24:24'),
         ('Esteem Communications DMCC', 'info@esteem.me', '+971 4 558 5993', '+971 4 558 5993', '1231435', 'Freezone', 'LLC', 'https://esteem.me', 1, 2, 1, 'Person', 'Designation', 'person@email.com', '1233', 'UAE', 1, '2022-03-21 03:24:24', '2022-03-21 03:24:24'),
         ('Blue Bay Consultancy DMCC', 'as@bbay.ae', '+971 54 446 4528', '+971 54 446 4528', '1231435', 'Freezone', 'LLC', 'http://bbay.ae', 1, 2, 1, 'Person', 'Designation', 'person@email.com', '1233', 'UAE', 1, '2022-03-21 03:24:24', '2022-03-21 03:24:24'),
-        ('Full Package Company', 'full@company.com', '+971 54 446 1111', '+971 54 446 1111', '1231435', 'Freezone', 'LLC', 'http://full.ae', 1, 2, 1, 'Person', 'Designation', 'person@email.com', '1233', 'UAE', 1, '2022-03-21 03:24:24', '2022-03-21 03:24:24');
+        ('Full Package Company', 'full@company.com', '+971 54 446 1111', '+971 54 446 1111', '1231435', 'Freezone', 'LLC', 'http://full.ae', 1, 2, 1, 'Person', 'Designation', 'person@email.com', '1233', 'UAE', 1, '2022-03-21 03:24:24', '2022-03-21 03:24:24'),
+        ('Another Package Company Full', 'full2@company.com', '+971 54 446 2333', '+971 54 446 2333', '1231435', 'Freezone', 'LLC', 'http://full2.ae', 1, 2, 1, 'Person', 'Designation', 'person@email.com', '1233', 'UAE', 1, '2022-03-21 03:24:24', '2022-03-21 03:24:24');
         ");
 
         DB::table('users')->insert([
