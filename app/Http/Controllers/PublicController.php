@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DirectoryPageRequest;
+use App\Http\Resources\Banner\Public\BannerPublicResource;
 use App\Http\Resources\Council\Public\CouncilCompanyPublicResource;
 use App\Http\Resources\Council\Public\CouncilEventPublicResource;
 use App\Http\Resources\Council\Public\CouncilMediaPublicResource;
@@ -10,6 +11,7 @@ use App\Http\Resources\Council\Public\CouncilMemberPublicResource;
 use App\Http\Resources\Council\Public\CouncilPublicResource;
 use App\Http\Resources\Public\PublicActiveCompanyResource;
 use App\Http\Resources\Public\PublicCompanyResource;
+use App\Models\Banner;
 use App\Models\Company;
 use App\Models\Council;
 use App\Models\CouncilCompany;
@@ -81,5 +83,8 @@ class PublicController extends Controller
             return $item->activePackage[0]->id;
         })->values();
         return PublicCompanyResource::collection($companies);
+    }
+    public function activeBanners(){
+        return BannerPublicResource::collection(Banner::where('status','active')->with('images')->get());
     }
 }

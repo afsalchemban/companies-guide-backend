@@ -82,4 +82,9 @@ class PublicTest extends TestCase
         $response = $this->getJson('/api/public/council_media_details/1')
         ->assertStatus(Response::HTTP_OK);
     }
+    public function test_get_banner()
+    {
+        $response = $this->getJson('/api/public/banners')
+        ->assertStatus(Response::HTTP_OK)->dd();
+    }
 }
