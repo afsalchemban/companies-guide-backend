@@ -2,10 +2,11 @@
 
 namespace App\Http\Resources\Company\Dashboard;
 
+use App\Http\Resources\Banner\BannerResource;
 use App\Http\Resources\ImageResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CompanyNameResource extends JsonResource
+class CompanyBannerResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -21,7 +22,8 @@ class CompanyNameResource extends JsonResource
             'email' => $this->email,
             'logo' => new ImageResource($this->whenLoaded('images',function(){
                 return $this->images->where('type','logo')->first();
-            }))
+            })),
+            'banners' => BannerResource::collection($this->whenLoaded('banners'))
         ];
     }
 }

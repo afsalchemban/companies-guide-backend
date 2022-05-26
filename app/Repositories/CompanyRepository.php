@@ -2,10 +2,8 @@
 
 namespace App\Repositories;
 
-use App\Constants\DefaultImageConstants;
 use App\Events\OrderCreated;
-use App\Events\UserCreated;
-use App\Http\Resources\Company\Dashboard\CompanyNameResource;
+use App\Http\Resources\Company\Dashboard\CompanyBannerResource;
 use App\Http\Resources\CompanyReportResource;
 use App\Http\Resources\CompanyResource;
 use App\Interfaces\CompanyRepositoryInterface;
@@ -17,10 +15,7 @@ use App\Services\Company\CreateUserForCompany;
 use App\Services\Company\SubscriptionRegistrationFromCache;
 use App\Services\Image\ImageService;
 use App\Services\Invoice\InvoiceService;
-use App\Services\Mail\MailService;
-use App\Services\Payments\BankPayment;
-use App\Services\Payments\CashPayment;
-use App\Services\Payments\ChequePayment;
+use Illuminate\Database\Eloquent\Builder;
 use App\Services\Payments\OrderPaymentService;
 use App\Services\UserSwitchingService;
 use Exception;
@@ -143,7 +138,11 @@ class CompanyRepository implements CompanyRepositoryInterface
         }
         return false;
     }
-    public function getAllBanners(){
-        return CompanyNameResource::collection(Company::whereHas('banners')->with('banners.images','images')->get());
+    public function getExpiredBanners(){
+        return CompanyBannerResource::collection(Company::whereHas('banners', function (Builder $query) {
+            $query->where('status', 'expired');
+        })->with(['banners' => function ($query) {
+            $query->where('status', 'expired');
+        },'banners.images','images'])->get());
     }
 }

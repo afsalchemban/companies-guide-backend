@@ -33,7 +33,7 @@ class BannerTest extends TestCase
     public function test_admin_get_all_banner(){
 
         Sanctum::actingAs(User::admin());
-        $this->json('get', 'api/banners')
+        $this->json('get', 'api/expired_banners')
          ->assertStatus(Response::HTTP_OK)->dd();
 
     }

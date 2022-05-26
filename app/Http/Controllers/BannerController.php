@@ -21,7 +21,7 @@ class BannerController extends Controller
      */
     public function index()
     {
-        return $this->bannerRepository->getAllBanners();
+        return $this->bannerRepository->getAllActiveBanners();
     }
 
     /**

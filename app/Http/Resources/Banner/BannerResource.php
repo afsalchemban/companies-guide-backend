@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Banner;
 
+use App\Http\Resources\Company\Dashboard\CompanyNameResource;
 use App\Http\Resources\ImageResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -21,7 +22,8 @@ class BannerResource extends JsonResource
             'status' => $this->status,
             'image' => new ImageResource($this->whenLoaded('images',function(){
                 return $this->images->where('type','banner')->first();
-            }))
+            })),
+            'company' => new CompanyNameResource($this->whenLoaded('company')),
         ];
     }
 }
