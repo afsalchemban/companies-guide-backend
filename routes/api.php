@@ -81,7 +81,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/delete_event/{council}/{councilEvent}', [CouncilController::class, 'deleteEvent']);
         Route::delete('/delete_media/{council}/{councilGallery}', [CouncilController::class, 'deleteMedia']);
     });
+
     Route::get('/expired_banners', [CompanyController::class, 'getExpiredBanners']);
+    
     Route::apiResources([
         'company'=>CompanyController::class,
         'sale'=>SaleController::class,
