@@ -170,6 +170,14 @@ class SaleTest extends TestCase
         );
     }
 
+
+    public function test_order_page_data(){
+        $user = User::sale(2);
+        Sanctum::actingAs($user);
+        $this->json('get', 'api/company/order_info')
+         ->assertStatus(Response::HTTP_OK)->dd();
+    }
+
     public function test_pay_by_bank()
     {
         $user = User::sale(2);
@@ -183,12 +191,5 @@ class SaleTest extends TestCase
             'bank_name' => 'DIB',
         ];
         $this->json('post', 'api/company/pay/bank', $payload)->assertStatus(Response::HTTP_OK);
-    }
-
-    public function test_order_page_data(){
-        $user = User::sale(2);
-        Sanctum::actingAs($user);
-        $this->json('get', 'api/company/order_info')
-         ->assertStatus(Response::HTTP_OK);
     }
 }

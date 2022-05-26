@@ -90,7 +90,7 @@ class CompanyRepository implements CompanyRepositoryInterface
     {
         return response()->json([
             'company_info' => Cache::get('registered-company-'.Auth::user()->id),
-            'package_info' => Package::find(Cache::get('registered-company-package-id-'.Auth::user()->id),['id', 'name']),
+            'package_info' => Package::find(Cache::get('registered-company-package-id-'.Auth::user()->id),['id', 'name','price']),
         ],Response::HTTP_OK);
     }
     private function _clearRegistrationCache(){
