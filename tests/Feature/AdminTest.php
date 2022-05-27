@@ -118,7 +118,8 @@ class AdminTest extends TestCase
 
         Sanctum::actingAs(User::admin());
         $company = Company::factory()->create([
-            'sale_id' => 1
+            'companiable_id' => 1,
+            'companiable_type' => 'sale'
         ]);
         $this->json('delete', 'api/company/'.$company->id)
          ->assertStatus(Response::HTTP_OK);

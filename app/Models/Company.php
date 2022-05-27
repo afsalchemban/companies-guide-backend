@@ -18,9 +18,9 @@ class Company extends Model
         return $this->morphOne(User::class, 'userable');
     }
 
-    public function sale()
+    public function companiable()
     {
-        return $this->belongsTo(Sale::class);
+        return $this->morphTo();
     }
 
     public function packages()

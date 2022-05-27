@@ -34,7 +34,7 @@ class BannerTest extends TestCase
 
         Sanctum::actingAs(User::admin());
         $this->json('get', 'api/expired_banners')
-         ->assertStatus(Response::HTTP_OK)->dd();
+         ->assertStatus(Response::HTTP_OK);
 
     }
 }

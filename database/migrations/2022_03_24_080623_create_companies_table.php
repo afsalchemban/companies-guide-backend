@@ -31,11 +31,11 @@ return new class extends Migration
             $table->string('person_in_charge_email');
             $table->string('person_in_charge_mobile');
             $table->string('person_in_charge_country');
-            $table->unsignedBigInteger('sale_id');
+            $table->integer('companiable_id');
+            $table->string('companiable_type');
             $table->timestamps();
         });
         Schema::table('companies', function (Blueprint $table) {
-            $table->foreign('sale_id')->references('id')->on('sales')->onDelete('restrict');
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('restrict');
             $table->foreign('city_id')->references('id')->on('cities')->onDelete('restrict');
             $table->foreign('area_id')->references('id')->on('areas')->onDelete('restrict');

@@ -19,7 +19,7 @@ class Sale extends Model
 
     public function companies()
     {
-        return $this->hasMany(Company::class);
+        return $this->morphMany(Company::class, 'companiable');
     }
 
     public function subscriptions()
@@ -33,7 +33,7 @@ class Sale extends Model
     }
     public function orders()
     {
-        return $this->hasManyThrough(Order::class, Company::class,'sale_id','company_id','id','id');
+        return $this->hasManyThrough(Order::class, Company::class,'companiable_id','company_id','id','id')->where('companiable_type', 'sale');
     }
     public function images()
     {

@@ -30,7 +30,7 @@ class CompanyReportResource extends JsonResource
                 return $this->images->where('type','logo')->first();
             })),
             'activity' => ActivityPublicResource::collection($this->whenLoaded('companyActivity')),
-            'added_by' => $this->whenLoaded('sale'),
+            'added_by' => $this->whenLoaded('companiable'),
             'created_at' => $this->created_at->format('Y-m-d'),
         ];
     }

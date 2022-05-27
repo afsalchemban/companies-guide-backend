@@ -26,11 +26,11 @@ class PublicController extends Controller
 {
     public function companiesByPackage(Package $package)
     {
-        return PublicCompanyResource::collection($package->activeCompanies()->with(['sale','companyActivity','images'])->get());
+        return PublicCompanyResource::collection($package->activeCompanies()->with(['companiable','companyActivity','images'])->get());
     }
     public function allActiveCompanies()
     {
-        return PublicActiveCompanyResource::collection(Company::whereHas('activePackage')->with(['sale','companyActivity','activePackage'])->get());
+        return PublicActiveCompanyResource::collection(Company::whereHas('activePackage')->with(['companiable','companyActivity','activePackage'])->get());
     }
     public function allCouncils(){
         return CouncilPublicResource::collection(Council::with('images')->get());

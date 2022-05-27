@@ -20,7 +20,7 @@ class PublicActiveCompanyResource extends JsonResource
             'email' => $this->email,
             'phone_number' => $this->phone_number,
             'activity' => $this->whenLoaded('companyActivity'),
-            'added_by' => $this->whenLoaded('sale'),
+            'added_by' => $this->whenLoaded('companiable'),
             'package' => $this->whenLoaded('activePackage'),
         ];
     }

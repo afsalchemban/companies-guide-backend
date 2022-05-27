@@ -52,7 +52,7 @@ class CompanyReportForAdmin implements ReportInterface
 
             if($this->activity!=null) { $query->where('company_activity_id',$this->activity);}
 
-        })->with(['activePackage','expiredPackages','companyActivity','sale','images'])->where(function (Builder $query) {
+        })->with(['activePackage','expiredPackages','companyActivity','companiable','images'])->where(function (Builder $query) {
             
             if($this->duration!=null&&is_string($this->duration)) { $query->where('created_at', '>=',$this->duration); }
             if($this->duration!=null&&!is_string($this->duration)) { $query->whereBetween('created_at', [$this->duration->from,$this->duration->to]); }
@@ -67,7 +67,7 @@ class CompanyReportForAdmin implements ReportInterface
 
             if($this->activity!=null) { $query->where('company_activity_id',$this->activity);}
 
-        })->with(['activePackage','expiredPackages','companyActivity','sale','images'])->where(function (Builder $query) {
+        })->with(['activePackage','expiredPackages','companyActivity','companiable','images'])->where(function (Builder $query) {
              
             if($this->duration!=null&&is_string($this->duration)) { $query->where('created_at', '>=',$this->duration); }
             if($this->duration!=null&&!is_string($this->duration)) { $query->whereBetween('created_at', [$this->duration->from,$this->duration->to]); }

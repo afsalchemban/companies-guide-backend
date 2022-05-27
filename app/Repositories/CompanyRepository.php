@@ -40,7 +40,7 @@ class CompanyRepository implements CompanyRepositoryInterface
 
     public function getAllCompanies()
     {
-        return CompanyReportResource::collection(Company::with('activePackage','expiredPackages','companyActivity','sale','images')->get());
+        return CompanyReportResource::collection(Company::with('activePackage','expiredPackages','companyActivity','companiable','images')->get());
     }
     public function getCompany($company){
         return new CompanyResource($company);

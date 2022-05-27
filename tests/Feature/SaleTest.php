@@ -175,7 +175,7 @@ class SaleTest extends TestCase
         $user = User::sale(2);
         Sanctum::actingAs($user);
         $this->json('get', 'api/company/order_info')
-         ->assertStatus(Response::HTTP_OK)->dd();
+         ->assertStatus(Response::HTTP_OK);
     }
 
     public function test_pay_by_bank()

@@ -26,7 +26,7 @@ class PublicCompanyResource extends JsonResource
                 return $this->images->where('type','logo')->first();
             })),
             'activity' => ActivityPublicResource::collection($this->whenLoaded('companyActivity')),
-            'added_by' => $this->whenLoaded('sale'),
+            'added_by' => $this->whenLoaded('companiable'),
             'city' => $this->whenLoaded('city'),
             'area' => $this->whenLoaded('area'),
             'activePackage' => $this->whenLoaded('activePackage')

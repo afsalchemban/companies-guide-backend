@@ -31,7 +31,7 @@ class CompanySummaryReport implements SummaryReportInterface
     { 
         return response()->json([
             'status' => $this->activityService->summary($this->company),
-            'info' => new CompanyReportResource($this->company->load('companyActivity','sale','images')),
+            'info' => new CompanyReportResource($this->company->load('companyActivity','companiable','images')),
         ]);
     }
     public function generate()
