@@ -20,10 +20,11 @@ class UserCreated
      *
      * @return void
      */
-    public function __construct(User $user, $password)
+    public function __construct(User $user, $password, $owner=null)
     {
         $this->user = $user;
         $this->password = $password;
+        $this->owner = $owner;
     }
 
     /**

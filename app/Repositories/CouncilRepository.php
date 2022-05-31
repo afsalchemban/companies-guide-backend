@@ -79,7 +79,7 @@ class CouncilRepository implements CouncilRepositoryInterface
         $user->remember_token = Str::random(10);
         $user->userable()->associate($council);
         $user->save();
-        UserCreated::dispatch($user,'dummypassword');
+        UserCreated::dispatch($user,'dummypassword',$council);
         return $user;
     }
     public function changeLogo(UploadedFile $file, Council $council)

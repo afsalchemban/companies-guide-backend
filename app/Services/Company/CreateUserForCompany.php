@@ -25,7 +25,7 @@ class CreateUserForCompany
             $user->remember_token = Str::random(10);
             $user->userable()->associate($company);
             $user->save();
-            UserCreated::dispatch($user,'dummypassword');
+            UserCreated::dispatch($user,'dummypassword',$company);
             return $user;
         }
         return false;

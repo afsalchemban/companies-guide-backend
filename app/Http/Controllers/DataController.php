@@ -178,7 +178,7 @@ class DataController extends Controller
             'email' => 'afsalcodes@gmail.com',
             'password' => 'dummypassword'
         ];
-        Mail::to('afsalcodes@gmail.com')->send(new SaleCredentialMail($mailData));
+        return (new SaleCredentialMail($mailData))->render();
     }
     public function test_resize(){
         $file = Storage::get('raw/raw.jpeg');

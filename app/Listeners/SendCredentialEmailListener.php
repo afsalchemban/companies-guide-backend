@@ -40,6 +40,7 @@ class SendCredentialEmailListener
         ];
         if($event->user->userable_type=='company')
         {
+            $mailData['company'] = $event->owner->business_name; 
             Mail::to($event->user->email)->send(new CompanyCredentialMail($mailData));
         }
         elseif($event->user->userable_type=='sale')
@@ -48,6 +49,7 @@ class SendCredentialEmailListener
         }
         elseif($event->user->userable_type=='council')
         {
+            $mailData['council'] = $event->owner->council_name;
             Mail::to($event->user->email)->send(new CouncilCredentialMail($mailData));
         }
     }
