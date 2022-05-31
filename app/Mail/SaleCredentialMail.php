@@ -30,7 +30,7 @@ class SaleCredentialMail extends Mailable
      */
     public function build()
     {
-        return $this->from('afsalchemban@gmail.com', 'Business Council Network')
+        return $this->from('bcservice@bcnid.com', 'Business Council Network')
                     ->view('emails.saleCredentialMail');
     }
 }
