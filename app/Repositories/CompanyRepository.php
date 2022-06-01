@@ -142,4 +142,8 @@ class CompanyRepository implements CompanyRepositoryInterface
             $query->where('status', 'expired');
         },'banners.images','images'])->get());
     }
+    public function editCompanyProfile(array $companyProfileDetails)
+    {
+        
+    }
 }

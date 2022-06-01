@@ -67,6 +67,20 @@ class User extends Authenticatable
                 ->first();
     }
     /**
+     * Return random company user if any
+     *
+     * @var array<string, string>
+     */
+    public static function company($id=null):self
+    {
+        if($id!=null)
+        {
+            return self::find($id); 
+        }
+        return self::where('userable_type','company')->inRandomOrder()
+                ->first();
+    }
+    /**
      * Return random council user if any
      *
      * @var array<string, string>

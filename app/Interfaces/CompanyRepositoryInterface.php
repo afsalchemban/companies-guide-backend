@@ -18,5 +18,6 @@ interface CompanyRepositoryInterface
     public function orderPay(PaymentInterface $payment);
     public function uploadLogo(Company $company, UploadedFile $file);
     public function uploadBanner(UploadedFile $file);
+    public function editCompanyProfile(array $companyProfileDetails);
     public function getExpiredBanners();
 }

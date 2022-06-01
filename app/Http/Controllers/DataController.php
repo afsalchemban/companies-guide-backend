@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EditProfileRequest;
 use App\Interfaces\DataRepositoryInterface;
 use App\Jobs\ImageResize;
 use App\Mail\CompanyCredentialMail;
@@ -200,5 +201,8 @@ class DataController extends Controller
 
         $resized = $img->resizeCanvas($width, $height, 'center', false, '#ffffff')->stream('jpeg');
         Storage::put('resized/resized.jpeg', $resized);
+    }
+    public function test_json(EditProfileRequest $request){
+       dd($request->validated());
     }
 }

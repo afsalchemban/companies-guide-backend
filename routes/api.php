@@ -58,6 +58,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/pay/cheque', [CompanyController::class, 'payByCheque']);
         Route::post('/upload_logo/{company}', [CompanyController::class, 'uploadLogo']);
         Route::post('/upload_banner/{company}', [CompanyController::class, 'uploadBanner']);
+        Route::post('/profile', [CompanyController::class, 'editProfile']);
 
     });
 
@@ -143,6 +144,7 @@ Route::get('queue', [DataController::class, 'test_queue']);
 Route::get('invoice', [DataController::class, 'test_invoice']);
 Route::post('image', [DataController::class, 'image']);
 Route::get('resize', [DataController::class, 'test_resize_job']);
+Route::post('json', [DataController::class, 'test_json']);
 
 
 

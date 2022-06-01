@@ -160,9 +160,8 @@ class AdminTest extends TestCase
         $this->post('api/company/upload_logo/123', [
             'file' => $file,
         ])->assertStatus(Response::HTTP_OK);
-
-
     }
+    
     public function test_business_council_registration(){
         Sanctum::actingAs(User::admin());
         $council = Council::factory()->make();

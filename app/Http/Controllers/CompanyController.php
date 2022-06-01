@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EditProfileRequest;
 use App\Http\Requests\PayByBankRequest;
 use App\Http\Requests\PayByCashRequest;
 use App\Http\Requests\PayByChequeRequest;
@@ -123,5 +124,9 @@ class CompanyController extends Controller
     public function getExpiredBanners()
     {
         return $this->companyRepository->getExpiredBanners();
+    }
+    public function editProfile(EditProfileRequest $request)
+    {
+
     }
 }
