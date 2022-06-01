@@ -16,6 +16,7 @@ use Carbon\Carbon;
 use App\Mail\DemoMail;
 use App\Mail\InvoiceMail;
 use App\Mail\SaleCredentialMail;
+use App\Models\Category;
 use App\Services\Image\ImageService;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
@@ -92,21 +93,20 @@ class DataController extends Controller
         return $this->dataRepository->getActiveActivities($param);
     }
 
+    public function searchCategories($param)
+    {
+        return $this->dataRepository->searchCategories($param);
+    }
+
+    public function parentCategories(Category $category)
+    {
+        return $this->dataRepository->parentCategories($category);
+    }
+
     
     public function test_get(){
-        $feed = array();
-        $products = DB::table('companies_clone')->get()->toArray();
-        foreach($products as $product)
-        {
-            $categories = json_decode($product->act);
-            foreach ($categories as $value) {
-                array_push($feed,[
-                    "company_id" => $product->id,
-                    "company_activity_id" => $value
-                ]);
-            }
-        }
-        DB::table('company_company_activity')->insert($feed);
+        $category = Category::find(1202);
+        return $category->parent;
     }
 
     public function test_resize_job(){
@@ -201,8 +201,5 @@ class DataController extends Controller
 
         $resized = $img->resizeCanvas($width, $height, 'center', false, '#ffffff')->stream('jpeg');
         Storage::put('resized/resized.jpeg', $resized);
-    }
-    public function test_json(EditProfileRequest $request){
-       dd($request->validated());
     }
 }

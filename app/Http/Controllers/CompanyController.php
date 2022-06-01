@@ -127,6 +127,6 @@ class CompanyController extends Controller
     }
     public function editProfile(EditProfileRequest $request)
     {
-
+        $this->companyRepository->editCompanyProfile($request->validated());
     }
 }

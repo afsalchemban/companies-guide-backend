@@ -9,6 +9,8 @@ use App\Http\Resources\CompanyResource;
 use App\Interfaces\CompanyRepositoryInterface;
 use App\Interfaces\PaymentInterface;
 use App\Models\Company;
+use App\Models\CompanyCategory;
+use App\Models\CompanyProduct;
 use App\Models\Package;
 use App\Services\Company\CompanyRegistrationFromCache;
 use App\Services\Company\CreateUserForCompany;
@@ -26,6 +28,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
+use function PHPUnit\Framework\isEmpty;
 use function PHPUnit\Framework\throwException;
 
 class CompanyRepository implements CompanyRepositoryInterface
@@ -143,6 +146,34 @@ class CompanyRepository implements CompanyRepositoryInterface
         },'banners.images','images'])->get());
     }
     public function editCompanyProfile(array $companyProfileDetails)
+    {
+        $company = Auth::user()->userable;
+        $company->business_name = $companyProfileDetails['name'];
+        $company->services = $companyProfileDetails['services'];
+        $company->website = $companyProfileDetails['website'];
+        $company->phone_number = $companyProfileDetails['phone'];
+        $company->email = $companyProfileDetails['email'];
+        $company->facebook_url = $companyProfileDetails['facebook'];
+        $company->twitter_url = $companyProfileDetails['twitter'];
+        $company->youtube_url = $companyProfileDetails['youtube'];
+        $company->aboutus = $companyProfileDetails['aboutus'];
+        $company->save();
+        $this->_updateCategories($company,$companyProfileDetails['categories']);
+    }
+    private function _updateCategories(Company $company,$companyCategories)
+    {
+        $products = array();
+        foreach ($companyCategories as $category) {
+            $cat = $company->categories()->save(new CompanyCategory(['name' => $category['name']]));
+            dd($cat->id);
+            if(isset($category['products'])){
+                foreach ($category['products'] as $product) {
+                    $products[] = new CompanyProduct(['name' => $product['name'],'description' => $product['desc']]);
+                }
+            }
+        }
+    }
+    private function _updateProducts()
     {
         
     }

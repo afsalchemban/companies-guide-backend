@@ -2,6 +2,7 @@
 
 namespace App\Interfaces;
 
+use App\Models\Category;
 use App\Models\City;
 use App\Models\Country;
 
@@ -17,4 +18,6 @@ interface DataRepositoryInterface
     public function getPackages();
     public function searchSales($param);
     public function searchCompanies($param);
+    public function searchCategories($param);
+    public function parentCategories(Category $category);
 }

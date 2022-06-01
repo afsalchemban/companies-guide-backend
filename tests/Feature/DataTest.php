@@ -214,6 +214,31 @@ class DataTest extends TestCase
 
     }
 
+    /* 
+    Test for search sales
+    */
+    public function test_get_categories_by_search_text()
+    {
+        $response = $this->getJson('/api/data/search_categories/a')
+        ->assertStatus(Response::HTTP_OK)
+        ->assertJsonStructure([
+            'companies' => [
+                '*' => [
+                     'name',
+                     'id'
+                ]
+            ]
+        ]);
+
+    }
+
+    public function test_get_parent_categories()
+    {
+        $response = $this->getJson('/api/data/parent_categories/1202')
+        ->assertStatus(Response::HTTP_OK);
+
+    }
+
     public function test_upload_image(){
         $file = UploadedFile::fake()->image('avatar.jpg');
         $payload = [

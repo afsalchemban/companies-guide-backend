@@ -75,4 +75,8 @@ class Company extends Model
     {
         return $this->hasMany(Banner::class);
     }
+    public function categories()
+    {
+        return $this->hasMany(CompanyCategory::class);
+    }
 }

@@ -23,6 +23,11 @@ return new class extends Migration
             $table->string('legal_status');
             $table->string('issued_by');
             $table->string('website');
+            $table->string('services')->nullable();
+            $table->string('aboutus')->nullable();
+            $table->string('facebook_url')->nullable();
+            $table->string('twitter_url')->nullable();
+            $table->string('youtube_url')->nullable();
             $table->unsignedBigInteger('country_id');
             $table->unsignedBigInteger('city_id');
             $table->unsignedBigInteger('area_id');

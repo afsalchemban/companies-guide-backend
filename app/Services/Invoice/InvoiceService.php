@@ -63,7 +63,7 @@ class InvoiceService
             ->notes($notes)
             ->logo(public_path('vendor/invoices/sample-logo.png'))
             // You can additionally save generated invoice to configured disk
-            ->save('gcs');
+            ->save();
         $this->pdfFilePath = 'companies/invoices/invoice_'.$customer->name.'_'.$order->id.'.pdf';
         return $this;
     }

@@ -13,7 +13,7 @@ class EditProfileRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return $this->user()->isCompany();
     }
 
     /**
@@ -24,6 +24,18 @@ class EditProfileRequest extends FormRequest
     public function rules()
     {
         return [
+            'profile_images' => 'array',
+            'profile_images.*' => 'image',
+            'name' => 'required',
+            'services' => 'required',
+            'website' => 'required',
+            'phone' => 'required',
+            'name' => 'required',
+            'email' => 'required',
+            'facebook' => 'required',
+            'twitter' => 'required',
+            'youtube' => 'required',
+            'aboutus' => 'required',
             'categories' => 'array',
             'categories.*.name' => 'required',
             'categories.*.products' => 'array',

@@ -105,6 +105,8 @@ Route::prefix('data')->group(function () {
     Route::get('/company_activities/{param}', [DataController::class, 'companyActivities']);
     Route::get('/search_sales/{param}', [DataController::class, 'searchSales']);
     Route::get('/search_companies/{param}', [DataController::class, 'searchCompanies']);
+    Route::get('/search_categories/{param}', [DataController::class, 'searchCategories']);
+    Route::get('/parent_categories/{category}', [DataController::class, 'parentCategories']);
     Route::get('/countries', [DataController::class, 'countries']);
     Route::get('/cities/{country}', [DataController::class, 'cities']);
     Route::get('/areas/{city}', [DataController::class, 'areas']);
@@ -144,7 +146,6 @@ Route::get('queue', [DataController::class, 'test_queue']);
 Route::get('invoice', [DataController::class, 'test_invoice']);
 Route::post('image', [DataController::class, 'image']);
 Route::get('resize', [DataController::class, 'test_resize_job']);
-Route::post('json', [DataController::class, 'test_json']);
 
 
 

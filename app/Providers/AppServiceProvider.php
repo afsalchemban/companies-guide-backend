@@ -64,7 +64,10 @@ class AppServiceProvider extends ServiceProvider
             'councilMedia' => 'App\Models\CouncilMedia',
             'councilMember' => 'App\Models\CouncilMember',
             'councilCompany' => 'App\Models\CouncilCompany',
+            'companyCategory' => 'App\Models\CompanyCategory',
+            'companyProduct' => 'App\Models\CompanyProduct',
             'banner' => 'App\Models\Banner',
+            'category' => 'App\Models\Category'
         ]);
     }
 }

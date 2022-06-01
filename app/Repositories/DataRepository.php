@@ -2,7 +2,9 @@
 
 namespace App\Repositories;
 
+use App\Http\Resources\Category\CategoryResource;
 use App\Interfaces\DataRepositoryInterface;
+use App\Models\Category;
 use App\Models\City;
 use App\Models\Company;
 use App\Models\CompanyActivity;
@@ -82,5 +84,17 @@ class DataRepository implements DataRepositoryInterface
             'companies' => Company::where('business_name', 'like', $param.'%')->orderBy('business_name')
             ->take(10)->get(['id','business_name'])
         ]);
+    }
+
+    public function searchCategories($param)
+    {
+        return response()->json([
+            'companies' => Category::where('name', 'like', $param.'%')->orderBy('name')
+            ->take(10)->get(['id','name'])
+        ]);
+    }
+    public function parentCategories(Category $category)
+    {
+        return new CategoryResource($category->parent);
     }
 }

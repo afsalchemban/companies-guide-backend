@@ -15,7 +15,12 @@ return new class extends Migration
     {
         Schema::create('company_categories', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('company_id');
+            $table->string('name');
             $table->timestamps();
+        });
+        Schema::table('company_categories', function (Blueprint $table) {
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('restrict');
         });
     }
 
