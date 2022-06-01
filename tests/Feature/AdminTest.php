@@ -157,22 +157,10 @@ class AdminTest extends TestCase
         Sanctum::actingAs(User::admin());
         $file = UploadedFile::fake()->image('avatar.jpg');
  
-        $this->post('api/company/upload_logo/1', [
+        $this->post('api/company/upload_logo/123', [
             'file' => $file,
         ])->assertStatus(Response::HTTP_OK);
 
-        Storage::disk('local')->assertExists('companies/logo/'.$file->hashName());
-
-    }
-    public function test_admin_can_upload_banner_of_company(){
-        Sanctum::actingAs(User::admin());
-        $file = UploadedFile::fake()->image('avatar.jpg');
- 
-        $this->post('api/company/upload_banner/1', [
-            'file' => $file,
-        ])->assertStatus(Response::HTTP_OK);
-
-        Storage::disk('local')->assertExists('companies/banner/'.$file->hashName());
 
     }
     public function test_business_council_registration(){

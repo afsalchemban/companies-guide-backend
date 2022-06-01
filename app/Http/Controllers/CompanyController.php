@@ -113,7 +113,7 @@ class CompanyController extends Controller
 
     public function uploadLogo(UploadCompanyImageRequest $request, Company $company)
     {
-        $this->companyRepository->uploadLogo($request->validated()['file']);
+        $this->companyRepository->uploadLogo($company, $request->validated()['file']);
     }
 
     public function uploadBanner(UploadCompanyImageRequest $request, Company $company)

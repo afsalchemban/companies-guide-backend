@@ -124,12 +124,9 @@ class CompanyRepository implements CompanyRepositoryInterface
         }
     
     }
-    public function uploadLogo(UploadedFile $file){
-        if($path = Storage::putFile('companies/logo', $file))
-        {
-            return $path;
-        }
-        return false;
+    public function uploadLogo(Company $company, UploadedFile $file){
+        $this->imageService->updateCompanyLogoImage($company,$file);
+        return $company;
     }
     public function uploadBanner(UploadedFile $file){
         if($path = Storage::putFile('companies/banner', $file))

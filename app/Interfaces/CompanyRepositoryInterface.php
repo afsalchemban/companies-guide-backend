@@ -16,7 +16,7 @@ interface CompanyRepositoryInterface
     public function storePackageInCache(array $data);
     public function getOrderDetailsFromCache();
     public function orderPay(PaymentInterface $payment);
-    public function uploadLogo(UploadedFile $file);
+    public function uploadLogo(Company $company, UploadedFile $file);
     public function uploadBanner(UploadedFile $file);
     public function getExpiredBanners();
 }
