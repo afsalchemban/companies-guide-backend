@@ -15,13 +15,14 @@ return new class extends Migration
     {
         Schema::create('company_products', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('company_category_id');
+            $table->unsignedBigInteger('category_id');
             $table->string('name');
             $table->string('description');
+            $table->string('parents');
             $table->timestamps();
         });
         Schema::table('company_products', function (Blueprint $table) {
-            $table->foreign('company_category_id')->references('id')->on('company_categories')->onDelete('restrict');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('restrict');
         });
     }
 

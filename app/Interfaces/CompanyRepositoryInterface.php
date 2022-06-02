@@ -19,5 +19,6 @@ interface CompanyRepositoryInterface
     public function uploadLogo(Company $company, UploadedFile $file);
     public function uploadBanner(UploadedFile $file);
     public function editCompanyProfile(array $companyProfileDetails);
+    public function addProduct(array $productDetails,Company $company);
     public function getExpiredBanners();
 }

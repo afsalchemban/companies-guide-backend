@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AddCompanyProductRequest;
 use App\Http\Requests\EditProfileRequest;
 use App\Http\Requests\PayByBankRequest;
 use App\Http\Requests\PayByCashRequest;
@@ -128,5 +129,9 @@ class CompanyController extends Controller
     public function editProfile(EditProfileRequest $request)
     {
         $this->companyRepository->editCompanyProfile($request->validated());
+    }
+    public function addProduct(AddCompanyProductRequest $request)
+    {
+        return $this->companyRepository->addProduct($request->validated(),$request->user()->userable);
     }
 }

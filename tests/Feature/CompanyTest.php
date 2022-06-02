@@ -22,7 +22,7 @@ class CompanyTest extends TestCase
         Sanctum::actingAs(User::company(4));
         $file1 = UploadedFile::fake()->image('avatar.jpg');
         $file2 = UploadedFile::fake()->image('s.jpg');
-        $this->json('post', 'api/company/profile', [
+        $this->json('put', 'api/company/profile', [
             'profile_images' => [
                 $file1,$file2
             ],
@@ -35,26 +35,21 @@ class CompanyTest extends TestCase
             'twitter' => 'www.twitter.com',
             'youtube' => 'www.youtube.com',
             'aboutus' => 'About US',
-            'categories' => [
-                [
-                    'name' => 'as',
-                    'products' => [
-                        [
-                            'name'=>'Product 1',
-                            'desc'=>'Product Description'
-                        ],
-                        [
-                            'name'=>'Product 2',
-                            'desc'=>'Product Description 2'
-                        ]
-                    ]
-                ],
-                [
-                    'name' => 'ass'
-                ]
-            ]
         ])
          ->assertStatus(Response::HTTP_OK);
 
     }
+    public function test_company_can_add_products(){
+        Sanctum::actingAs(User::company(4));
+        $file1 = UploadedFile::fake()->image('avatar.jpg');
+        $payload = [
+                        'category_id' => 1303,
+                        'name'=> 'Brand Name',
+                        'description' => 'description',
+                        'image' => $file1
+                    ];
+        $this->json('post', 'api/company/add_product', $payload)->assertStatus(Response::HTTP_CREATED);
+
+    }
+
 }

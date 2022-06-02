@@ -5,6 +5,7 @@ namespace App\Services\Image;
 use App\Constants\DefaultImageConstants;
 use App\Models\Banner;
 use App\Models\Company;
+use App\Models\CompanyProduct;
 use App\Models\Council;
 use App\Models\CouncilCompany;
 use App\Models\CouncilEvent;
@@ -122,6 +123,17 @@ class ImageService
         $image->thumbnail_path = $this->_resizeImageJob(DefaultImageConstants::COMPANY_LOGO_THUMBNAIL_SIZE,$file,"companies/company_$company->id/logo/thumbnail");
         $image->type = 'logo';
         $image->imageble()->associate($company);
+        $image->save();
+    }
+
+    public function addCompanyProductImage(CompanyProduct $product, $file, Company $company)
+    {
+        $image = new Image;
+        $image->desktop_path = $this->_resizeImageJob(DefaultImageConstants::COMPANY_PRODUCT_DESKTOP_SIZE,$file,"companies/company_$company->id/products/product_$product->id/desktop");
+        $image->mobile_path = $this->_resizeImageJob(DefaultImageConstants::COMPANY_PRODUCT_MOBILE_SIZE,$file,"companies/company_$company->id/products/product_$product->id/mobile");
+        $image->thumbnail_path = $this->_resizeImageJob(DefaultImageConstants::COMPANY_PRODUCT_THUMBNAIL_SIZE,$file,"companies/company_$company->id/products/product_$product->id/thumbnail");
+        $image->type = 'product';
+        $image->imageble()->associate($product);
         $image->save();
     }
 

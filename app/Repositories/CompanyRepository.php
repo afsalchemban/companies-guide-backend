@@ -8,6 +8,7 @@ use App\Http\Resources\CompanyReportResource;
 use App\Http\Resources\CompanyResource;
 use App\Interfaces\CompanyRepositoryInterface;
 use App\Interfaces\PaymentInterface;
+use App\Models\Category;
 use App\Models\Company;
 use App\Models\CompanyCategory;
 use App\Models\CompanyProduct;
@@ -34,6 +35,7 @@ use function PHPUnit\Framework\throwException;
 class CompanyRepository implements CompanyRepositoryInterface
 {
     private $orderPaymentService;
+    private $parents=array();
 
     public function __construct(UserSwitchingService $userSwitch, ImageService $imageService) 
     {
@@ -158,7 +160,34 @@ class CompanyRepository implements CompanyRepositoryInterface
         $company->youtube_url = $companyProfileDetails['youtube'];
         $company->aboutus = $companyProfileDetails['aboutus'];
         $company->save();
-        $this->_updateCategories($company,$companyProfileDetails['categories']);
+        //$this->_updateCategories($company,$companyProfileDetails['categories']);
+    }
+    public function addProduct(array $productDetails,Company $company)
+    {
+        $product = new CompanyProduct;
+        $product->category_id = $productDetails['category_id'];
+        $product->name = $productDetails['name'];
+        $product->description = $productDetails['description'];
+        $product->parents = json_encode($this->_convertParentCategoriesToArray($productDetails['category_id']));
+        $product->save();
+
+        $this->imageService->addCompanyProductImage($product,$productDetails['image'],$company);
+        return $product;
+         
+    }
+    private function _convertParentCategoriesToArray($category_id)
+    {
+        $category = Category::find($category_id);
+        $parents = $category->parent;
+        $this->_extractParent($parents);
+        return $this->parents;
+    }
+    private function _extractParent($parents){
+        $this->parents[]=$parents->id;
+        if($parents->parent!=null)
+        {
+            $this->_extractParent($parents->parent);
+        }
     }
     private function _updateCategories(Company $company,$companyCategories)
     {

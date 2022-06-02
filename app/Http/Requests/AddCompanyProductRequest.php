@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class EditProfileRequest extends FormRequest
+class AddCompanyProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,18 +24,10 @@ class EditProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'profile_images' => 'array',
-            'profile_images.*' => 'image',
+            'category_id' => 'required',
             'name' => 'required',
-            'services' => 'required',
-            'website' => 'required',
-            'phone' => 'required',
-            'name' => 'required',
-            'email' => 'required',
-            'facebook' => 'required',
-            'twitter' => 'required',
-            'youtube' => 'required',
-            'aboutus' => 'required'
+            'description' => 'required',
+            'image' => 'required|image'
         ];
     }
 }

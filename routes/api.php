@@ -58,7 +58,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/pay/cheque', [CompanyController::class, 'payByCheque']);
         Route::post('/upload_logo/{company}', [CompanyController::class, 'uploadLogo']);
         Route::post('/upload_banner/{company}', [CompanyController::class, 'uploadBanner']);
-        Route::post('/profile', [CompanyController::class, 'editProfile']);
+        Route::put('/profile', [CompanyController::class, 'editProfile']);
+        Route::post('/add_product', [CompanyController::class, 'addProduct']);
 
     });
 
