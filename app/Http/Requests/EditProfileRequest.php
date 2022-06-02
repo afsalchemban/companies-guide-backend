@@ -24,8 +24,8 @@ class EditProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'profile_images' => 'array',
-            'profile_images.*' => 'image',
+            'profile_page_images' => 'array',
+            'profile_page_images.*' => 'image',
             'name' => 'required',
             'services' => 'required',
             'website' => 'required',

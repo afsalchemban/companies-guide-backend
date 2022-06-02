@@ -11,10 +11,13 @@ class DefaultImageConstants
     public const COMPANY_LOGO_MOBILE_SIZE = ['width' => 230,'height' => 147];
     public const COMPANY_LOGO_THUMBNAIL_SIZE = ['width' => 74,'height' => 47];
 
-
     public const COMPANY_PRODUCT_DESKTOP_SIZE = ['width' => 386,'height' => 247];
     public const COMPANY_PRODUCT_MOBILE_SIZE = ['width' => 230,'height' => 147];
     public const COMPANY_PRODUCT_THUMBNAIL_SIZE = ['width' => 74,'height' => 47];
+
+    public const COMPANY_PROFILE_PAGE_IMAGE_DESKTOP_SIZE = ['width' => 386,'height' => 247];
+    public const COMPANY_PROFILE_PAGE_IMAGE_MOBILE_SIZE = ['width' => 230,'height' => 147];
+    public const COMPANY_PROFILE_PAGE_IMAGE_THUMBNAIL_SIZE = ['width' => 74,'height' => 47];
 
     public const COUNCIL_LOGO_DESKTOP = 'defaults/council/logo/desktop/no-image.png';
     public const COUNCIL_LOGO_MOBILE = 'defaults/council/logo/mobile/no-image.png';

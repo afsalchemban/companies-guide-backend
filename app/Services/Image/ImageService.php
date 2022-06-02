@@ -126,6 +126,20 @@ class ImageService
         $image->save();
     }
 
+    public function updateCompanyProfilPageImages($company, $files)
+    {
+        $company->images()->where('type','profile-page-image')->delete();
+        foreach ($files as $file) {
+            $image = new Image;
+            $image->desktop_path = $this->_resizeImageJob(DefaultImageConstants::COMPANY_PROFILE_PAGE_IMAGE_DESKTOP_SIZE,$file,"companies/company_$company->id/profile-page-images/desktop");
+            $image->mobile_path = $this->_resizeImageJob(DefaultImageConstants::COMPANY_PROFILE_PAGE_IMAGE_MOBILE_SIZE,$file,"companies/company_$company->id/profile-page-images/mobile");
+            $image->thumbnail_path = $this->_resizeImageJob(DefaultImageConstants::COMPANY_PROFILE_PAGE_IMAGE_THUMBNAIL_SIZE,$file,"companies/company_$company->id/profile-page-images/thumbnail");
+            $image->type = 'profile-page-image';
+            $image->imageble()->associate($company);
+            $image->save();
+        }
+    }
+
     public function addCompanyProductImage(CompanyProduct $product, $file, Company $company)
     {
         $image = new Image;

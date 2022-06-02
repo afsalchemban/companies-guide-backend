@@ -23,7 +23,7 @@ class CompanyTest extends TestCase
         $file1 = UploadedFile::fake()->image('avatar.jpg');
         $file2 = UploadedFile::fake()->image('s.jpg');
         $this->json('put', 'api/company/profile', [
-            'profile_images' => [
+            'profile_page_images' => [
                 $file1,$file2
             ],
             'name' => 'Edited from Profile',

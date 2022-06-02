@@ -160,6 +160,9 @@ class CompanyRepository implements CompanyRepositoryInterface
         $company->youtube_url = $companyProfileDetails['youtube'];
         $company->aboutus = $companyProfileDetails['aboutus'];
         $company->save();
+
+        $this->imageService->updateCompanyProfilPageImages($company,$companyProfileDetails['profile_page_images']);
+        return $company;
         //$this->_updateCategories($company,$companyProfileDetails['categories']);
     }
     public function addProduct(array $productDetails,Company $company)
