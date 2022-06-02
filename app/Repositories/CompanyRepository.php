@@ -35,7 +35,7 @@ use function PHPUnit\Framework\throwException;
 class CompanyRepository implements CompanyRepositoryInterface
 {
     private $orderPaymentService;
-    private $parents=array();
+    private $categories=array();
 
     public function __construct(UserSwitchingService $userSwitch, ImageService $imageService) 
     {
@@ -167,13 +167,12 @@ class CompanyRepository implements CompanyRepositoryInterface
     }
     public function addProduct(array $productDetails,Company $company)
     {
-        $product = new CompanyProduct;
-        $product->category_id = $productDetails['category_id'];
-        $product->name = $productDetails['name'];
-        $product->description = $productDetails['description'];
-        $product->parents = json_encode($this->_convertParentCategoriesToArray($productDetails['category_id']));
-        $product->save();
-
+        $product = $company->products()->create([
+            'name' => $productDetails['name'],
+            'description' => $productDetails['description']
+        ]);
+        $categories = $this->_convertParentCategoriesToArray($productDetails['category_id']);
+        $product->categories()->sync($categories);
         $this->imageService->addCompanyProductImage($product,$productDetails['image'],$company);
         return $product;
          
@@ -182,11 +181,12 @@ class CompanyRepository implements CompanyRepositoryInterface
     {
         $category = Category::find($category_id);
         $parents = $category->parent;
+        $this->categories[]=$category_id;
         $this->_extractParent($parents);
-        return $this->parents;
+        return $this->categories;
     }
     private function _extractParent($parents){
-        $this->parents[]=$parents->id;
+        $this->categories[]=$parents->id;
         if($parents->parent!=null)
         {
             $this->_extractParent($parents->parent);

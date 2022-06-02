@@ -171,5 +171,6 @@ Route::prefix('public')->group(function () {
     Route::get('/council_media_details/{councilGallery}', [PublicController::class, 'councilMediaDetailsById']);
     Route::get('/council_event_details/{councilEvent}', [PublicController::class, 'councilEventDetailsById']);
     Route::get('/banners', [PublicController::class, 'activeBanners']);
+    Route::get('/company_profile/{company}', [PublicController::class, 'companyProfile']);
 
 });

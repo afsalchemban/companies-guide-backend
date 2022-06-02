@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\DirectoryPageRequest;
 use App\Http\Resources\Banner\Public\BannerPublicResource;
+use App\Http\Resources\Company\Public\CompanyProfileResource;
 use App\Http\Resources\Council\Public\CouncilCompanyPublicResource;
 use App\Http\Resources\Council\Public\CouncilEventPublicResource;
 use App\Http\Resources\Council\Public\CouncilMediaPublicResource;
@@ -21,6 +22,7 @@ use App\Models\CouncilMember;
 use App\Models\Package;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Exception;
 
 class PublicController extends Controller
 {
@@ -86,5 +88,12 @@ class PublicController extends Controller
     }
     public function activeBanners(){
         return BannerPublicResource::collection(Banner::where('status','active')->with('images')->get());
+    }
+    public function companyProfile(Company $company){
+        if(!$company->activePackage()->whereIn('package_id',[1,2])->exists())
+        {
+            throw new Exception("No profile for this company");
+        }
+        return new CompanyProfileResource($company->load('images','products','products.categories'));
     }
 }
