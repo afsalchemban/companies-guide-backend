@@ -34,18 +34,10 @@ class ImageService
     }
     private function _resizeImage($dimension,UploadedFile $file,$path)
     {
-        $img = ImageIntervention::make($file->path());
-        // we need to resize image, otherwise it will be cropped 
-        if ($img->width() > $dimension['width']) { 
-            $img->resize($dimension['width'], null, function ($constraint) {
-                $constraint->aspectRatio();
-            });
-        }
-        if ($img->height() > $dimension['height']) {
-            $img->resize(null, $dimension['height'], function ($constraint) {
-                $constraint->aspectRatio();
-            }); 
-        }
+        $img = ImageIntervention::make($file->path())->resize($dimension['width'], $dimension['height'], function($constraint)
+        {
+            $constraint->aspectRatio();
+        });
         $resized = $img->resizeCanvas($dimension['width'], $dimension['height'], 'center', false, '#ffffff')->stream($file->extension());
         $fileName = $path.'/'.time().'.'.$file->extension();
         Storage::put($fileName, $resized);

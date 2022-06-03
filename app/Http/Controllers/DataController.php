@@ -182,62 +182,36 @@ class DataController extends Controller
         return (new SaleCredentialMail($mailData))->render();
     }
     public function test_resize(){
-        $upload_path = 'presentation/council_2/companies/company_4/logo';
+        $upload_path = 'presentation/council_2/members/member_2/logo';
         $extention = 'jpeg';
         $file = Storage::get('raw/raw.'.$extention);
 
-        
-        $img = ImageIntervention::make($file);
         $width = 386;
         $height = 247;
-        // we need to resize image, otherwise it will be cropped 
-        if ($img->width() > $width) { 
-            $img->resize($width, null, function ($constraint) {
-                $constraint->aspectRatio();
-            });
-        }
 
-        if ($img->height() > $height) {
-            $img->resize(null, $height, function ($constraint) {
-                $constraint->aspectRatio();
-            }); 
-        }
+        $img = ImageIntervention::make($file)->resize($width, $height, function($constraint)
+        {
+            $constraint->aspectRatio();
+        });
         $resized = $img->resizeCanvas($width, $height, 'center', false, '#ffffff')->stream($extention);
         Storage::put($upload_path.'/desktop/image.'.$extention, $resized);
 
-        $img = ImageIntervention::make($file);
+        
         $width = 230;
         $height = 147;
-        // we need to resize image, otherwise it will be cropped 
-        if ($img->width() > $width) { 
-            $img->resize($width, null, function ($constraint) {
-                $constraint->aspectRatio();
-            });
-        }
-
-        if ($img->height() > $height) {
-            $img->resize(null, $height, function ($constraint) {
-                $constraint->aspectRatio();
-            }); 
-        }
+        $img = ImageIntervention::make($file)->resize($width, $height, function($constraint)
+        {
+            $constraint->aspectRatio();
+        });
         $resized = $img->resizeCanvas($width, $height, 'center', false, '#ffffff')->stream($extention);
         Storage::put($upload_path.'/mobile/image.'.$extention, $resized);
 
-        $img = ImageIntervention::make($file);
         $width = 74;
         $height = 47;
-        // we need to resize image, otherwise it will be cropped 
-        if ($img->width() > $width) { 
-            $img->resize($width, null, function ($constraint) {
-                $constraint->aspectRatio();
-            });
-        }
-
-        if ($img->height() > $height) {
-            $img->resize(null, $height, function ($constraint) {
-                $constraint->aspectRatio();
-            }); 
-        }
+        $img = ImageIntervention::make($file)->resize($width, $height, function($constraint)
+        {
+            $constraint->aspectRatio();
+        });
         $resized = $img->resizeCanvas($width, $height, 'center', false, '#ffffff')->stream($extention);
         Storage::put($upload_path.'/thumbnail/image.'.$extention, $resized);
 
