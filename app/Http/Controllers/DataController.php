@@ -182,7 +182,7 @@ class DataController extends Controller
         return (new SaleCredentialMail($mailData))->render();
     }
     public function test_resize(){
-        $upload_path = 'presentation/council_5/logo';
+        $upload_path = 'presentation/council_2/companies/company_4/logo';
         $extention = 'jpeg';
         $file = Storage::get('raw/raw.'.$extention);
 
@@ -240,5 +240,7 @@ class DataController extends Controller
         }
         $resized = $img->resizeCanvas($width, $height, 'center', false, '#ffffff')->stream($extention);
         Storage::put($upload_path.'/thumbnail/image.'.$extention, $resized);
+
+        Storage::delete('raw/raw.'.$extention);
     }
 }
