@@ -182,8 +182,8 @@ class DataController extends Controller
         return (new SaleCredentialMail($mailData))->render();
     }
     public function test_resize(){
-        $upload_path = 'presentation/council_2/members/member_2/logo';
-        $extention = 'jpeg';
+        $upload_path = 'presentation/council_2/events/event_5/event';
+        $extention = 'png';
         $file = Storage::get('raw/raw.'.$extention);
 
         $width = 386;

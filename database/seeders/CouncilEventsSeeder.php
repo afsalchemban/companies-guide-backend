@@ -17,21 +17,22 @@ class CouncilEventsSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('council_events')->insert([
-            'name' => 'Tech Event',
-            'location' => 'Dubai',
-            'link' => 'wwww.google.com',
-            'council_id' => 1, // password
-            'event_date' => '2022-02-02'
-        ]);
+        
 
-        DB::table('images')->insert([
-            'type' => 'event',
-            'desktop_path' => Storage::url(DefaultImageConstants::COUNCIL_EVENT_DESKTOP),
-            'mobile_path' => Storage::url(DefaultImageConstants::COUNCIL_EVENT_MOBILE),
-            'thumbnail_path' => Storage::url(DefaultImageConstants::COUNCIL_EVENT_THUMBNAIL),
-            'imageble_id' => '1',
-            'imageble_type' => 'councilEvent',
-        ]);
+        DB::unprepared("INSERT INTO `council_events` (`name`, `location`, `link`, `event_date`, `council_id`) VALUES
+        ('Exhibition Show', 'Burj Khaleefa', 'www.link.com', '2022-12-02', '1'),
+        ('Business Fest', 'Palm Jumeirah', 'www.link.com', '2023-10-02', '1'),
+        ('BootCamp', 'World Islands', 'www.link.com', '2023-11-22', '1'),
+        ('Events Show', 'Business Bay', 'www.link.com', '2022-12-12', '1'),
+        ('Work And Business', 'Ruggat Al Butean', 'www.link.com', '2022-04-03', '1')
+        ;
+        ");
+        DB::unprepared("INSERT INTO `images` (`type`, `desktop_path`, `mobile_path`, `thumbnail_path`, `imageble_id`, `imageble_type`, `created_at`, `updated_at`) VALUES
+        ('event', 'https://storage.googleapis.com/business-council-bucket/presentation/council_1/events/event_1/event/desktop/image.jpeg', 'https://storage.googleapis.com/business-council-bucket/presentation/council_1/events/event_1/event/mobile/image.jpeg', 'https://storage.googleapis.com/business-council-bucket/presentation/council_1/events/event_1/event/thumbnail/image.jpeg', 1, 'councilEvent', NULL, NULL),
+        ('event', 'https://storage.googleapis.com/business-council-bucket/presentation/council_1/events/event_2/event/desktop/image.jpeg', 'https://storage.googleapis.com/business-council-bucket/presentation/council_1/events/event_2/event/mobile/image.jpeg', 'https://storage.googleapis.com/business-council-bucket/presentation/council_1/events/event_2/event/thumbnail/image.jpeg', 2, 'councilEvent', NULL, NULL),
+        ('event', 'https://storage.googleapis.com/business-council-bucket/presentation/council_1/events/event_3/event/desktop/image.jpeg', 'https://storage.googleapis.com/business-council-bucket/presentation/council_1/events/event_3/event/mobile/image.jpeg', 'https://storage.googleapis.com/business-council-bucket/presentation/council_1/events/event_3/event/thumbnail/image.jpeg', 3, 'councilEvent', NULL, NULL),
+        ('event', 'https://storage.googleapis.com/business-council-bucket/presentation/council_1/events/event_4/event/desktop/image.jpeg', 'https://storage.googleapis.com/business-council-bucket/presentation/council_1/events/event_4/event/mobile/image.jpeg', 'https://storage.googleapis.com/business-council-bucket/presentation/council_1/events/event_4/event/thumbnail/image.jpeg', 4, 'councilEvent', NULL, NULL),
+        ('event', 'https://storage.googleapis.com/business-council-bucket/presentation/council_1/events/event_5/event/desktop/image.jpeg', 'https://storage.googleapis.com/business-council-bucket/presentation/council_1/events/event_5/event/mobile/image.jpeg', 'https://storage.googleapis.com/business-council-bucket/presentation/council_1/events/event_5/event/thumbnail/image.jpeg', 5, 'councilEvent', NULL, NULL);
+        ");
     }
 }
