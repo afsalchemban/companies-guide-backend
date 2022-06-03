@@ -37,7 +37,8 @@ class DatabaseSeeder extends Seeder
             CouncilMemberSeeder::class,
             CouncilEventsSeeder::class,
             BannerSeeder::class,
-            CategorySeeder::class
+            CategorySeeder::class,
+            CouncilMediaSeeder::class
         ]);     
     }
 }
