@@ -3,15 +3,19 @@
 namespace App\Repositories;
 
 use App\Http\Resources\Category\CategoryResource;
+use App\Http\Resources\Company\ContactCompanyNameResource;
+use App\Http\Resources\Council\ContactCouncilNameResource;
 use App\Interfaces\DataRepositoryInterface;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Company;
 use App\Models\CompanyActivity;
+use App\Models\Council;
 use App\Models\Country;
 use App\Models\Sale;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Response;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class DataRepository implements DataRepositoryInterface
 {
@@ -96,5 +100,14 @@ class DataRepository implements DataRepositoryInterface
     public function parentCategories(Category $category)
     {
         return new CategoryResource($category->parent);
+    }
+    public function getAllContacts()
+    {
+        return response()->json([
+            'companies' => ContactCompanyNameResource::collection(Company::whereHas('activePackage', function (Builder $query){
+                $query->whereIn('package_id',[1,2]);
+            })->get()),
+            'councils' => ContactCouncilNameResource::collection(Council::all())
+        ]);
     }
 }

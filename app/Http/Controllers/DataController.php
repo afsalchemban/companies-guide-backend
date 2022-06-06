@@ -103,6 +103,11 @@ class DataController extends Controller
         return $this->dataRepository->parentCategories($category);
     }
 
+    public function getAllContacts()
+    {
+        return $this->dataRepository->getAllContacts();
+    }
+
     
     public function test_get(){
         $category = Category::find(1202);

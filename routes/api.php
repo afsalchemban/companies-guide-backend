@@ -116,6 +116,7 @@ Route::prefix('data')->group(function () {
     Route::get('/reports', [DataController::class, 'reports']);
     Route::get('/packages', [DataController::class, 'packages']);
     Route::get('/active_activities/{param}', [DataController::class, 'activeActivities']);
+    Route::get('/get_all_contacts', [DataController::class, 'getAllContacts']);
 
 });
 

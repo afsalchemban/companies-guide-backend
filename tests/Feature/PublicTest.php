@@ -90,6 +90,6 @@ class PublicTest extends TestCase
     public function test_get_company_profile()
     {
         $response = $this->getJson('/api/public/company_profile/223')
-        ->assertStatus(Response::HTTP_OK);
+        ->assertStatus(Response::HTTP_OK)->dd();
     }
 }
