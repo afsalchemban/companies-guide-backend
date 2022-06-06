@@ -31,10 +31,8 @@ class CompanyTest extends TestCase
             'website' => 'www.profile.com',
             'phone' => '111111',
             'email' => 'full@company.com',
-            'facebook' => 'www.facebook.com',
-            'twitter' => 'www.twitter.com',
-            'youtube' => 'www.youtube.com',
             'aboutus' => 'About US',
+            'social' => ['facebook','twitter'],
         ])
          ->assertStatus(Response::HTTP_OK);
 

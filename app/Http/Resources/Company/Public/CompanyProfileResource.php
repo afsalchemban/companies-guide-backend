@@ -21,9 +21,6 @@ class CompanyProfileResource extends JsonResource
             'website' => $this->website,
             'phone_number' => $this->phone_number,
             'aboutus' => $this->aboutus,
-            'facebook_url' => $this->facebook_url,
-            'youtube_url' => $this->youtube_url,
-            'twitter_url' => $this->twitter_url,
             'profile_images' => ImageResource::collection($this->whenLoaded('images',function(){
                 return $this->images->where('type','profile-page-image');
             })),

@@ -36,5 +36,15 @@ class CouncilSeeder extends Seeder
         ('cover', 'https://storage.googleapis.com/business-council-bucket/defaults/council/cover/desktop/no-image.png', 'https://storage.googleapis.com/business-council-bucket/defaults/council/cover/mobile/no-image.png', NULL, 4, 'council', NULL, NULL),
         ('logo', 'https://storage.googleapis.com/business-council-bucket/presentation/council_5/logo/desktop/image.jpeg', 'https://storage.googleapis.com/business-council-bucket/presentation/council_5/logo/mobile/image.jpeg', 'https://storage.googleapis.com/business-council-bucket/presentation/council_5/logo/thumbnail/image.jpeg', 5, 'council', NULL, NULL),
         ('cover', 'https://storage.googleapis.com/business-council-bucket/defaults/council/cover/desktop/no-image.png', 'https://storage.googleapis.com/business-council-bucket/defaults/council/cover/mobile/no-image.png', NULL, 5, 'council', NULL, NULL);");
+
+        DB::table('users')->insert([
+            'name' => 'Sulaiman',
+            'email' => 'canada@council.com',
+            'email_verified_at' => now(),
+            'password' => bcrypt('dummypassword'), // password
+            'remember_token' => Str::random(10),
+            'userable_id' => 1,
+            'userable_type' => 'council'
+        ]);
     }
 }

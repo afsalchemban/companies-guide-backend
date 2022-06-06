@@ -79,4 +79,8 @@ class Company extends Model
     {
         return $this->hasMany(CompanyProduct::class);
     }
+    public function socials()
+    {
+        return $this->hasMany(Social::class);
+    }
 }

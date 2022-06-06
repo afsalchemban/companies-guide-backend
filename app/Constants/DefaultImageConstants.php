@@ -11,6 +11,21 @@ class DefaultImageConstants
     public const COMPANY_LOGO_MOBILE_SIZE = ['width' => 230,'height' => 147];
     public const COMPANY_LOGO_THUMBNAIL_SIZE = ['width' => 74,'height' => 47];
 
+    public const COMPANY_LOGO = [
+            'DESKTOP' => [
+                'SIZE' => ['width' => 386,'height' => 247],
+                'DEFAULT' => 'defaults/company/logo/desktop/no-image.png'
+            ],
+            'MOBILE' => [
+                'SIZE' => ['width' => 230,'height' => 147],
+                'DEFAULT' => 'defaults/company/logo/mobile/no-image.png'
+            ],
+            'THUMBNAIL' => [
+                'SIZE' => ['width' => 74,'height' => 47],
+                'DEFAULT' => 'defaults/company/logo/thumbnail/no-image.png'
+            ]
+        ];
+
     public const COMPANY_PRODUCT_DESKTOP_SIZE = ['width' => 386,'height' => 247];
     public const COMPANY_PRODUCT_MOBILE_SIZE = ['width' => 230,'height' => 147];
     public const COMPANY_PRODUCT_THUMBNAIL_SIZE = ['width' => 74,'height' => 47];

@@ -24,18 +24,17 @@ class EditProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'profile_page_images' => 'array',
+            'profile_page_images' => 'nullable|array',
             'profile_page_images.*' => 'image',
-            'name' => 'required',
-            'services' => 'required',
-            'website' => 'required',
-            'phone' => 'required',
-            'name' => 'required',
-            'email' => 'required',
-            'facebook' => 'required',
-            'twitter' => 'required',
-            'youtube' => 'required',
-            'aboutus' => 'required'
+            'name' => 'nullable',
+            'services' => 'nullable',
+            'website' => 'nullable',
+            'phone' => 'nullable',
+            'name' => 'nullable',
+            'email' => 'nullable',
+            'aboutus' => 'nullable',
+            'social' => 'array',
+            'social.*' => 'required',
         ];
     }
 }

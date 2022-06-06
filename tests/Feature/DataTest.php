@@ -235,7 +235,7 @@ class DataTest extends TestCase
     public function test_get_parent_categories()
     {
         $response = $this->getJson('/api/data/parent_categories/1202')
-        ->assertStatus(Response::HTTP_OK)->dd();
+        ->assertStatus(Response::HTTP_OK);
 
     }
 

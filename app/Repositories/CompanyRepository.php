@@ -155,15 +155,19 @@ class CompanyRepository implements CompanyRepositoryInterface
         $company->website = $companyProfileDetails['website'];
         $company->phone_number = $companyProfileDetails['phone'];
         $company->email = $companyProfileDetails['email'];
-        $company->facebook_url = $companyProfileDetails['facebook'];
-        $company->twitter_url = $companyProfileDetails['twitter'];
-        $company->youtube_url = $companyProfileDetails['youtube'];
         $company->aboutus = $companyProfileDetails['aboutus'];
         $company->save();
-
+        $this->_updateCompanySocialLinks($company,$companyProfileDetails['social']);
         $this->imageService->updateCompanyProfilPageImages($company,$companyProfileDetails['profile_page_images']);
         return $company;
         //$this->_updateCategories($company,$companyProfileDetails['categories']);
+    }
+    private function _updateCompanySocialLinks($company,$socials){
+        $inserts = array();
+        foreach ($socials as $social) {
+            $inserts[]=['link' => $social];
+        }
+        $company->socials()->createMany($inserts);
     }
     public function addProduct(array $productDetails,Company $company)
     {

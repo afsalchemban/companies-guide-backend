@@ -182,37 +182,25 @@ class DataController extends Controller
         return (new SaleCredentialMail($mailData))->render();
     }
     public function test_resize(){
-        $upload_path = 'presentation/council_1/medias/media_4/media';
+        $upload_path = 'presentation/council_2/members/member_3/logo';
         $extention = 'jpeg';
         $file = Storage::get('raw/raw.'.$extention);
 
         $width = 386;
         $height = 247;
 
-        $img = ImageIntervention::make($file)->resize($width, $height, function($constraint)
-        {
-            $constraint->aspectRatio();
-        });
-        $resized = $img->resizeCanvas($width, $height, 'center', false, '#ffffff')->stream($extention);
+        $resized = ImageIntervention::make($file)->fit($width, $height)->stream($extention);
         Storage::put($upload_path.'/desktop/image.'.$extention, $resized);
 
         
         $width = 230;
         $height = 147;
-        $img = ImageIntervention::make($file)->resize($width, $height, function($constraint)
-        {
-            $constraint->aspectRatio();
-        });
-        $resized = $img->resizeCanvas($width, $height, 'center', false, '#ffffff')->stream($extention);
+        $resized = ImageIntervention::make($file)->fit($width, $height)->stream($extention);
         Storage::put($upload_path.'/mobile/image.'.$extention, $resized);
 
         $width = 74;
         $height = 47;
-        $img = ImageIntervention::make($file)->resize($width, $height, function($constraint)
-        {
-            $constraint->aspectRatio();
-        });
-        $resized = $img->resizeCanvas($width, $height, 'center', false, '#ffffff')->stream($extention);
+        $resized = ImageIntervention::make($file)->fit($width, $height)->stream($extention);
         Storage::put($upload_path.'/thumbnail/image.'.$extention, $resized);
 
         Storage::delete('raw/raw.'.$extention);
