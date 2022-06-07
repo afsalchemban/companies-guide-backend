@@ -22,7 +22,7 @@ class CompanyTest extends TestCase
         Sanctum::actingAs(User::company(4));
         $file1 = UploadedFile::fake()->image('avatar.jpg');
         $file2 = UploadedFile::fake()->image('s.jpg');
-        $this->json('put', 'api/company/profile', [
+        $this->json('post', 'api/company/profile', [
             'profile_page_images' => [
                 $file1,$file2
             ],
