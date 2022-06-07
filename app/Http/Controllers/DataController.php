@@ -2,31 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\CouncilCreated;
-use App\Http\Requests\EditProfileRequest;
 use App\Interfaces\DataRepositoryInterface;
 use App\Jobs\ImageResize;
-use App\Mail\CompanyCredentialMail;
-use App\Mail\ContractMail;
 use App\Models\City;
 use App\Models\Country;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
-use App\Mail\DemoMail;
 use App\Mail\InvoiceMail;
 use App\Mail\SaleCredentialMail;
-use App\Mail\TermsAndConditionMail;
 use App\Models\Category;
-use App\Models\Council;
 use App\Services\Image\ImageService;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
-use LaravelDaily\Invoices\Invoice;
-use LaravelDaily\Invoices\Classes\Buyer;
-use LaravelDaily\Invoices\Classes\InvoiceItem;
 use Intervention\Image\Facades\Image as ImageIntervention;
+use Illuminate\Support\Str;
 
 class DataController extends Controller
 {
@@ -181,8 +172,7 @@ class DataController extends Controller
     }
     public function test_queue()
     {
-        $council = Council::find(1);
-        CouncilCreated::dispatch($council);
+        return Str::random(10);
     }
     public function test_resize(){
         $upload_path = 'presentation/council_2/members/member_3/logo';
