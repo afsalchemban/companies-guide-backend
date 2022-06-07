@@ -32,8 +32,7 @@ class EditProfileRequest extends FormRequest
             'phone' => 'required',
             'email' => 'required',
             'aboutus' => 'nullable',
-            'social' => 'array',
-            'social.*' => 'required',
+            'social' => 'array'
         ];
     }
 }
