@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('trade_license_number');
             $table->string('legal_status');
             $table->string('issued_by');
-            $table->string('website');
+            $table->string('website')->nullable();
             $table->string('services')->nullable();
             $table->string('aboutus')->nullable();
             $table->unsignedBigInteger('country_id');

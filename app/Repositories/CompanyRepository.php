@@ -151,11 +151,11 @@ class CompanyRepository implements CompanyRepositoryInterface
     {
         $company = Auth::user()->userable;
         $company->business_name = $companyProfileDetails['name'];
-        $company->services = $companyProfileDetails['services'];
-        $company->website = $companyProfileDetails['website'];
+        $company->services = isset($companyProfileDetails['services'])?$companyProfileDetails['services']:null;
+        $company->website = isset($companyProfileDetails['website'])?$companyProfileDetails['website']:null;
         $company->phone_number = $companyProfileDetails['phone'];
         $company->email = $companyProfileDetails['email'];
-        $company->aboutus = $companyProfileDetails['aboutus'];
+        $company->aboutus = isset($companyProfileDetails['aboutus'])?$companyProfileDetails['aboutus']:null;
         $company->save();
         $this->_updateCompanySocialLinks($company,$companyProfileDetails['social']);
         $this->imageService->updateCompanyProfilPageImages($company,$companyProfileDetails['profile_page_images']);
@@ -167,7 +167,8 @@ class CompanyRepository implements CompanyRepositoryInterface
         foreach ($socials as $social) {
             $inserts[]=['link' => $social];
         }
-        $company->socials()->createMany($inserts);
+        if(count($inserts)>0)
+        { $company->socials()->createMany($inserts); }
     }
     public function addProduct(array $productDetails,Company $company)
     {

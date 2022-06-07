@@ -24,14 +24,13 @@ class EditProfileRequest extends FormRequest
     public function rules()
     {
         return [
-            'profile_page_images' => 'nullable|array',
+            'profile_page_images' => 'required|array',
             'profile_page_images.*' => 'image',
-            'name' => 'nullable',
+            'name' => 'required',
             'services' => 'nullable',
             'website' => 'nullable',
-            'phone' => 'nullable',
-            'name' => 'nullable',
-            'email' => 'nullable',
+            'phone' => 'required',
+            'email' => 'required',
             'aboutus' => 'nullable',
             'social' => 'array',
             'social.*' => 'required',
