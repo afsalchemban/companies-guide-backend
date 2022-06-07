@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CouncilCreated;
 use App\Http\Requests\EditProfileRequest;
 use App\Interfaces\DataRepositoryInterface;
 use App\Jobs\ImageResize;
@@ -16,7 +17,9 @@ use Carbon\Carbon;
 use App\Mail\DemoMail;
 use App\Mail\InvoiceMail;
 use App\Mail\SaleCredentialMail;
+use App\Mail\TermsAndConditionMail;
 use App\Models\Category;
+use App\Models\Council;
 use App\Services\Image\ImageService;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
@@ -178,13 +181,8 @@ class DataController extends Controller
     }
     public function test_queue()
     {
-        $mailData = [
-            'date' => Carbon::now()->format('d/m/Y'),
-            'name' => 'START ENTERPRISES',
-            'email' => 'afsalcodes@gmail.com',
-            'password' => 'dummypassword'
-        ];
-        return (new SaleCredentialMail($mailData))->render();
+        $council = Council::find(1);
+        CouncilCreated::dispatch($council);
     }
     public function test_resize(){
         $upload_path = 'presentation/council_2/members/member_3/logo';

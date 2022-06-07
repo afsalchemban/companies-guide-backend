@@ -256,7 +256,7 @@ class DataTest extends TestCase
     public function test_get_all_contacts()
     {
         $response = $this->getJson('/api/data/get_all_contacts')
-        ->assertStatus(Response::HTTP_OK)->dd();
+        ->assertStatus(Response::HTTP_OK);
 
     }
     

@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Events\CouncilCreated;
 use App\Events\UserCreated;
 use App\Http\Resources\Council\Dashboard\CouncilDashboardResource;
 use App\Http\Resources\Council\Public\CouncilPublicResource;
@@ -42,6 +43,7 @@ class CouncilRepository implements CouncilRepositoryInterface
     public function createCouncil(array $councilDetails)
     {
         $council = Council::create($councilDetails);
+        CouncilCreated::dispatch($council);
         //adding cover image
         if(isset($councilDetails['cover_image_file']))
         {

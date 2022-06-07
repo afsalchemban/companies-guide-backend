@@ -2,11 +2,13 @@
 
 namespace App\Providers;
 
+use App\Events\CouncilCreated;
 use App\Events\OrderCreated;
 use App\Events\UserCreated;
 use App\Listeners\SendContractEmailListener;
 use App\Listeners\SendCredentialEmailListener;
 use App\Listeners\SendInvoiceEmailListener;
+use App\Listeners\SendTermsAndConditionEmail;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -29,6 +31,9 @@ class EventServiceProvider extends ServiceProvider
         OrderCreated::class => [
             SendContractEmailListener::class,
             SendInvoiceEmailListener::class
+        ],
+        CouncilCreated::class => [
+            SendTermsAndConditionEmail::class
         ]
     ];
 
