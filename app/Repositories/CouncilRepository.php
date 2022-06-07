@@ -74,14 +74,15 @@ class CouncilRepository implements CouncilRepositoryInterface
     }
     public function createUserForCouncil(Council $council)
     {
+        $password = Str::random(10);
         $user = new User();
         $user->name = $council->council_name;
         $user->email = $council->email;
-        $user->password = bcrypt('dummypassword');
+        $user->password = $password;
         $user->remember_token = Str::random(10);
         $user->userable()->associate($council);
         $user->save();
-        UserCreated::dispatch($user,'dummypassword',$council);
+        UserCreated::dispatch($user,$password,$council);
         return $user;
     }
     public function changeLogo(UploadedFile $file, Council $council)
