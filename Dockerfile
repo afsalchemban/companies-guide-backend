@@ -7,15 +7,7 @@ RUN apk add icu-dev
 RUN docker-php-ext-install pdo pdo_mysql mysqli
 
 RUN apk add --no-cache \
-        supervisor \
-        libjpeg-turbo-dev \
-        libpng-dev \
-        libwebp-dev \
-        freetype-dev
-
-# As of PHP 7.4 we don't need to add --with-png
-RUN docker-php-ext-configure gd --with-jpeg --with-webp --with-freetype
-RUN docker-php-ext-install gd
+        supervisor
 
 RUN docker-php-ext-configure intl && docker-php-ext-install intl
 
@@ -30,7 +22,7 @@ COPY . /app
 
 RUN sh -c "wget http://getcomposer.org/composer.phar && chmod a+x composer.phar && mv composer.phar /usr/local/bin/composer"
 RUN cd /app && \
-    /usr/local/bin/composer install --no-dev
+    /usr/local/bin/composer install
 
 RUN chown -R www-data: /app
 
